@@ -12,6 +12,9 @@
 		2F2B43D11C5D638300307F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F2B43D01C5D638300307F3F /* Assets.xcassets */; };
 		2F2B43DC1C5EBF2400307F3F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2B43DB1C5EBF2400307F3F /* LoginViewController.swift */; };
 		2F2B43DE1C5ECA5100307F3F /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2B43DD1C5ECA5100307F3F /* DiscoverViewController.swift */; };
+		2F609E081C73C4D40029E1D8 /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F609E071C73C4D40029E1D8 /* MainPageViewController.swift */; };
+		2F609E0A1C73D7360029E1D8 /* MyBeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F609E091C73D7360029E1D8 /* MyBeerViewController.swift */; };
+		2F609E0C1C73D7730029E1D8 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F609E0B1C73D7730029E1D8 /* RecommendViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		2F2B43D51C5D638300307F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F2B43DB1C5EBF2400307F3F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2F2B43DD1C5ECA5100307F3F /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
+		2F609E071C73C4D40029E1D8 /* MainPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
+		2F609E091C73D7360029E1D8 /* MyBeerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBeerViewController.swift; sourceTree = "<group>"; };
+		2F609E0B1C73D7730029E1D8 /* RecommendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,9 @@
 				2F2B43D51C5D638300307F3F /* Info.plist */,
 				2F2B43DB1C5EBF2400307F3F /* LoginViewController.swift */,
 				2F2B43DD1C5ECA5100307F3F /* DiscoverViewController.swift */,
+				2F609E071C73C4D40029E1D8 /* MainPageViewController.swift */,
+				2F609E091C73D7360029E1D8 /* MyBeerViewController.swift */,
+				2F609E0B1C73D7730029E1D8 /* RecommendViewController.swift */,
 			);
 			path = MyBrew;
 			sourceTree = "<group>";
@@ -134,9 +143,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F609E0A1C73D7360029E1D8 /* MyBeerViewController.swift in Sources */,
+				2F609E081C73C4D40029E1D8 /* MainPageViewController.swift in Sources */,
 				2F2B43DE1C5ECA5100307F3F /* DiscoverViewController.swift in Sources */,
 				2F2B43DC1C5EBF2400307F3F /* LoginViewController.swift in Sources */,
 				2F2B43CA1C5D638200307F3F /* AppDelegate.swift in Sources */,
+				2F609E0C1C73D7730029E1D8 /* RecommendViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
