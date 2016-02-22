@@ -14,8 +14,8 @@ class MainPageViewController: UIPageViewController {
     //create the array of view controllers in the order I want them in
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         return [self.newViewController("MyBeer"),
-            self.newViewController("Discover"),
-            self.newViewController("Recommend")]
+            self.newViewController("Discover")]
+            //self.newViewController("Recommend")]
     }()
     
     override func viewDidLoad() {
@@ -33,8 +33,7 @@ class MainPageViewController: UIPageViewController {
     
     //instantiate the view controllers
     private func newViewController(name: String) -> UIViewController {
-        return UIStoryboard(name: "Main", bundle: nil) .
-            instantiateViewControllerWithIdentifier("\(name)ViewController")
+        return UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("\(name)NavController")
     }
 }
 

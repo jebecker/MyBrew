@@ -1,14 +1,14 @@
 //
-//  DiscoverViewController.swift
+//  MyBeerNavigationControllerViewController.swift
 //  MyBrew
 //
-//  Created by Jayme Becker on 1/31/16.
+//  Created by Jayme Becker on 2/22/16.
 //  Copyright © 2016 Jayme Becker. All rights reserved.
 //
 
 import UIKit
 
-class DiscoverViewController: UIViewController {
+class MyBeerNavigationControllerViewController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

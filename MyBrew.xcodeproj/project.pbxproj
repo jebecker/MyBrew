@@ -11,10 +11,13 @@
 		2F2B43CF1C5D638300307F3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F2B43CD1C5D638300307F3F /* Main.storyboard */; };
 		2F2B43D11C5D638300307F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F2B43D01C5D638300307F3F /* Assets.xcassets */; };
 		2F2B43DC1C5EBF2400307F3F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2B43DB1C5EBF2400307F3F /* LoginViewController.swift */; };
-		2F2B43DE1C5ECA5100307F3F /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2B43DD1C5ECA5100307F3F /* DiscoverViewController.swift */; };
 		2F609E081C73C4D40029E1D8 /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F609E071C73C4D40029E1D8 /* MainPageViewController.swift */; };
-		2F609E0A1C73D7360029E1D8 /* MyBeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F609E091C73D7360029E1D8 /* MyBeerViewController.swift */; };
 		2F609E0C1C73D7730029E1D8 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F609E0B1C73D7730029E1D8 /* RecommendViewController.swift */; };
+		2FF1A8931C7A47950064B2FB /* MyBeerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8921C7A47950064B2FB /* MyBeerTableViewController.swift */; };
+		2FF1A8951C7A48520064B2FB /* DiscoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8941C7A48520064B2FB /* DiscoverTableViewController.swift */; };
+		2FF1A8971C7A6CDA0064B2FB /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */; };
+		2FF1A89B1C7AC9270064B2FB /* MyBeerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A89A1C7AC9270064B2FB /* MyBeerCell.swift */; };
+		2FF1A89D1C7B70BE0064B2FB /* MyBeerNavigationControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A89C1C7B70BE0064B2FB /* MyBeerNavigationControllerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,10 +27,13 @@
 		2F2B43D01C5D638300307F3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F2B43D51C5D638300307F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F2B43DB1C5EBF2400307F3F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		2F2B43DD1C5ECA5100307F3F /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		2F609E071C73C4D40029E1D8 /* MainPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
-		2F609E091C73D7360029E1D8 /* MyBeerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBeerViewController.swift; sourceTree = "<group>"; };
 		2F609E0B1C73D7730029E1D8 /* RecommendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
+		2FF1A8921C7A47950064B2FB /* MyBeerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBeerTableViewController.swift; sourceTree = "<group>"; };
+		2FF1A8941C7A48520064B2FB /* DiscoverTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewController.swift; sourceTree = "<group>"; };
+		2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldingCell.swift; sourceTree = "<group>"; };
+		2FF1A89A1C7AC9270064B2FB /* MyBeerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBeerCell.swift; sourceTree = "<group>"; };
+		2FF1A89C1C7B70BE0064B2FB /* MyBeerNavigationControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBeerNavigationControllerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,15 +66,18 @@
 		2F2B43C81C5D638200307F3F /* MyBrew */ = {
 			isa = PBXGroup;
 			children = (
+				2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */,
 				2F2B43C91C5D638200307F3F /* AppDelegate.swift */,
 				2F2B43CD1C5D638300307F3F /* Main.storyboard */,
+				2FF1A89C1C7B70BE0064B2FB /* MyBeerNavigationControllerViewController.swift */,
 				2F2B43D01C5D638300307F3F /* Assets.xcassets */,
 				2F2B43D51C5D638300307F3F /* Info.plist */,
 				2F2B43DB1C5EBF2400307F3F /* LoginViewController.swift */,
-				2F2B43DD1C5ECA5100307F3F /* DiscoverViewController.swift */,
 				2F609E071C73C4D40029E1D8 /* MainPageViewController.swift */,
-				2F609E091C73D7360029E1D8 /* MyBeerViewController.swift */,
 				2F609E0B1C73D7730029E1D8 /* RecommendViewController.swift */,
+				2FF1A8921C7A47950064B2FB /* MyBeerTableViewController.swift */,
+				2FF1A8941C7A48520064B2FB /* DiscoverTableViewController.swift */,
+				2FF1A89A1C7AC9270064B2FB /* MyBeerCell.swift */,
 			);
 			path = MyBrew;
 			sourceTree = "<group>";
@@ -143,12 +152,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F609E0A1C73D7360029E1D8 /* MyBeerViewController.swift in Sources */,
+				2FF1A89D1C7B70BE0064B2FB /* MyBeerNavigationControllerViewController.swift in Sources */,
 				2F609E081C73C4D40029E1D8 /* MainPageViewController.swift in Sources */,
-				2F2B43DE1C5ECA5100307F3F /* DiscoverViewController.swift in Sources */,
+				2FF1A8971C7A6CDA0064B2FB /* FoldingCell.swift in Sources */,
+				2FF1A8931C7A47950064B2FB /* MyBeerTableViewController.swift in Sources */,
 				2F2B43DC1C5EBF2400307F3F /* LoginViewController.swift in Sources */,
 				2F2B43CA1C5D638200307F3F /* AppDelegate.swift in Sources */,
+				2FF1A8951C7A48520064B2FB /* DiscoverTableViewController.swift in Sources */,
 				2F609E0C1C73D7730029E1D8 /* RecommendViewController.swift in Sources */,
+				2FF1A89B1C7AC9270064B2FB /* MyBeerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
