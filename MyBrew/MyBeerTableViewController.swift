@@ -15,8 +15,8 @@ class MyBeerTableViewController: UITableViewController {
     let searchController = UISearchController(searchResultsController: nil)
     
     //add properties for the cell
-    let kCloseCellHeight: CGFloat = 179
-    let kOpenCellHeight: CGFloat = 488
+    let kCloseCellHeight: CGFloat = 100
+    let kOpenCellHeight: CGFloat = 220
     
     let kRowsCount = 3
     
