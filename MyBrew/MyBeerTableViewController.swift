@@ -11,16 +11,22 @@ import UIKit
 class MyBeerTableViewController: UITableViewController {
     
 
+   
     //add property for search bar
     let searchController = UISearchController(searchResultsController: nil)
     
     //add properties for the cell
-    let kCloseCellHeight: CGFloat = 100
-    let kOpenCellHeight: CGFloat = 220
+    let kCloseCellHeight: CGFloat = 185
+    let kOpenCellHeight: CGFloat = 330
     
     let kRowsCount = 3
     
     var cellHeights = [CGFloat]()
+    
+    //IBAction func to add a beer
+    @IBAction func addBeerButton(sender: UIBarButtonItem) {
+        print("added beer")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +37,7 @@ class MyBeerTableViewController: UITableViewController {
         tableView.tableHeaderView = searchController.searchBar
         
         createCellHeightsArray()
-        //self.tableView.backgroundColor = UIColor.redColor()
-        
+                
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

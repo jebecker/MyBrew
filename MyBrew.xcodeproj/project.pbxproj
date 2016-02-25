@@ -17,7 +17,6 @@
 		2FF1A8951C7A48520064B2FB /* DiscoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8941C7A48520064B2FB /* DiscoverTableViewController.swift */; };
 		2FF1A8971C7A6CDA0064B2FB /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */; };
 		2FF1A89B1C7AC9270064B2FB /* MyBeerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A89A1C7AC9270064B2FB /* MyBeerCell.swift */; };
-		2FF1A89D1C7B70BE0064B2FB /* MyBeerNavigationControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A89C1C7B70BE0064B2FB /* MyBeerNavigationControllerViewController.swift */; };
 		2FF1A8A01C7BF7090064B2FB /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF1A89F1C7BF7090064B2FB /* FBSDKCoreKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +33,6 @@
 		2FF1A8941C7A48520064B2FB /* DiscoverTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewController.swift; sourceTree = "<group>"; };
 		2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldingCell.swift; sourceTree = "<group>"; };
 		2FF1A89A1C7AC9270064B2FB /* MyBeerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBeerCell.swift; sourceTree = "<group>"; };
-		2FF1A89C1C7B70BE0064B2FB /* MyBeerNavigationControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBeerNavigationControllerViewController.swift; sourceTree = "<group>"; };
 		2FF1A89F1C7BF7090064B2FB /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../../FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,18 +68,12 @@
 		2F2B43C81C5D638200307F3F /* MyBrew */ = {
 			isa = PBXGroup;
 			children = (
-				2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */,
 				2F2B43C91C5D638200307F3F /* AppDelegate.swift */,
 				2F2B43CD1C5D638300307F3F /* Main.storyboard */,
-				2FF1A89C1C7B70BE0064B2FB /* MyBeerNavigationControllerViewController.swift */,
 				2F2B43D01C5D638300307F3F /* Assets.xcassets */,
 				2F2B43D51C5D638300307F3F /* Info.plist */,
-				2F2B43DB1C5EBF2400307F3F /* LoginViewController.swift */,
-				2F609E071C73C4D40029E1D8 /* MainPageViewController.swift */,
-				2F609E0B1C73D7730029E1D8 /* RecommendViewController.swift */,
-				2FF1A8921C7A47950064B2FB /* MyBeerTableViewController.swift */,
-				2FF1A8941C7A48520064B2FB /* DiscoverTableViewController.swift */,
-				2FF1A89A1C7AC9270064B2FB /* MyBeerCell.swift */,
+				2FF1A8A11C7E845A0064B2FB /* Controllers */,
+				2FF1A8A41C7E86460064B2FB /* Folding Cell Configuration */,
 			);
 			path = MyBrew;
 			sourceTree = "<group>";
@@ -93,6 +85,27 @@
 			);
 			name = Frameworks;
 			path = MyBrew;
+			sourceTree = "<group>";
+		};
+		2FF1A8A11C7E845A0064B2FB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2F2B43DB1C5EBF2400307F3F /* LoginViewController.swift */,
+				2F609E071C73C4D40029E1D8 /* MainPageViewController.swift */,
+				2F609E0B1C73D7730029E1D8 /* RecommendViewController.swift */,
+				2FF1A8921C7A47950064B2FB /* MyBeerTableViewController.swift */,
+				2FF1A8941C7A48520064B2FB /* DiscoverTableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		2FF1A8A41C7E86460064B2FB /* Folding Cell Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				2FF1A89A1C7AC9270064B2FB /* MyBeerCell.swift */,
+				2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */,
+			);
+			name = "Folding Cell Configuration";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,7 +178,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FF1A89D1C7B70BE0064B2FB /* MyBeerNavigationControllerViewController.swift in Sources */,
 				2F609E081C73C4D40029E1D8 /* MainPageViewController.swift in Sources */,
 				2FF1A8971C7A6CDA0064B2FB /* FoldingCell.swift in Sources */,
 				2FF1A8931C7A47950064B2FB /* MyBeerTableViewController.swift in Sources */,
