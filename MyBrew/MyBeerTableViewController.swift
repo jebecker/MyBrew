@@ -16,10 +16,10 @@ class MyBeerTableViewController: UITableViewController {
     let searchController = UISearchController(searchResultsController: nil)
     
     //add properties for the cell
-    let kCloseCellHeight: CGFloat = 185
-    let kOpenCellHeight: CGFloat = 330
+    let kCloseCellHeight: CGFloat = 140
+    let kOpenCellHeight: CGFloat = 360
     
-    let kRowsCount = 3
+    let kRowsCount = 10
     
     var cellHeights = [CGFloat]()
     
@@ -46,9 +46,7 @@ class MyBeerTableViewController: UITableViewController {
     }
     
     func createCellHeightsArray() {
-        for _ in 0...kRowsCount {
-            cellHeights.append(kCloseCellHeight)
-        }
+        self.cellHeights = Array(count: self.kRowsCount, repeatedValue: self.kCloseCellHeight)
     }
 
     // MARK: - Table view data source
@@ -71,20 +69,6 @@ class MyBeerTableViewController: UITableViewController {
 
     // MARK: Table View Data Source
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        if cell is FoldingCell {
-            let foldingCell = cell as! FoldingCell
-            foldingCell.backgroundColor = UIColor.clearColor()
-            
-            if cellHeights[indexPath.row] == kCloseCellHeight {
-                foldingCell.selectedAnimation(false, animated: false, completion:nil)
-            } else {
-                foldingCell.selectedAnimation(true, animated: false, completion: nil)
-            }
-        }
-    }
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath)
 
@@ -96,12 +80,7 @@ class MyBeerTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingCell
-        
-        if cell.isAnimating() {
-            return
-        }
         
         var duration = 0.0
         if cellHeights[indexPath.row] == kCloseCellHeight { // open cell
@@ -111,15 +90,13 @@ class MyBeerTableViewController: UITableViewController {
         } else {// close cell
             cellHeights[indexPath.row] = kCloseCellHeight
             cell.selectedAnimation(false, animated: true, completion: nil)
-            duration = 0.8
+            duration = 1.1
         }
         
         UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
             tableView.beginUpdates()
             tableView.endUpdates()
             }, completion: nil)
-        
-        
     }
     
     /*
