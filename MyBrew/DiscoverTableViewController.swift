@@ -10,42 +10,76 @@ import UIKit
 
 class DiscoverTableViewController: UITableViewController {
 
+    //add properties for the cell
+    let kCloseCellHeight: CGFloat = 185
+    let kOpenCellHeight: CGFloat = 330
+    
+    let kRowsCount = 3
+    
+    var cellHeights = [CGFloat]()
+    
+    //create flag to determine which card to display
+    var isQuestionsCard = true
+    
+    //create variable to hold number of results returned
+    var numOfResults = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        createCellHeightsArray()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    func createCellHeightsArray() {
+        for _ in 0...kRowsCount {
+            cellHeights.append(kCloseCellHeight)
+        }
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        if(isQuestionsCard)
+        {
+            return 1
+        }
+        
+        return numOfResults
+        
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
 
-        // Configure the cell...
-
-        return cell
+        if(isQuestionsCard)
+        {
+            if let questionsCell = tableView.dequeueReusableCellWithIdentifier("QuestionsCell", forIndexPath: indexPath) as? QuestionsCell {
+                
+                questionsCell.questionsAnswersTableView.delegate = questionsCell
+                questionsCell.questionsAnswersTableView.dataSource = questionsCell
+                
+                return questionsCell
+            }
+        }
+        else
+        {
+            if let resultsCell = tableView.dequeueReusableCellWithIdentifier("ResultsCell", forIndexPath: indexPath) as? ResultsCell {
+                
+                return resultsCell
+            }
+        }
+        
+        
+        return UITableViewCell()
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.

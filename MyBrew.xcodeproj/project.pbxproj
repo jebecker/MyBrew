@@ -18,6 +18,10 @@
 		2FF1A8971C7A6CDA0064B2FB /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */; };
 		2FF1A89B1C7AC9270064B2FB /* MyBeerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A89A1C7AC9270064B2FB /* MyBeerCell.swift */; };
 		2FF1A8A81C7F99ED0064B2FB /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FF1A8A71C7F99ED0064B2FB /* FBSDKCoreKit.framework */; };
+		2FF1A8AA1C83A1F10064B2FB /* QuestionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8A91C83A1F10064B2FB /* QuestionsCell.swift */; };
+		2FF1A8AC1C83A5DD0064B2FB /* ResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8AB1C83A5DD0064B2FB /* ResultsCell.swift */; };
+		2FF1A8AE1C83AE170064B2FB /* SingleQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8AD1C83AE170064B2FB /* SingleQuestionCell.swift */; };
+		2FF1A8B01C83AE2E0064B2FB /* PossibleAnswersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8AF1C83AE2E0064B2FB /* PossibleAnswersCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldingCell.swift; sourceTree = "<group>"; };
 		2FF1A89A1C7AC9270064B2FB /* MyBeerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBeerCell.swift; sourceTree = "<group>"; };
 		2FF1A8A71C7F99ED0064B2FB /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		2FF1A8A91C83A1F10064B2FB /* QuestionsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsCell.swift; sourceTree = "<group>"; };
+		2FF1A8AB1C83A5DD0064B2FB /* ResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsCell.swift; sourceTree = "<group>"; };
+		2FF1A8AD1C83AE170064B2FB /* SingleQuestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleQuestionCell.swift; sourceTree = "<group>"; };
+		2FF1A8AF1C83AE2E0064B2FB /* PossibleAnswersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PossibleAnswersCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,7 @@
 			children = (
 				2FF1A89E1C7BF6440064B2FB /* Frameworks */,
 				2F2B43C81C5D638200307F3F /* MyBrew */,
+				2FF1A8B11C83AE360064B2FB /* 👮🏿 Discover Table View Cell Configuration */,
 				2F2B43C71C5D638200307F3F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -104,8 +113,20 @@
 			children = (
 				2FF1A89A1C7AC9270064B2FB /* MyBeerCell.swift */,
 				2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */,
+				2FF1A8A91C83A1F10064B2FB /* QuestionsCell.swift */,
+				2FF1A8AB1C83A5DD0064B2FB /* ResultsCell.swift */,
 			);
 			name = "Folding Cell Configuration";
+			sourceTree = "<group>";
+		};
+		2FF1A8B11C83AE360064B2FB /* 👮🏿 Discover Table View Cell Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				2FF1A8AD1C83AE170064B2FB /* SingleQuestionCell.swift */,
+				2FF1A8AF1C83AE2E0064B2FB /* PossibleAnswersCell.swift */,
+			);
+			name = "👮🏿 Discover Table View Cell Configuration";
+			path = MyBrew;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,9 +203,13 @@
 				2FF1A8971C7A6CDA0064B2FB /* FoldingCell.swift in Sources */,
 				2FF1A8931C7A47950064B2FB /* MyBeerTableViewController.swift in Sources */,
 				2F2B43DC1C5EBF2400307F3F /* LoginViewController.swift in Sources */,
+				2FF1A8B01C83AE2E0064B2FB /* PossibleAnswersCell.swift in Sources */,
+				2FF1A8AC1C83A5DD0064B2FB /* ResultsCell.swift in Sources */,
+				2FF1A8AE1C83AE170064B2FB /* SingleQuestionCell.swift in Sources */,
 				2F2B43CA1C5D638200307F3F /* AppDelegate.swift in Sources */,
 				2FF1A8951C7A48520064B2FB /* DiscoverTableViewController.swift in Sources */,
 				2F609E0C1C73D7730029E1D8 /* RecommendViewController.swift in Sources */,
+				2FF1A8AA1C83A1F10064B2FB /* QuestionsCell.swift in Sources */,
 				2FF1A89B1C7AC9270064B2FB /* MyBeerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

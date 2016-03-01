@@ -86,7 +86,7 @@ class MyBeerTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FoldingCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath)
 
         return cell
     }
