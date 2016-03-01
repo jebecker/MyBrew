@@ -22,6 +22,10 @@ class QuestionsCell: FoldingCell {
     
     override func awakeFromNib() {
         
+        // Declared in superclass
+        self.itemCount = 4      // number of folds in the cell
+        self.backViewColor = UIColor.blackColor()       // color of the back of the card as it (un)folds
+        
         foregroundView.layer.cornerRadius = 10
         foregroundView.layer.masksToBounds = true
         
@@ -31,7 +35,9 @@ class QuestionsCell: FoldingCell {
     
     override func animationDuration(itemIndex:NSInteger, type:AnimationType)-> NSTimeInterval {
         
-        let durations = [0.2, 0.1, 0.05]
+        // REQUIRED: durations.count == self.itemCount
+        let durations = [0.4, 0.2, 0.2, 0.2]
+        assert(durations.count == self.itemCount)
         return durations[itemIndex]
     }
     
@@ -70,7 +76,7 @@ extension QuestionsCell: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //get num of sections based on the number answers possible per question
         
-        return 4
+        return 5
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -97,6 +103,12 @@ extension QuestionsCell: UITableViewDataSource {
                 //TODO configure cell with data for possible answers before returning
                 
                 possibleAnswersCell.possibleAnswerLabel.text = "Answer \(indexPath.row)"
+                
+                // Hide the checkmark until selection
+                if let accessoryView = possibleAnswersCell.accessoryView where possibleAnswersCell.accessoryType == .Checkmark {
+                    accessoryView.hidden = true
+                }
+                
                 
                 return possibleAnswersCell
             }

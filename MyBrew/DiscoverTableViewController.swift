@@ -11,10 +11,10 @@ import UIKit
 class DiscoverTableViewController: UITableViewController {
 
     //add properties for the cell
-    let kCloseCellHeight: CGFloat = 185
-    let kOpenCellHeight: CGFloat = 330
+    let kCloseCellHeight: CGFloat = 140
+    let kOpenCellHeight: CGFloat = 420
     
-    let kRowsCount = 3
+    let kRowsCount = 10
     
     var cellHeights = [CGFloat]()
     
@@ -22,19 +22,19 @@ class DiscoverTableViewController: UITableViewController {
     var isQuestionsCard = true
     
     //create variable to hold number of results returned
-    var numOfResults = 0
+    var numOfResults = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //self.navigationController?.setNavigationBarHidden(true, animated: false)
 
         createCellHeightsArray()
     }
     
     
     func createCellHeightsArray() {
-        for _ in 0...kRowsCount {
-            cellHeights.append(kCloseCellHeight)
-        }
+        self.cellHeights = Array(count: self.kRowsCount, repeatedValue: self.kCloseCellHeight)
     }
 
     // MARK: - Table view data source
@@ -56,6 +56,29 @@ class DiscoverTableViewController: UITableViewController {
         
     }
 
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return self.cellHeights[indexPath.row]
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingCell
+        
+        var duration = 0.0
+        if cellHeights[indexPath.row] == kCloseCellHeight { // open cell
+            cellHeights[indexPath.row] = kOpenCellHeight
+            cell.selectedAnimation(true, animated: true, completion: nil)
+            duration = 0.5
+        } else {// close cell
+            cellHeights[indexPath.row] = kCloseCellHeight
+            cell.selectedAnimation(false, animated: true, completion: nil)
+            duration = 1.1
+        }
+        
+        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
+            tableView.beginUpdates()
+            tableView.endUpdates()
+            }, completion: nil)
+    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
