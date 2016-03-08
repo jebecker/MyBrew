@@ -12,7 +12,8 @@ class DiscoverTableViewController: UITableViewController {
 
     //add properties for the cell
     let kCloseCellHeight: CGFloat = 140
-    let kOpenCellHeight: CGFloat = 420
+    //dynamically set the height of the open Questions cell so it expands the whole scrren
+    let screenSize: CGRect = UIScreen.mainScreen().bounds
     
     let kRowsCount = 10
     
@@ -23,6 +24,8 @@ class DiscoverTableViewController: UITableViewController {
     
     //create variable to hold number of results returned
     var numOfResults = 6
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +68,7 @@ class DiscoverTableViewController: UITableViewController {
         
         var duration = 0.0
         if cellHeights[indexPath.row] == kCloseCellHeight { // open cell
-            cellHeights[indexPath.row] = kOpenCellHeight
+            cellHeights[indexPath.row] = (screenSize.height - 64)
             cell.selectedAnimation(true, animated: true, completion: nil)
             duration = 0.5
         } else {// close cell
