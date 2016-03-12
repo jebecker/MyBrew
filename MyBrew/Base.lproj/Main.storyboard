@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RDb-0j-ayA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NhW-7L-oL0">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -7,22 +7,70 @@
     </dependencies>
     <scenes>
         <!--Login View Controller-->
-        <scene sceneID="ZmZ-tM-EDZ">
+        <scene sceneID="eNp-zi-Jdc">
             <objects>
-                <viewController title="Login View Controller" id="4pJ-Az-fqb" customClass="LoginViewController" customModule="MyBrew" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="NhW-7L-oL0" customClass="LoginViewController" customModule="MyBrew" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="qcO-66-KWN"/>
-                        <viewControllerLayoutGuide type="bottom" id="lSG-X0-C5e"/>
+                        <viewControllerLayoutGuide type="top" id="v3W-lQ-ROg"/>
+                        <viewControllerLayoutGuide type="bottom" id="HRg-hU-9xy"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="yf4-xz-RwE">
+                    <view key="view" contentMode="scaleToFill" id="t3p-BF-uvg">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="WQd-H0-XZ8">
+                                <rect key="frame" x="200" y="287.5" width="200" height="165"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X8v-69-cZF">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Scu-ze-CE4">
+                                        <rect key="frame" x="0.0" y="45" width="200" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dme-Wn-moE">
+                                        <rect key="frame" x="0.0" y="90" width="200" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.35602338830000002" blue="0.3480195478" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Login">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loginButtonPressed:" destination="NhW-7L-oL0" eventType="touchUpInside" id="UuJ-hg-ASP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5h7-6f-AGa">
+                                        <rect key="frame" x="0.0" y="135" width="200" height="30"/>
+                                        <state key="normal" title="Sign Up">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="signUpButtonPressed:" destination="NhW-7L-oL0" eventType="touchUpInside" id="gSJ-jo-mOC"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="o6b-JT-mQU"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.16368773304470058" green="0.17434106691414142" blue="0.14474621992485279" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="WQd-H0-XZ8" firstAttribute="centerY" secondItem="t3p-BF-uvg" secondAttribute="centerY" constant="70" id="Ota-TD-PaZ"/>
+                            <constraint firstItem="WQd-H0-XZ8" firstAttribute="centerX" secondItem="t3p-BF-uvg" secondAttribute="centerX" id="c3B-Kb-hit"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="X8v-69-cZF" id="xlI-0h-Y23"/>
+                        <outlet property="passwordTextField" destination="Scu-ze-CE4" id="uKN-cT-iVh"/>
+                        <segue destination="RDb-0j-ayA" kind="show" identifier="loginToMyBeerSeque" id="hHc-uJ-WZX"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9Dl-Kx-363" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="urw-SO-bj0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-260" y="711"/>
+            <point key="canvasLocation" x="-428" y="458"/>
         </scene>
         <!--Main Page View Controller-->
         <scene sceneID="oeO-gb-SFS">
@@ -30,7 +78,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" title="Main Page View Controller" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="RDb-0j-ayA" customClass="MainPageViewController" customModule="MyBrew" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i3g-Cy-2bi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="794" y="870"/>
+            <point key="canvasLocation" x="456" y="479"/>
         </scene>
         <!--My Beer Navigation Controller-->
         <scene sceneID="iTi-Vc-a05">
@@ -192,7 +240,7 @@
                                                             <rect key="frame" x="0.0" y="28" width="560" height="55"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fZM-HC-HpI" id="BJt-zM-BEe">
-                                                                <rect key="frame" x="0.0" y="0.0" width="527" height="55"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="527" height="54.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NW8-8M-HZi">
@@ -216,7 +264,7 @@
                                                             <rect key="frame" x="0.0" y="83" width="560" height="55"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YIq-Ul-RSc" id="jbx-r6-dhQ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="521" height="55"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="521" height="54.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lka-ag-DeX">

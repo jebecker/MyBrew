@@ -61,7 +61,6 @@
 			children = (
 				2FF1A89E1C7BF6440064B2FB /* Frameworks */,
 				2F2B43C81C5D638200307F3F /* MyBrew */,
-				2FF1A8B11C83AE360064B2FB /* 👮🏿 Discover Table View Cell Configuration */,
 				2F2B43C71C5D638200307F3F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,6 +80,7 @@
 				2F2B43CD1C5D638300307F3F /* Main.storyboard */,
 				2F2B43D01C5D638300307F3F /* Assets.xcassets */,
 				2F2B43D51C5D638300307F3F /* Info.plist */,
+				2FF1A8B11C83AE360064B2FB /* 👮🏿 Discover Table View Cell Configuration */,
 				2FF1A8A11C7E845A0064B2FB /* Controllers */,
 				2FF1A8A41C7E86460064B2FB /* Folding Cell Configuration */,
 			);
@@ -126,7 +126,6 @@
 				2FF1A8AF1C83AE2E0064B2FB /* PossibleAnswersCell.swift */,
 			);
 			name = "👮🏿 Discover Table View Cell Configuration";
-			path = MyBrew;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
