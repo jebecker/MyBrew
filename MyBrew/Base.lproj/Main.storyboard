@@ -6,10 +6,110 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Register View Controller-->
+        <scene sceneID="wsb-Az-kDe">
+            <objects>
+                <viewController title="Register View Controller" id="6bt-T0-l73" customClass="RegisterViewController" customModule="MyBrew" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FqA-bU-wN3"/>
+                        <viewControllerLayoutGuide type="bottom" id="XGt-X9-UAO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="luI-Ph-0aS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="38X-Th-GqP">
+                                <rect key="frame" x="175" y="148" width="250" height="305"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V21-P0-EZg">
+                                        <rect key="frame" x="0.0" y="0.0" width="250" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QGu-so-YKT">
+                                        <rect key="frame" x="0.0" y="55" width="250" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qdz-X2-FNR">
+                                        <rect key="frame" x="0.0" y="110" width="250" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password (Min 8 chars)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kbv-1E-ZMc">
+                                        <rect key="frame" x="0.0" y="165" width="250" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Birthday" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OUx-LY-Zw5">
+                                        <rect key="frame" x="0.0" y="220" width="250" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="birthdayTextFieldEditing:" destination="6bt-T0-l73" eventType="editingDidBegin" id="aUu-JO-S6N"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xem-Xm-Fvt">
+                                        <rect key="frame" x="0.0" y="275" width="250" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.35602338830000002" blue="0.3480195478" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Create Account">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="registerButtonPressed:" destination="6bt-T0-l73" eventType="touchUpInside" id="Zyy-Zk-oOf"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="0dU-QX-e0p"/>
+                                </constraints>
+                            </stackView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bpu-x1-5kc">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <color key="barTintColor" red="0.1167819385" green="0.1208175505" blue="0.10881542249999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Register" id="1Ay-nM-kjD">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="8ma-CM-X1z">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="cancelButtonPressed:" destination="6bt-T0-l73" id="YX4-P7-krE"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" red="0.163687733" green="0.17434106690000001" blue="0.1447462199" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Bpu-x1-5kc" firstAttribute="leading" secondItem="luI-Ph-0aS" secondAttribute="leadingMargin" constant="-20" id="2bY-Yb-gzf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Bpu-x1-5kc" secondAttribute="trailing" constant="-20" id="WeS-TW-4tv"/>
+                            <constraint firstItem="38X-Th-GqP" firstAttribute="centerX" secondItem="luI-Ph-0aS" secondAttribute="centerX" id="lOz-Dc-7gv"/>
+                            <constraint firstItem="38X-Th-GqP" firstAttribute="centerY" secondItem="luI-Ph-0aS" secondAttribute="centerY" id="lPb-7H-xzN"/>
+                            <constraint firstItem="Bpu-x1-5kc" firstAttribute="top" secondItem="FqA-bU-wN3" secondAttribute="bottom" id="wWQ-Bo-9gw"/>
+                            <constraint firstItem="38X-Th-GqP" firstAttribute="top" secondItem="Bpu-x1-5kc" secondAttribute="bottom" constant="84" id="wwN-tz-Gn4"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="birthdayTextField" destination="OUx-LY-Zw5" id="LBU-hb-zfl"/>
+                        <outlet property="emailTextField" destination="qdz-X2-FNR" id="y4b-sP-AJC"/>
+                        <outlet property="firstNameTextField" destination="V21-P0-EZg" id="1Sf-k3-Sfa"/>
+                        <outlet property="lastNameTextField" destination="QGu-so-YKT" id="ZJl-5R-4nJ"/>
+                        <outlet property="passwordTextField" destination="Kbv-1E-ZMc" id="5p0-Ae-YZo"/>
+                        <segue destination="NhW-7L-oL0" kind="show" identifier="cancelRegistrationSegue" id="m9u-ij-2iY"/>
+                        <segue destination="RDb-0j-ayA" kind="show" identifier="registrationToMyBeersSegue" id="KW3-Tz-hkJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ast-ea-gGi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-16" y="-426"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="eNp-zi-Jdc">
             <objects>
-                <viewController id="NhW-7L-oL0" customClass="LoginViewController" customModule="MyBrew" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Login View Controller" id="NhW-7L-oL0" customClass="LoginViewController" customModule="MyBrew" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="v3W-lQ-ROg"/>
                         <viewControllerLayoutGuide type="bottom" id="HRg-hU-9xy"/>
@@ -19,7 +119,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="WQd-H0-XZ8">
-                                <rect key="frame" x="200" y="287.5" width="200" height="165"/>
+                                <rect key="frame" x="200" y="288" width="200" height="165"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X8v-69-cZF">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
@@ -29,7 +129,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Scu-ze-CE4">
                                         <rect key="frame" x="0.0" y="45" width="200" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dme-Wn-moE">
                                         <rect key="frame" x="0.0" y="90" width="200" height="30"/>
@@ -43,11 +143,11 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5h7-6f-AGa">
                                         <rect key="frame" x="0.0" y="135" width="200" height="30"/>
-                                        <state key="normal" title="Sign Up">
+                                        <state key="normal" title="Register">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="signUpButtonPressed:" destination="NhW-7L-oL0" eventType="touchUpInside" id="gSJ-jo-mOC"/>
+                                            <action selector="registerButtonPressed:" destination="NhW-7L-oL0" eventType="touchUpInside" id="qKU-dJ-Kk5"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -65,12 +165,13 @@
                     <connections>
                         <outlet property="emailTextField" destination="X8v-69-cZF" id="xlI-0h-Y23"/>
                         <outlet property="passwordTextField" destination="Scu-ze-CE4" id="uKN-cT-iVh"/>
-                        <segue destination="RDb-0j-ayA" kind="show" identifier="loginToMyBeerSeque" id="hHc-uJ-WZX"/>
+                        <segue destination="RDb-0j-ayA" kind="show" identifier="loginToMyBeerSegue" id="hHc-uJ-WZX"/>
+                        <segue destination="6bt-T0-l73" kind="show" identifier="loginToRegisterSegue" id="JSx-Zf-UTl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="urw-SO-bj0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-428" y="458"/>
+            <point key="canvasLocation" x="-672" y="481"/>
         </scene>
         <!--Main Page View Controller-->
         <scene sceneID="oeO-gb-SFS">
@@ -78,7 +179,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" title="Main Page View Controller" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="RDb-0j-ayA" customClass="MainPageViewController" customModule="MyBrew" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i3g-Cy-2bi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="456" y="479"/>
+            <point key="canvasLocation" x="758" y="509"/>
         </scene>
         <!--My Beer Navigation Controller-->
         <scene sceneID="iTi-Vc-a05">
@@ -398,4 +499,7 @@
             <point key="canvasLocation" x="1638" y="47"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="hHc-uJ-WZX"/>
+    </inferredMetricsTieBreakers>
 </document>
