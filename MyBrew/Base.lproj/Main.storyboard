@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NhW-7L-oL0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NhW-7L-oL0">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -297,7 +297,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="558"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aky-TJ-e25">
+                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aky-TJ-e25">
                                             <rect key="frame" x="20" y="140" width="560" height="400"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H8b-Sj-1Ct">
@@ -307,10 +307,10 @@
                                                         <constraint firstAttribute="height" constant="60" id="1Y0-eF-IOt"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jDR-ji-nAG">
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jDR-ji-nAG">
                                                     <rect key="frame" x="0.0" y="340" width="560" height="60"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ife-fj-g37">
+                                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ife-fj-g37">
                                                             <rect key="frame" x="8" y="8" width="544" height="44"/>
                                                             <color key="backgroundColor" red="0.80000001190000003" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <state key="normal" title="Button"/>
@@ -333,7 +333,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="ife-fj-g37" secondAttribute="trailing" constant="8" id="wmF-o5-zzo"/>
                                                     </constraints>
                                                 </view>
-                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pEc-re-wdF">
+                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pEc-re-wdF">
                                                     <rect key="frame" x="0.0" y="60" width="560" height="280"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <prototypes>
@@ -424,7 +424,6 @@
                                         <constraint firstItem="Aky-TJ-e25" firstAttribute="leading" secondItem="n3i-zZ-IuW" secondAttribute="leading" constant="20" id="C23-nh-xgo"/>
                                         <constraint firstItem="O4x-4Z-Dhb" firstAttribute="leading" secondItem="n3i-zZ-IuW" secondAttribute="leading" constant="20" id="Jmg-Xh-Ey0"/>
                                         <constraint firstItem="Aky-TJ-e25" firstAttribute="top" secondItem="n3i-zZ-IuW" secondAttribute="top" constant="140" identifier="ContainerViewTop" id="LU0-zP-9kR"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Aky-TJ-e25" secondAttribute="bottom" constant="10" id="Xo4-jp-bPV"/>
                                         <constraint firstAttribute="trailing" secondItem="Aky-TJ-e25" secondAttribute="trailing" constant="20" id="feq-94-UNW"/>
                                         <constraint firstItem="O4x-4Z-Dhb" firstAttribute="top" secondItem="n3i-zZ-IuW" secondAttribute="top" constant="10" identifier="ForegroundViewTop" id="v7E-jl-6Hb"/>
                                     </constraints>
