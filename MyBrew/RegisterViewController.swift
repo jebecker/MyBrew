@@ -9,18 +9,21 @@
 import UIKit
 
 class RegisterViewController: UIViewController {
-
+    
+    //declare variables
     let registrationUrlString = "https://api-mybrew.rhcloud.com/api/auth/register"
     var dataCollector: DataCollector = DataCollector()
     var token: String = "nothing"
-    //var fullName: String = ""
-    
+
+    //declare outlets
     @IBOutlet weak var birthdayTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     
+    
+    //function to keep track of the birthdayTextField while it is being edited
     @IBAction func birthdayTextFieldEditing(sender: UITextField) {
         //format the text field
         let datePickerView: UIDatePicker = UIDatePicker()
@@ -29,9 +32,9 @@ class RegisterViewController: UIViewController {
         datePickerView.addTarget(self, action: Selector("birthdayTextFieldValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
     }
     
+    //function to send a registration request to our API and perform se
     @IBAction func registerButtonPressed(sender: AnyObject) {
        
-        
         if(passwordTextField.text!.characters.count >= 8)
         {
             let fullName = firstNameTextField.text! + " " + lastNameTextField.text!
@@ -87,6 +90,7 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
     }
 
     override func didReceiveMemoryWarning() {

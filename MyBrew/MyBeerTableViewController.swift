@@ -33,6 +33,7 @@ class MyBeerTableViewController: UITableViewController {
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.barTintColor = UIColor.init(red: 0.302, green: 0.58, blue: 0.678, alpha: 1)
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         
