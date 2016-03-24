@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -122,12 +123,12 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="WQd-H0-XZ8">
                                 <rect key="frame" x="200" y="288" width="200" height="165"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X8v-69-cZF">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jaymebecker2012@gmail.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X8v-69-cZF">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Scu-ze-CE4">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Scu-ze-CE4">
                                         <rect key="frame" x="0.0" y="45" width="200" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -172,7 +173,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="urw-SO-bj0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-672" y="481"/>
+            <point key="canvasLocation" x="-450" y="565"/>
         </scene>
         <!--Main Page View Controller-->
         <scene sceneID="oeO-gb-SFS">
@@ -217,14 +218,134 @@
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zH8-bb-xWQ" customClass="RotatedView" customModule="MyBrew" customModuleProvider="target">
                                             <rect key="frame" x="28" y="18" width="544" height="120"/>
-                                            <color key="backgroundColor" red="0.20275660400000001" green="1" blue="0.97268543620000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DO6-o7-gBm" userLabel="Beer Color View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="15" height="120"/>
+                                                    <color key="backgroundColor" red="0.27334652725513042" green="1" blue="0.62677142233362626" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="15" id="4Q3-Lo-qKq"/>
+                                                    </constraints>
+                                                </view>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="yfa-d4-dQh">
+                                                    <rect key="frame" x="110" y="6" width="419" height="108"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aGl-FD-Meq">
+                                                            <rect key="frame" x="0.0" y="0.0" width="419" height="64.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beer Name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dw4-CM-vie">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="419" height="24"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jR5-iR-qaF" userLabel="Divider View">
+                                                                    <rect key="frame" x="0.0" y="24" width="419" height="4"/>
+                                                                    <color key="backgroundColor" red="0.73643914953520129" green="0.7665916982323232" blue="0.75201209773049305" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="4" id="XAD-Mp-cpj"/>
+                                                                    </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                            <integer key="value" value="2"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </view>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Brewery" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uA-se-wp4">
+                                                                    <rect key="frame" x="0.0" y="28" width="419" height="22"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Style" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePP-yh-SAu">
+                                                                    <rect key="frame" x="0.0" y="50" width="419" height="14.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="pWo-hf-cxl">
+                                                            <rect key="frame" x="0.0" y="68" width="419" height="39.5"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="RGa-AL-QWc">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="419" height="17"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABV" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ed-rz-1Tl">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="209.5" height="17"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IBU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CuN-QC-Saa">
+                                                                            <rect key="frame" x="209" y="0.0" width="209.5" height="17"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                </stackView>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="LmG-Im-KmJ">
+                                                                    <rect key="frame" x="0.0" y="19" width="419" height="20.5"/>
+                                                                    <subviews>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="ABV%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgw-sM-eL2">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="209.5" height="20.5"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="IBU#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kv0-Ec-gZp">
+                                                                            <rect key="frame" x="209" y="0.0" width="209.5" height="20.5"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                </stackView>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beerImage" translatesAutoresizingMaskIntoConstraints="NO" id="nzm-lB-yBG" userLabel="Beer Image">
+                                                    <rect key="frame" x="15" y="0.0" width="80" height="120"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="120" id="8zf-Js-JKE"/>
+                                                        <constraint firstAttribute="width" secondItem="nzm-lB-yBG" secondAttribute="height" multiplier="2:3" id="CCj-On-zMg"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
+                                                <constraint firstItem="nzm-lB-yBG" firstAttribute="top" secondItem="zH8-bb-xWQ" secondAttribute="top" id="6sm-G3-K0m"/>
+                                                <constraint firstAttribute="bottom" secondItem="nzm-lB-yBG" secondAttribute="bottom" id="8iu-bp-vYg"/>
+                                                <constraint firstItem="DO6-o7-gBm" firstAttribute="top" secondItem="zH8-bb-xWQ" secondAttribute="top" id="F8K-V9-ooi"/>
+                                                <constraint firstAttribute="bottom" secondItem="DO6-o7-gBm" secondAttribute="bottom" id="IeD-bI-ffi"/>
+                                                <constraint firstAttribute="bottom" secondItem="DO6-o7-gBm" secondAttribute="bottom" id="QHU-tg-7Om"/>
+                                                <constraint firstItem="yfa-d4-dQh" firstAttribute="top" secondItem="zH8-bb-xWQ" secondAttribute="top" constant="6" id="UKj-2U-bPl"/>
+                                                <constraint firstItem="nzm-lB-yBG" firstAttribute="top" secondItem="zH8-bb-xWQ" secondAttribute="top" id="WM5-e2-99W"/>
                                                 <constraint firstAttribute="height" constant="120" id="XFi-n4-QWX"/>
+                                                <constraint firstItem="DO6-o7-gBm" firstAttribute="leading" secondItem="zH8-bb-xWQ" secondAttribute="leading" id="aez-pe-GiY"/>
+                                                <constraint firstAttribute="trailing" secondItem="yfa-d4-dQh" secondAttribute="trailing" constant="15" id="d2C-KJ-45Z"/>
+                                                <constraint firstAttribute="bottom" secondItem="nzm-lB-yBG" secondAttribute="bottom" id="fme-qe-a08"/>
+                                                <constraint firstItem="yfa-d4-dQh" firstAttribute="leading" secondItem="nzm-lB-yBG" secondAttribute="trailing" constant="15" id="jsY-PG-4KN"/>
+                                                <constraint firstItem="nzm-lB-yBG" firstAttribute="leading" secondItem="DO6-o7-gBm" secondAttribute="trailing" id="mgG-zC-i72"/>
+                                                <constraint firstItem="nzm-lB-yBG" firstAttribute="leading" secondItem="DO6-o7-gBm" secondAttribute="trailing" id="nGD-zV-tQw"/>
+                                                <constraint firstItem="DO6-o7-gBm" firstAttribute="leading" secondItem="zH8-bb-xWQ" secondAttribute="leading" id="q8m-jX-HaZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="yfa-d4-dQh" secondAttribute="bottom" constant="6" id="z0m-KK-Mmk"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="IeD-bI-ffi"/>
+                                                    <exclude reference="aez-pe-GiY"/>
+                                                    <exclude reference="WM5-e2-99W"/>
+                                                    <exclude reference="fme-qe-a08"/>
+                                                    <exclude reference="mgG-zC-i72"/>
+                                                </mask>
+                                            </variation>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DRa-6r-0QK">
                                             <rect key="frame" x="28" y="148" width="544" height="340"/>
-                                            <color key="backgroundColor" red="0.52549019610000003" green="0.4549019608" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="340" id="XoM-Jv-gfm"/>
                                             </constraints>
@@ -241,8 +362,16 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
+                                    <outlet property="abvPercentageLabel" destination="Lgw-sM-eL2" id="p8O-he-n4J"/>
+                                    <outlet property="beerColorView" destination="DO6-o7-gBm" id="WVl-pF-gat"/>
+                                    <outlet property="beerImageView" destination="nzm-lB-yBG" id="MgP-r8-ihe"/>
+                                    <outlet property="beerNameLabel" destination="Dw4-CM-vie" id="3IM-Wm-zSm"/>
+                                    <outlet property="beerStyleLabel" destination="ePP-yh-SAu" id="KW2-3j-zJR"/>
+                                    <outlet property="breweryLabel" destination="6uA-se-wp4" id="tjq-xx-Q86"/>
                                     <outlet property="containerView" destination="DRa-6r-0QK" id="GyM-Ls-O8R"/>
+                                    <outlet property="dividerBarView" destination="jR5-iR-qaF" id="ZoJ-uU-lKM"/>
                                     <outlet property="foregroundView" destination="zH8-bb-xWQ" id="7KJ-4Z-lFI"/>
+                                    <outlet property="ibuNumberLabel" destination="Kv0-Ec-gZp" id="HGd-au-BpP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -344,7 +473,7 @@
                                                             <rect key="frame" x="0.0" y="28" width="560" height="55"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fZM-HC-HpI" id="BJt-zM-BEe">
-                                                                <rect key="frame" x="0.0" y="0.0" width="527" height="55"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="527" height="54.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NW8-8M-HZi">
@@ -368,7 +497,7 @@
                                                             <rect key="frame" x="0.0" y="83" width="560" height="55"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YIq-Ul-RSc" id="jbx-r6-dhQ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="521" height="55"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="521" height="54.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lka-ag-DeX">
@@ -502,7 +631,10 @@
             <point key="canvasLocation" x="1638" y="47"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="beerImage" width="58" height="58"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KW3-Tz-hkJ"/>
+        <segue reference="hHc-uJ-WZX"/>
     </inferredMetricsTieBreakers>
 </document>
