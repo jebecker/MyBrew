@@ -10,8 +10,6 @@ import UIKit
 
 class MyBeerTableViewController: UITableViewController {
     
-
-   
     //add property for search bar
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -19,10 +17,22 @@ class MyBeerTableViewController: UITableViewController {
     let kCloseCellHeight: CGFloat = 140
     let kOpenCellHeight: CGFloat = 360
     
-    let kRowsCount = 10
+    var kRowsCount = 10
     
     var cellHeights = [CGFloat]()
     
+    var dataCollector = DataCollector()
+    
+    //set property observer for whenever the beers array is set
+    var myBeers : [Beer]? {
+        didSet {
+            kRowsCount = myBeers!.count
+            self.createCellHeightsArray()
+            self.tableView.reloadData()
+        }
+    }
+    
+
     //IBAction func to add a beer
     @IBAction func addBeerButton(sender: UIBarButtonItem) {
         print("added beer")
@@ -37,8 +47,9 @@ class MyBeerTableViewController: UITableViewController {
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         
-        createCellHeightsArray()
-                
+        //call the beerCellar function
+        beerCellar()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -46,10 +57,31 @@ class MyBeerTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    
+    //function to get the beer cellar of user from our API and configure the cell
+    func beerCellar()
+    {
+        let beerCellarUrlString = "https://api-mybrew.rhcloud.com/api/cellar"
+        //let token = dataCollector.token
+        let paramString = "Bearer \(DataCollector.token)"
+        
+        dataCollector.beerCellarRequest(beerCellarUrlString, paramString: paramString) { beers, errorString in
+            if let unwrappedErrorString = errorString
+            {
+                print(unwrappedErrorString)
+            }
+            else
+            {
+                //save the beer data returned
+                self.myBeers = beers
+            }
+        }
+    }
+    
     func createCellHeightsArray() {
         self.cellHeights = Array(count: self.kRowsCount, repeatedValue: self.kCloseCellHeight)
     }
-
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -59,7 +91,7 @@ class MyBeerTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return cellHeights.count
+        return myBeers?.count ?? 0
     }
     
     func filterContentForSearchText(searchText: String, scope: String = "ALL")
@@ -71,8 +103,20 @@ class MyBeerTableViewController: UITableViewController {
     // MARK: Table View Data Source
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath)
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath) as! MyBeerCell
+        
+        guard let beer = myBeers?[indexPath.row] else{
+            return cell
+        }
+        
+        cell.ibuNumberLabel.text = "\(beer.beerIBU)"
+        cell.abvPercentageLabel.text = beer.beerABV.convertToTenthsDecimal() + "%"
+        cell.beerStyleLabel.text = beer.beerStyle
+        cell.breweryLabel.text = beer.breweryName ?? "420 Blaze It"
+        cell.beerStyleLabel.text = beer.beerStyle ?? "Hipster Style"
+        cell.beerNameLabel.text = beer.beerName
+        
+        
         return cell
     }
 

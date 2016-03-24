@@ -13,7 +13,7 @@ class RegisterViewController: UIViewController {
     //declare variables
     let registrationUrlString = "https://api-mybrew.rhcloud.com/api/auth/register"
     var dataCollector: DataCollector = DataCollector()
-    var token: String = "nothing"
+    //var token: String = "nothing"
 
     //declare outlets
     @IBOutlet weak var birthdayTextField: UITextField!
@@ -40,15 +40,15 @@ class RegisterViewController: UIViewController {
             let fullName = firstNameTextField.text! + " " + lastNameTextField.text!
             let parameterString = "email=\(emailTextField.text!)&password=\(passwordTextField.text!)&birthday=\(birthdayTextField.text!)&name=\(fullName)"
             
-            dataCollector.loginOrRegistrationRequest(registrationUrlString, paramString: parameterString, completionHandler: { (data, errorString) -> Void in
+            dataCollector.loginOrRegistrationRequest(registrationUrlString, paramString: parameterString, completionHandler: { (status, errorString) -> Void in
                 if let unwrappedErrorString = errorString
                 {
                     print(unwrappedErrorString)
                 }
                 else
                 {
-                    self.token = self.dataCollector.token
-                    print("User Registered in with token \(self.token)")
+                    //self.token = self.dataCollector.token
+                    print("User Registered in with token \(DataCollector.token)")
                 }
                 
             })

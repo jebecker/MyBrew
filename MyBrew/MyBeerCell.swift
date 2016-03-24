@@ -9,7 +9,18 @@
 import UIKit
 
 class MyBeerCell: FoldingCell {
-
+    
+    //declare outlets
+    @IBOutlet weak var ibuNumberLabel: UILabel!
+    @IBOutlet weak var abvPercentageLabel: UILabel!
+    @IBOutlet weak var beerStyleLabel: UILabel!
+    @IBOutlet weak var breweryLabel: UILabel!
+    @IBOutlet weak var dividerBarView: UIView!
+    @IBOutlet weak var beerNameLabel: UILabel!
+    @IBOutlet weak var beerImageView: UIImageView!
+    @IBOutlet weak var beerColorView: UIView!
+    
+    
     override func awakeFromNib() {
         
         // Declared in superclass
@@ -28,5 +39,4 @@ class MyBeerCell: FoldingCell {
         assert(durations.count == self.itemCount)
         return durations[itemIndex]
     }
-
 }

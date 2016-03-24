@@ -14,8 +14,9 @@
 		2F2B43DC1C5EBF2400307F3F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2B43DB1C5EBF2400307F3F /* LoginViewController.swift */; };
 		2F609E081C73C4D40029E1D8 /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F609E071C73C4D40029E1D8 /* MainPageViewController.swift */; };
 		2F609E0C1C73D7730029E1D8 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F609E0B1C73D7730029E1D8 /* RecommendViewController.swift */; };
+		2F6940EB1CA0907E0063C218 /* Beer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6940EA1CA0907E0063C218 /* Beer.swift */; };
+		2F6940EE1CA2184E0063C218 /* MyBeerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8921C7A47950064B2FB /* MyBeerTableViewController.swift */; };
 		2F91C8611C948A260095843A /* DataCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F91C8601C948A260095843A /* DataCollector.swift */; };
-		2FF1A8931C7A47950064B2FB /* MyBeerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8921C7A47950064B2FB /* MyBeerTableViewController.swift */; };
 		2FF1A8951C7A48520064B2FB /* DiscoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8941C7A48520064B2FB /* DiscoverTableViewController.swift */; };
 		2FF1A8971C7A6CDA0064B2FB /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */; };
 		2FF1A89B1C7AC9270064B2FB /* MyBeerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A89A1C7AC9270064B2FB /* MyBeerCell.swift */; };
@@ -36,6 +37,7 @@
 		2F2B43DB1C5EBF2400307F3F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2F609E071C73C4D40029E1D8 /* MainPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		2F609E0B1C73D7730029E1D8 /* RecommendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
+		2F6940EA1CA0907E0063C218 /* Beer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beer.swift; sourceTree = "<group>"; };
 		2F91C8601C948A260095843A /* DataCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCollector.swift; sourceTree = "<group>"; };
 		2FF1A8921C7A47950064B2FB /* MyBeerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBeerTableViewController.swift; sourceTree = "<group>"; };
 		2FF1A8941C7A48520064B2FB /* DiscoverTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				2F91C8601C948A260095843A /* DataCollector.swift */,
+				2F6940EA1CA0907E0063C218 /* Beer.swift */,
 			);
 			name = "Data Collection";
 			sourceTree = "<group>";
@@ -214,11 +217,12 @@
 			files = (
 				2F609E081C73C4D40029E1D8 /* MainPageViewController.swift in Sources */,
 				2FF1A8971C7A6CDA0064B2FB /* FoldingCell.swift in Sources */,
-				2FF1A8931C7A47950064B2FB /* MyBeerTableViewController.swift in Sources */,
 				2F2B43DC1C5EBF2400307F3F /* LoginViewController.swift in Sources */,
 				2FF1A8B01C83AE2E0064B2FB /* PossibleAnswersCell.swift in Sources */,
+				2F6940EE1CA2184E0063C218 /* MyBeerTableViewController.swift in Sources */,
 				2FF1A8AC1C83A5DD0064B2FB /* ResultsCell.swift in Sources */,
 				2FF1A8AE1C83AE170064B2FB /* SingleQuestionCell.swift in Sources */,
+				2F6940EB1CA0907E0063C218 /* Beer.swift in Sources */,
 				2F2B43CA1C5D638200307F3F /* AppDelegate.swift in Sources */,
 				2FF1A8951C7A48520064B2FB /* DiscoverTableViewController.swift in Sources */,
 				2F2357251C963DEC005D78A4 /* RegisterViewController.swift in Sources */,
