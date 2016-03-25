@@ -12,6 +12,7 @@
 		2F2B43CF1C5D638300307F3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F2B43CD1C5D638300307F3F /* Main.storyboard */; };
 		2F2B43D11C5D638300307F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F2B43D01C5D638300307F3F /* Assets.xcassets */; };
 		2F2B43DC1C5EBF2400307F3F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2B43DB1C5EBF2400307F3F /* LoginViewController.swift */; };
+		2F3F5A071CA4816600A9E649 /* AddBeerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3F5A061CA4816600A9E649 /* AddBeerTableViewController.swift */; };
 		2F609E081C73C4D40029E1D8 /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F609E071C73C4D40029E1D8 /* MainPageViewController.swift */; };
 		2F609E0C1C73D7730029E1D8 /* RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F609E0B1C73D7730029E1D8 /* RecommendViewController.swift */; };
 		2F6940EB1CA0907E0063C218 /* Beer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6940EA1CA0907E0063C218 /* Beer.swift */; };
@@ -35,6 +36,7 @@
 		2F2B43D01C5D638300307F3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F2B43D51C5D638300307F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F2B43DB1C5EBF2400307F3F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		2F3F5A061CA4816600A9E649 /* AddBeerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBeerTableViewController.swift; sourceTree = "<group>"; };
 		2F609E071C73C4D40029E1D8 /* MainPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		2F609E0B1C73D7730029E1D8 /* RecommendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendViewController.swift; sourceTree = "<group>"; };
 		2F6940EA1CA0907E0063C218 /* Beer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beer.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				2FF1A8921C7A47950064B2FB /* MyBeerTableViewController.swift */,
 				2FF1A8941C7A48520064B2FB /* DiscoverTableViewController.swift */,
 				2F2357241C963DEC005D78A4 /* RegisterViewController.swift */,
+				2F3F5A061CA4816600A9E649 /* AddBeerTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			files = (
 				2F609E081C73C4D40029E1D8 /* MainPageViewController.swift in Sources */,
 				2FF1A8971C7A6CDA0064B2FB /* FoldingCell.swift in Sources */,
+				2F3F5A071CA4816600A9E649 /* AddBeerTableViewController.swift in Sources */,
 				2F2B43DC1C5EBF2400307F3F /* LoginViewController.swift in Sources */,
 				2FF1A8B01C83AE2E0064B2FB /* PossibleAnswersCell.swift in Sources */,
 				2F6940EE1CA2184E0063C218 /* MyBeerTableViewController.swift in Sources */,

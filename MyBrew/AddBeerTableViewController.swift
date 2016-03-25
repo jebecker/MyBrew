@@ -1,14 +1,14 @@
 //
-//  MyBeerTableViewController.swift
+//  AddBeerTableViewController.swift
 //  MyBrew
 //
-//  Created by Jayme Becker on 2/21/16.
+//  Created by Jayme Becker on 3/24/16.
 //  Copyright © 2016 Jayme Becker. All rights reserved.
 //
 
 import UIKit
 
-class MyBeerTableViewController: UITableViewController {
+class AddBeerTableViewController: UITableViewController {
     
     //add property for search bar
     let searchController = UISearchController(searchResultsController: nil)
@@ -24,18 +24,19 @@ class MyBeerTableViewController: UITableViewController {
     var dataCollector = DataCollector()
     
     //set property observer for whenever the beers array is set
-    var myBeers : [Beer]? {
+  
+    var globalBeers : [Beer]? {
         didSet {
-            kRowsCount = myBeers!.count
+            kRowsCount = globalBeers!.count
             self.createCellHeightsArray()
             self.tableView.reloadData()
         }
     }
     
-
-    //IBAction func to add a beer
-    @IBAction func addBeerButton(sender: UIBarButtonItem) {
-        performSegueWithIdentifier("AddBeerSegue", sender: nil)
+    @IBAction func cancelButton(sender: UIBarButtonItem) {
+        
+        print("user canceled adding beer")
+        performSegueWithIdentifier("CancelToMyBeersSegue", sender: nil)
     }
     
     override func viewDidLoad() {
@@ -48,24 +49,24 @@ class MyBeerTableViewController: UITableViewController {
         tableView.tableHeaderView = searchController.searchBar
         
         //call the beerCellar function
-        beerCellar()
+        globalBeersList()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     
     //function to get the beer cellar of user from our API and configure the cell
-    func beerCellar()
+    func globalBeersList()
     {
-        let beerCellarUrlString = "https://api-mybrew.rhcloud.com/api/cellar"
+        let globalBeerListString = "https://api-mybrew.rhcloud.com/api/beers"
         //let token = dataCollector.token
         let paramString = "Bearer \(DataCollector.token)"
         
-        dataCollector.beerCellarRequest(beerCellarUrlString, paramString: paramString) { beers, errorString in
+        dataCollector.globalBeersListRequest(globalBeerListString, paramString: paramString) { globalBeers, errorString in
             if let unwrappedErrorString = errorString
             {
                 print(unwrappedErrorString)
@@ -73,7 +74,7 @@ class MyBeerTableViewController: UITableViewController {
             else
             {
                 //save the beer data returned
-                self.myBeers = beers
+                self.globalBeers = globalBeers
             }
         }
     }
@@ -83,15 +84,15 @@ class MyBeerTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return myBeers?.count ?? 0
+        return globalBeers?.count ?? 0
     }
     
     func filterContentForSearchText(searchText: String, scope: String = "ALL")
@@ -99,13 +100,13 @@ class MyBeerTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-
+    
     // MARK: Table View Data Source
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath) as! MyBeerCell
         
-        guard let beer = myBeers?[indexPath.row] else{
+        guard let beer = globalBeers?[indexPath.row] else{
             return cell
         }
         
@@ -119,7 +120,7 @@ class MyBeerTableViewController: UITableViewController {
         
         return cell
     }
-
+    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return self.cellHeights[indexPath.row]
     }
@@ -147,53 +148,54 @@ class MyBeerTableViewController: UITableViewController {
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    // Return false if you do not want the specified item to be editable.
+    return true
     }
     */
-
+    
     /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    if editingStyle == .Delete {
+    // Delete the row from the data source
+    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    } else if editingStyle == .Insert {
+    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
     }
     */
-
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    
     }
     */
-
+    
     /*
     // Override to support conditional rearranging of the table view.
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    // Return false if you do not want the item to be re-orderable.
+    return true
     }
     */
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
 
 
-extension MyBeerTableViewController: UISearchResultsUpdating {
+extension AddBeerTableViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
+
 }
