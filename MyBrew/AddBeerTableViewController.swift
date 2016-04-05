@@ -22,6 +22,9 @@ class AddBeerTableViewController: UITableViewController {
     var cellHeights = [CGFloat]()
     
     var dataCollector = DataCollector()
+
+    var status : String?
+
     
     //set property observer for whenever the beers array is set
   
@@ -33,10 +36,59 @@ class AddBeerTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func cancelButton(sender: UIBarButtonItem) {
+    //addBeer action 
+    @IBAction func addBeer(sender: AnyObject) {
+        
+        guard let beer = globalBeers?[sender.tag] else{
+            return
+        }
+        
+        //decalre parameter string
+        let paramString = "beer=\(beer.beerID)&rating=3"
+        let headerString = "Bearer \(DataCollector.token)"
+        
+        //call the addBeerToCellar method from the data collector to add the beer the users cellar
+        dataCollector.addBeerToCellar(paramString, headerString: headerString, completionHandler: { (status, errorString) -> Void in
+            
+                if let unwrappedErrorString = errorString
+                {
+                    //alert the user that they couldnt add the beer
+                    print(unwrappedErrorString)
+                    let alertController = UIAlertController(title: "Add Beer Failed", message: unwrappedErrorString, preferredStyle: UIAlertControllerStyle.Alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    
+                    self.presentViewController(alertController, animated: true, completion: nil)
+
+                }
+                else
+                {
+                    //save the status and message returned
+                    self.status = status
+                    
+                    //alert the user upon success
+                    let alertController = UIAlertController(title: "Add Beer Successful!", message: "Succesfully Added!", preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    let action = UIAlertAction(title: "Ok", style: .Default, handler: { (action) in
+                        self.cancelButton(self)
+                    })
+                    
+                    alertController.addAction(action)
+                    
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                }
+            
+            }
+        
+        )
+        
+    }
+
+    
+    
+    @IBAction func cancelButton(sender: AnyObject) {
         
         print("user canceled adding beer")
-        performSegueWithIdentifier("CancelToMyBeersSegue", sender: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -51,13 +103,7 @@ class AddBeerTableViewController: UITableViewController {
         //call the beerCellar function
         globalBeersList()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-    
     
     //function to get the beer cellar of user from our API and configure the cell
     func globalBeersList()
@@ -104,7 +150,10 @@ class AddBeerTableViewController: UITableViewController {
     // MARK: Table View Data Source
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath) as! MyBeerCell
+        
+        guard let cell = self.tableView.dequeueReusableCellWithIdentifier("AddBeerCell") as? MyBeerCell else {
+            return UITableViewCell()
+        }
         
         guard let beer = globalBeers?[indexPath.row] else{
             return cell
@@ -112,10 +161,20 @@ class AddBeerTableViewController: UITableViewController {
         
         cell.ibuNumberLabel.text = "\(beer.beerIBU)"
         cell.abvPercentageLabel.text = beer.beerABV.convertToTenthsDecimal() + "%"
-        cell.beerStyleLabel.text = beer.beerStyle
         cell.breweryLabel.text = beer.breweryName ?? "420 Blaze It"
         cell.beerStyleLabel.text = beer.beerStyle ?? "Hipster Style"
         cell.beerNameLabel.text = beer.beerName
+        cell.addButton.tag = indexPath.row
+        
+        //set detail outlest
+        cell.aIbuNumberD.text = "\(beer.beerIBU)"
+        cell.aAbvPercentageD.text = beer.beerABV.convertToTenthsDecimal() + "%"
+        cell.aBreweryNameD.text = beer.breweryName ?? "420 Blaze It"
+        cell.aBeerStyleD.text = beer.beerStyle ?? "Hipster Style"
+        cell.aBeerNameD.text = beer.beerName
+        cell.abreweryLocationD.text = beer.breweryLocation
+        cell.aBeerDescriptionD.text = beer.beerDescription
+        cell.addButtonD.tag = indexPath.row
         
         
         return cell
@@ -144,51 +203,6 @@ class AddBeerTableViewController: UITableViewController {
             tableView.endUpdates()
             }, completion: nil)
     }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the specified item to be editable.
-    return true
-    }
-    */
-    
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-    // Delete the row from the data source
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    } else if editingStyle == .Insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-    }
-    */
-    
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    
-    }
-    */
-    
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the item to be re-orderable.
-    return true
-    }
-    */
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
     
 }
 

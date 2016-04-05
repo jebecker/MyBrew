@@ -49,12 +49,12 @@ class MyBeerTableViewController: UITableViewController {
         
         //call the beerCellar function
         beerCellar()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        //reload the users data
+        beerCellar()
     }
     
     
@@ -111,10 +111,18 @@ class MyBeerTableViewController: UITableViewController {
         
         cell.ibuNumberLabel.text = "\(beer.beerIBU)"
         cell.abvPercentageLabel.text = beer.beerABV.convertToTenthsDecimal() + "%"
-        cell.beerStyleLabel.text = beer.beerStyle
         cell.breweryLabel.text = beer.breweryName ?? "420 Blaze It"
         cell.beerStyleLabel.text = beer.beerStyle ?? "Hipster Style"
         cell.beerNameLabel.text = beer.beerName
+        
+        //set detail outlets
+        cell.ibuNumberLabelD.text = "\(beer.beerIBU)"
+        cell.abvPercentageLabelD.text = beer.beerABV.convertToTenthsDecimal() + "%"
+        cell.breweryNameD.text = beer.breweryName ?? "420 Blaze It"
+        cell.beerStyleD.text = beer.beerStyle ?? "Hipster Style"
+        cell.beerNameD.text = beer.beerName
+        cell.breweryLocationLabel.text = beer.breweryLocation
+        cell.beerDescriptionLabel.text = beer.beerDescription
         
         
         return cell

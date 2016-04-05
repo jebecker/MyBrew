@@ -26,20 +26,19 @@ class LoginViewController: UIViewController {
 
         //call the loginOrRegistrationRequest method to parse the login request
         dataCollector.loginOrRegistrationRequest(loginUrlString, paramString: parameterString, completionHandler: { (status, errorString) -> Void in
-            if let unwrappedErrorString = errorString
-            {
-                print(unwrappedErrorString)
+                if let unwrappedErrorString = errorString
+                {
+                    print(unwrappedErrorString)
+                }
+                else
+                {
+                    //save the status and message returned
+                    self.status = status
+                   // self.message = message
+                    print("User Logged in with token \(DataCollector.token)")
+                    self.transitionToMyBeerView()
+                }
             }
-            else
-            {
-                //save the status and message returned
-                self.status = status
-               // self.message = message
-                print("User Logged in with token \(DataCollector.token)")
-                self.transitionToMyBeerView()
-            }
-        }
-        
         )
     }
     

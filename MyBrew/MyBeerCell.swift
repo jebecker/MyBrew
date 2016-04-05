@@ -20,6 +20,28 @@ class MyBeerCell: FoldingCell {
     @IBOutlet weak var beerImageView: UIImageView!
     @IBOutlet weak var beerColorView: UIView!
     
+    @IBOutlet weak var aBeerStyleD: UILabel!
+    @IBOutlet weak var aBeerDescriptionD: UILabel!
+    @IBOutlet weak var aBeerColorViewD: UIView!
+    @IBOutlet weak var aBeerImageD: UIImageView!
+    @IBOutlet weak var abreweryLocationD: UILabel!
+    @IBOutlet weak var aIbuNumberD: UILabel!
+    @IBOutlet weak var aAbvPercentageD: UILabel!
+    @IBOutlet weak var aBreweryNameD: UILabel!
+    @IBOutlet weak var aBeerNameD: UILabel!
+    @IBOutlet weak var addButton: UIButton!
+    
+    //declare My Beer Conroller Detail outlets
+    @IBOutlet weak var beerNameD: UILabel!
+    @IBOutlet weak var beerColorViewD: UIView!
+    @IBOutlet weak var beerImageViewD: UIImageView!
+    @IBOutlet weak var breweryNameD: UILabel!
+    @IBOutlet weak var beerStyleD: UILabel!
+    @IBOutlet weak var abvPercentageLabelD: UILabel!
+    @IBOutlet weak var ibuNumberLabelD: UILabel!
+    @IBOutlet weak var breweryLocationLabel: UILabel!
+    @IBOutlet weak var beerDescriptionLabel: UILabel!
+    @IBOutlet weak var addButtonD: UIButton!
     
     override func awakeFromNib() {
         

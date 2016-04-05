@@ -29,7 +29,7 @@ class RegisterViewController: UIViewController {
         let datePickerView: UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.Date
         sender.inputView = datePickerView
-        datePickerView.addTarget(self, action: Selector("birthdayTextFieldValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        datePickerView.addTarget(self, action: #selector(RegisterViewController.birthdayTextFieldValueChanged(_:)), forControlEvents: UIControlEvents.ValueChanged)
     }
     
     //function to send a registration request to our API and perform se
