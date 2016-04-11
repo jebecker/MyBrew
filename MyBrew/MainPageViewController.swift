@@ -15,7 +15,7 @@ class MainPageViewController: UIPageViewController {
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         return [self.newViewController("MyBeer"),
             self.newViewController("Discover"),
-            self.newViewController("Recommend")]
+            self.newViewController("Recommendations")]
     }()
     
     override func viewDidLoad() {

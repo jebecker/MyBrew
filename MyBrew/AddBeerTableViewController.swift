@@ -39,9 +39,17 @@ class AddBeerTableViewController: UITableViewController {
     //addBeer action 
     @IBAction func addBeer(sender: AnyObject) {
         
-        guard let beer = globalBeers?[sender.tag] else{
+        guard let beer = globalBeers?[sender.tag] else {
             return
         }
+        
+        /* 
+        TODO:
+        
+        grab rating of beer from user
+         
+        END TODO 
+        */
         
         //decalre parameter string
         let paramString = "beer=\(beer.beerID)&rating=3"
@@ -63,7 +71,7 @@ class AddBeerTableViewController: UITableViewController {
                 else
                 {
                     //save the status and message returned
-                    self.status = status
+                    //self.status = status
                     
                     //alert the user upon success
                     let alertController = UIAlertController(title: "Add Beer Successful!", message: "Succesfully Added!", preferredStyle: UIAlertControllerStyle.Alert)

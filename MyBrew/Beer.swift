@@ -15,7 +15,7 @@ class Beer {
     var beerABV  : String
     let beerIBU  : Int
     let beerUrlString  : String
-    let beerStyle : String? = nil
+    let beerStyle : String?
     
     var beerURL : NSURL? {
         get{
@@ -41,8 +41,13 @@ class Beer {
                 return nil
         }
         
+        //grab the style object from the beer and get the style name
+        guard let style = globalJson["style"] as? [String : AnyObject], beerStyle = style["name"] as? String else{
+            return nil
+        }
+        
         //initialize a beer object
-        self.init(beerName: beerName, beerID: beerID, beerSRM: beerSRM, beerABV: beerABV, beerIBU: beerIBU, beerUrlString: beerURL, beerDescription: beerDescription, breweryName: nil,breweryLocation: nil)
+        self.init(beerName: beerName, beerID: beerID, beerSRM: beerSRM, beerABV: beerABV, beerIBU: beerIBU, beerStyle: beerStyle, beerUrlString: beerURL, beerDescription: beerDescription, breweryName: nil,breweryLocation: nil)
         
         //look to see if the beer has a brewery associated with it and if so, extract that data and update that property
         if let brewery = globalJson["brewery"] as? [String : AnyObject], breweryName = brewery["name"] as? String, breweryLocation = brewery["location"] as? String {
@@ -59,7 +64,7 @@ class Beer {
         guard let beer = json["beer"] as? [String : AnyObject] else {
             return nil
         }
-    
+
         //make sure you can extract the specific beer info or return nil
         guard let beerName = beer["name"] as? String,
             beerID  = beer["id"] as? Int,
@@ -70,10 +75,15 @@ class Beer {
             beerDescription = beer["description"] as? String else {
                 return nil
         }
-    
+        
+        //grab the style object from the beer and get the style name
+        guard let style = beer["style"] as? [String : AnyObject], beerStyle = style["name"] as? String else{
+            return nil
+        }
+        
         //initialize a beer object
-    self.init(beerName: beerName, beerID: beerID, beerSRM: beerSRM, beerABV: beerABV, beerIBU: beerIBU, beerUrlString: beerURL, beerDescription: beerDescription, breweryName: nil,breweryLocation: nil)
-    
+        self.init(beerName: beerName, beerID: beerID, beerSRM: beerSRM, beerABV: beerABV, beerIBU: beerIBU, beerStyle: beerStyle, beerUrlString: beerURL, beerDescription: beerDescription, breweryName: nil,breweryLocation: nil)
+        
         //look to see if the beer has a brewery associated with it and if so, extract that data and update that property
         if let brewery = beer["brewery"] as? [String : AnyObject], breweryName = brewery["name"] as? String, breweryLocation = brewery["location"] as? String {
             self.breweryName = breweryName
@@ -82,7 +92,7 @@ class Beer {
 
     }
     
-    init(beerName: String, beerID: Int, beerSRM : Int, beerABV: String, beerIBU: Int, beerUrlString: String, beerDescription: String, breweryName: String?, breweryLocation: String?) {
+    init(beerName: String, beerID: Int, beerSRM : Int, beerABV: String, beerIBU: Int, beerStyle: String, beerUrlString: String, beerDescription: String, breweryName: String?, breweryLocation: String?) {
         
         self.beerName = beerName
         self.beerID = beerID
@@ -93,6 +103,7 @@ class Beer {
         self.breweryName = breweryName
         self.breweryLocation = breweryLocation
         self.beerABV = beerABV
+        self.beerStyle = beerStyle
     }
 }
 

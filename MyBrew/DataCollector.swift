@@ -141,7 +141,7 @@ class DataCollector {
         //make sure the status was ok and grab the cellar returned
         if let cellar = jsonResult["cellar"] as? NSArray
         {
-            print(cellar)
+            print("Cellar: \(cellar)")
             
             //clear the array
             self.beers.removeAll()
