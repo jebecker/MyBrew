@@ -32,6 +32,19 @@ class MyBeerTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func deleteBeerButton(sender: AnyObject) {
+        
+        //confirm with user
+        let alertController = UIAlertController(title: "Confirm Delete", message: "Are you sure want to delete?", preferredStyle: .ActionSheet)
+        alertController.addAction(UIAlertAction(title: "Delete", style: .Destructive, handler: { [unowned self](alert) in
+             self.deleteBeerFromCellar(atIndex: sender.tag)
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        
+        presentViewController(alertController, animated: true, completion: nil)
+       
+    }
 
     //IBAction func to add a beer
     @IBAction func addBeerButton(sender: UIBarButtonItem) {
@@ -55,27 +68,6 @@ class MyBeerTableViewController: UITableViewController {
         
         //reload the users data
         beerCellar()
-    }
-    
-    
-    //function to get the beer cellar of user from our API and configure the cell
-    func beerCellar()
-    {
-        let beerCellarUrlString = "https://api-mybrew.rhcloud.com/api/cellar"
-        //let token = dataCollector.token
-        let paramString = "Bearer \(DataCollector.token)"
-        
-        dataCollector.beerCellarRequest(beerCellarUrlString, paramString: paramString) { beers, errorString in
-            if let unwrappedErrorString = errorString
-            {
-                print(unwrappedErrorString)
-            }
-            else
-            {
-                //save the beer data returned
-                self.myBeers = beers
-            }
-        }
     }
     
     func createCellHeightsArray() {
@@ -114,6 +106,7 @@ class MyBeerTableViewController: UITableViewController {
         cell.breweryLabel.text = beer.breweryName ?? "420 Blaze It"
         cell.beerStyleLabel.text = beer.beerStyle ?? "Hipster Style"
         cell.beerNameLabel.text = beer.beerName
+        cell.deleteButton.tag = indexPath.row
         
         //set detail outlets
         cell.ibuNumberLabelD.text = "\(beer.beerIBU)"
@@ -123,6 +116,7 @@ class MyBeerTableViewController: UITableViewController {
         cell.beerNameD.text = beer.beerName
         cell.breweryLocationLabel.text = beer.breweryLocation
         cell.beerDescriptionLabel.text = beer.beerDescription
+        cell.deleteButtonD.tag = indexPath.row
         
         
         return cell
@@ -150,6 +144,63 @@ class MyBeerTableViewController: UITableViewController {
             tableView.beginUpdates()
             tableView.endUpdates()
             }, completion: nil)
+    }
+}
+
+//code to hadle api calls
+extension MyBeerTableViewController {
+    
+    //function to get the beer cellar of user from our API and configure the cell
+    func beerCellar() {
+        let beerCellarUrlString = "https://api-mybrew.rhcloud.com/api/cellar"
+        //let token = dataCollector.token
+        let paramString = "Bearer \(DataCollector.token)"
+        
+        dataCollector.beerCellarRequest(beerCellarUrlString, paramString: paramString) { beers, errorString in
+            if let unwrappedErrorString = errorString {
+                print(unwrappedErrorString)
+            }
+            else {
+                //save the beer data returned
+                self.myBeers = beers
+            }
+        }
+    }
+    
+    //function to delete the specific beer from a users cellar
+    func deleteBeerFromCellar(atIndex index: Int) {
+       
+        //grab the index of the beer to add and set it to a beer object
+        guard let beer = self.myBeers?.removeAtIndex(index) else {
+            // TODO: handle this
+            print("beer not found at index")
+            return
+        }
+        
+        let paramString = "beer=\(beer.beerID)"
+        let headerString = "Bearer \(DataCollector.token)"
+        
+        dataCollector.deleteBeerFromCellar(paramString, headerString: headerString) { status, errorString in
+            if let unwrappedErrorString = errorString {
+                print(unwrappedErrorString)
+                
+                //alert user that beer couldnt be removed
+                let alertController = UIAlertController(title: "Oops!", message: "We couldn't delete your beer", preferredStyle: .Alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
+                //add beer back to myBeers list and reload table
+                self.myBeers?.append(beer)
+                self.tableView.reloadData()
+                
+            }
+            else {
+                print("delete succesfful")
+            }
+        }
+        
+        //reload table
+        self.tableView.reloadData()
     }
 }
 

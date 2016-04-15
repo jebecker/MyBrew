@@ -13,6 +13,8 @@ class DataCollector {
     static var token: String = "nothing"
     var beers = Array<Beer>()
     var globalBeersArray = Array<Beer>()
+    var dailyBeerArray = Array<Beer>()
+    var recommendedBeersArray = Array<Beer>()
     
     // MARK: login anad registration api calls
     
@@ -139,8 +141,7 @@ class DataCollector {
         }
         
         //make sure the status was ok and grab the cellar returned
-        if let cellar = jsonResult["cellar"] as? NSArray
-        {
+        if let cellar = jsonResult["cellar"] as? NSArray {
             print("Cellar: \(cellar)")
             
             //clear the array
@@ -178,14 +179,12 @@ class DataCollector {
                 }
             }
         }
-        else
-        {
+        else {
             dispatch_async(dispatch_get_main_queue(), {
                 completionHandler(nil, "status was not ok or no cellar returned")
             })
         }
     }
-    
     
     // MARK: global beers list api calls
     
@@ -237,49 +236,45 @@ class DataCollector {
             return
         }
         
-        guard let status = jsonResult["status"] where status as? String == "ok" else{
+        guard let status = jsonResult["status"] where status as? String == "ok" else {
             completionHandler(nil, "status was not ok")
             return
         }
         
         //make sure the status was ok and grab the cellar returned
-        if let beers = jsonResult["beers"] as? NSArray
-        {
+        if let beers = jsonResult["beers"] as? NSArray {
             print(beers)
+            
+            //clear the array
+            self.globalBeersArray.removeAll()
+            
             //grab all of the beers in the cellars information
             for beerData in beers {
                 
-                if let beer = Beer(withGlobalJson: beerData as! [String : AnyObject])
-                {
+                if let beer = Beer(withGlobalJson: beerData as! [String : AnyObject]) {
                     //add specific beer to beers array to keep track of returned beers in cellar
                     self.globalBeersArray.append(beer)
                     //log
                     print("\(beer.beerName) added to the global array")
                 }
-                else
-                {
+                else {
                     dispatch_async(dispatch_get_main_queue(), {
                         completionHandler(nil, "no beers added to the global array")
                     })
                 }
-                
-                
             }
             dispatch_async(dispatch_get_main_queue()) {
                 // return the beers
-                if !self.globalBeersArray.isEmpty
-                {
+                if !self.globalBeersArray.isEmpty {
                     completionHandler(self.globalBeersArray, nil)
                     return
                 }
-                else
-                {
+                else {
                     completionHandler(self.globalBeersArray, "there are no beers")
                 }
             }
         }
-        else
-        {
+        else {
             dispatch_async(dispatch_get_main_queue(), {
                 completionHandler(nil, "status was not ok or no cellar returned")
             })
@@ -342,13 +337,11 @@ class DataCollector {
         
         let message = jsonResult["message"] as? String
         
-        guard let status = jsonResult["status"] as? String where status == "ok" else{
+        guard let status = jsonResult["status"] as? String where status == "ok" else {
             completionHandler(nil, message)
             return
         }
-        
-       
-        
+    
         dispatch_async(dispatch_get_main_queue()) {
             completionHandler(status, nil)
             return
@@ -356,7 +349,258 @@ class DataCollector {
         
     }
     
+    //MARK: Delete beer from cellar
     
+    func deleteBeerFromCellar(paramString: String, headerString: String, completionHandler: (String?, String?) -> Void) {
+        
+        let cancelBeerUrlString = "https://api-mybrew.rhcloud.com/api/cellar/remove-beer"
+        
+        //create the url from the string passed in
+        if let url = NSURL(string: cancelBeerUrlString) {
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "POST"
+            urlRequest.HTTPBody = paramString.dataUsingEncoding(NSUTF8StringEncoding)
+            urlRequest.addValue(headerString, forHTTPHeaderField: "Authorization")
+            
+            //start the session and call the parse add beer to cellar response method
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithRequest(urlRequest, completionHandler: {
+                (data, response, error) -> Void in
+                if error != nil {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        completionHandler(nil, error!.localizedDescription)
+                    })
+                } else {
+                    self.parseAddBeerToCellarResponse(data!, completionHandler: completionHandler)
+                }
+            })
+            task.resume()
+        } else {
+            dispatch_async(dispatch_get_main_queue(), {
+                completionHandler(nil, "invalid URL")
+            })
+        }
+    }
+    
+    //parse the delete request
+    func parseDeleteBeerFromCellarRequest(jsonData: NSData, completionHandler: (String?, String?) -> Void) {
+        
+        var jsonResultWrapped: NSDictionary?
+        
+        do {
+            jsonResultWrapped = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
+        } catch {
+            dispatch_async(dispatch_get_main_queue(), {
+                completionHandler(nil, "exception on JSON parsing")
+            })
+        }
+        
+        //unwrap the json data and make sure results were returned
+        guard let jsonResult = jsonResultWrapped where jsonResult.count > 0 else {
+            completionHandler(nil, "exception on JSON parsing or no result found")
+            return
+        }
+        
+        let message = jsonResult["message"] as? String
+        
+        guard let status = jsonResult["status"] as? String where status == "ok" else {
+            completionHandler(nil, message)
+            return
+        }
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            completionHandler(status, nil)
+            return
+        }
+    }
+    
+    //MARK: grab daily beer
+    
+    func grabDailyBeer(headerString: String, completionHandler: ([Beer]?, String?) -> Void) {
+        
+        let dailyBeerUrlString = "https://api-mybrew.rhcloud.com/api/beers/daily-beer"
+        
+        //create the url from the string passed in
+        if let url = NSURL(string: dailyBeerUrlString) {
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "GET"
+            urlRequest.addValue(headerString, forHTTPHeaderField: "Authorization")
+            
+            //start the session and call the parse add beer to cellar response method
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithRequest(urlRequest, completionHandler: {
+                (data, response, error) -> Void in
+                if error != nil {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        completionHandler(nil, error!.localizedDescription)
+                    })
+                } else {
+                    self.parseGrabDailyBeerResponse(data!, completionHandler: completionHandler)
+                }
+            })
+            task.resume()
+        } else {
+            dispatch_async(dispatch_get_main_queue(), {
+                completionHandler(nil, "invalid URL")
+            })
+        }
+    }
+    
+    
+    //parse the grabDailyBeer response
+    func parseGrabDailyBeerResponse(jsonData: NSData, completionHandler: ([Beer]?, String?) -> Void) {
+        
+        var jsonResultWrapped: NSDictionary?
+        
+        do {
+            jsonResultWrapped = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
+        } catch {
+            dispatch_async(dispatch_get_main_queue(), {
+                completionHandler(nil, "exception on JSON parsing")
+            })
+        }
+        
+        //unwrap the json data and make sure results were returned
+        guard let jsonResult = jsonResultWrapped where jsonResult.count > 0 else {
+            completionHandler(nil, "exception on JSON parsing or no result found")
+            return
+        }
+        
+        guard let status = jsonResult["status"] where status as? String == "ok" else {
+            completionHandler(nil, "status was not ok")
+            return
+        }
+        
+        guard let beerData = jsonResult["beer"] as? [String : AnyObject] else {
+            completionHandler(nil, "no daily beer data")
+            return
+        }
+        
+        //clear the list
+        self.dailyBeerArray.removeAll()
+        
+        if let beer = Beer(withDailyBeerJson: beerData) {
+            
+            //add the daily beer to the array
+            self.dailyBeerArray.append(beer)
+            
+            print("Daily beer \(beer.beerName) added")
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), {
+                completionHandler(nil, "no daily beer added")
+            })
+        }
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            // return the beers
+            if !self.dailyBeerArray.isEmpty {
+                completionHandler(self.dailyBeerArray, nil)
+                return
+            }
+            else {
+                completionHandler(self.dailyBeerArray, "there are no daily beers")
+            }
+        }
+    }
+    
+    //MARK: recommended beers list api calls
+    
+    func recommendedBeersListRequest(headerString: String, completionHandler: ([Beer]?, String?) -> Void) {
+        
+        let recommendedBeersListUrlString = "https://api-mybrew.rhcloud.com/api/cellar/recommend"
+        
+        //create the url from the string passed in
+        if let url = NSURL(string: recommendedBeersListUrlString) {
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "GET"
+            urlRequest.addValue(headerString, forHTTPHeaderField: "Authorization")
+            
+            //start the session and call the parse  global beer list response
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithRequest(urlRequest, completionHandler: {
+                (data, response, error) -> Void in
+                if error != nil {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        completionHandler(nil, error!.localizedDescription)
+                    })
+                } else {
+                    self.parseRecommendedBeersListRequest(data!, completionHandler: completionHandler)
+                }
+            })
+            task.resume()
+        } else {
+            dispatch_async(dispatch_get_main_queue(), {
+                completionHandler(nil, "invalid URL")
+            })
+        }
+        
+    }
+    
+    //func to parse the recommendedBeersList request
+    func parseRecommendedBeersListRequest(jsonData: NSData, completionHandler: ([Beer]?, String?) -> Void) {
+        
+        var jsonResultWrapped: NSDictionary?
+        
+        do {
+            jsonResultWrapped = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
+        } catch {
+            dispatch_async(dispatch_get_main_queue(), {
+                completionHandler(nil, "exception on JSON parsing")
+            })
+        }
+        
+        //unwrap the json data and make sure results were returned
+        guard let jsonResult = jsonResultWrapped where jsonResult.count > 0 else {
+            completionHandler(nil, "exception on JSON parsing or no result found")
+            return
+        }
+        
+        guard let status = jsonResult["status"] where status as? String == "ok" else {
+            completionHandler(nil, "status was not ok")
+            return
+        }
+        
+        //make sure the status was ok and grab the cellar returned
+        if let beers = jsonResult["beers"] as? NSArray {
+            print(beers)
+            
+            //clear the array
+            self.recommendedBeersArray.removeAll()
+            
+            //grab all of the beers in the cellars information
+            for beerData in beers {
+                
+                if let beer = Beer(withGlobalJson: beerData as! [String : AnyObject]) {
+                    //add specific beer to beers array to keep track of returned beers in cellar
+                    self.recommendedBeersArray.append(beer)
+                    //log
+                    print("Recommended Beer \(beer.beerName) added")
+                }
+                else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        completionHandler(nil, "no beers added to the recommend array")
+                    })
+                }
+            }
+            dispatch_async(dispatch_get_main_queue()) {
+                // return the beers
+                if !self.recommendedBeersArray.isEmpty {
+                    completionHandler(self.recommendedBeersArray, nil)
+                    return
+                }
+                else {
+                    completionHandler(self.recommendedBeersArray, "there are no recommended beers")
+                }
+            }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), {
+                completionHandler(nil, "status was not ok or no recommended beers returned")
+            })
+        }
+        
+    }
 }
 
 

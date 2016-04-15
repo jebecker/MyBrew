@@ -1,17 +1,14 @@
 //
-//  AddBeerTableViewController.swift
+//  RecommendationTableViewController.swift
 //  MyBrew
 //
-//  Created by Jayme Becker on 3/24/16.
+//  Created by Jayme Becker on 4/12/16.
 //  Copyright © 2016 Jayme Becker. All rights reserved.
 //
 
 import UIKit
 
-class AddBeerTableViewController: UITableViewController {
-    
-    //add property for search bar
-    let searchController = UISearchController(searchResultsController: nil)
+class RecommendationTableViewController: UITableViewController {
     
     //add properties for the cell
     let kCloseCellHeight: CGFloat = 140
@@ -22,104 +19,86 @@ class AddBeerTableViewController: UITableViewController {
     var cellHeights = [CGFloat]()
     
     var dataCollector = DataCollector()
-
-    var status : String?
     
     var rating : Int?
     
     var beerToAdd : Int?
     
     //set property observer for whenever the beers array is set
-  
-    var globalBeers : [Beer]? {
+    var recommendBeers : [Beer]? {
         didSet {
-            kRowsCount = globalBeers!.count
+            kRowsCount = recommendBeers!.count
             self.createCellHeightsArray()
             self.tableView.reloadData()
         }
     }
     
-    //addBeer action 
-    @IBAction func addBeer(sender: AnyObject) {
-       
+    var dailyBeer : Beer?
+    
+    @IBAction func addBeerButton(sender: AnyObject) {
+        
         //grab the beer id before adding a rating
         self.beerToAdd = sender.tag
-        performSegueWithIdentifier("rateBeerSegue", sender: nil)
-    }
-
-    
-    
-    @IBAction func cancelButton(sender: AnyObject) {
-        
-        print("user canceled adding beer")
-        self.dismissViewControllerAnimated(true, completion: nil)
+        performSegueWithIdentifier("recommendToRateBeer", sender: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.barTintColor = UIColor.init(red: 0.302, green: 0.58, blue: 0.678, alpha: 1)
-        definesPresentationContext = true
-        tableView.tableHeaderView = searchController.searchBar
-        
-        //call the beerCellar function
-        globalBeersList()
-        
-    }
-    
-    //function to get the beer cellar of user from our API and configure the cell
-    func globalBeersList()
-    {
-        let globalBeerListString = "https://api-mybrew.rhcloud.com/api/beers"
-        //let token = dataCollector.token
-        let paramString = "Bearer \(DataCollector.token)"
-        
-        dataCollector.globalBeersListRequest(globalBeerListString, paramString: paramString) { globalBeers, errorString in
-            if let unwrappedErrorString = errorString
-            {
-                print(unwrappedErrorString)
-            }
-            else
-            {
-                //save the beer data returned
-                self.globalBeers = globalBeers
-            }
-        }
+        getDailyBeer()
     }
     
     func createCellHeightsArray() {
         self.cellHeights = Array(count: self.kRowsCount, repeatedValue: self.kCloseCellHeight)
     }
     
-    // MARK: - Table view data source
+}
+
+// MARK: - Table view delegate and data source methods
+
+extension RecommendationTableViewController {
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Daily Pick!"
+        }
+        else {
+            return "Recommended Beers!"
+        }
+    }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return globalBeers?.count ?? 0
+        if (section == 0) {
+            if let _ = self.dailyBeer {
+                return 1
+            }
+            
+            return 0
+        }
+        else {
+            //number of beers returned -1 ---- still need
+            if let numOfRecommendaiton = recommendBeers?.count {
+                return numOfRecommendaiton
+            }
+            return 0
+        }
     }
-    
-    func filterContentForSearchText(searchText: String, scope: String = "ALL")
-    {
-        tableView.reloadData()
-    }
-    
-    
-    // MARK: Table View Data Source
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        guard let cell = self.tableView.dequeueReusableCellWithIdentifier("AddBeerCell") as? MyBeerCell else {
+    
+        guard let cell = tableView.dequeueReusableCellWithIdentifier("RecommendationsBeerCell") as? MyBeerCell else {
+            print("cell failed")
             return UITableViewCell()
         }
         
-        guard let beer = globalBeers?[indexPath.row] else{
+        // TODO: Configure cell
+        guard let beer = recommendBeers?[indexPath.row] else {
             return cell
         }
         
@@ -132,19 +111,21 @@ class AddBeerTableViewController: UITableViewController {
         cell.addButton.tag = indexPath.row
         
         //set detail outlets
-        cell.aIbuNumberD.text = "\(beer.beerIBU)"
-        cell.aAbvPercentageD.text = beer.beerABV.convertToTenthsDecimal() + "%"
-        cell.aBreweryNameD.text = beer.breweryName ?? "420 Blaze It"
-        cell.aBeerStyleD.text = beer.beerStyle ?? "Hipster Style"
-        cell.aBeerNameD.text = beer.beerName
-        cell.abreweryLocationD.text = beer.breweryLocation
-        cell.aBeerDescriptionD.text = beer.beerDescription
+        cell.ibuNumberLabelD.text = "\(beer.beerIBU)"
+        cell.abvPercentageLabelD.text = beer.beerABV.convertToTenthsDecimal() + "%"
+        cell.breweryNameD.text = beer.breweryName ?? "420 Blaze It"
+
+        cell.beerStyleD.text = beer.beerStyle ?? "Hipster Style"
+        cell.beerNameD.text = beer.beerName
+        cell.breweryLocationLabel.text = beer.breweryLocation
+        cell.beerDescriptionLabel.text = beer.beerDescription
         cell.addButtonD.tag = indexPath.row
         
-        
         return cell
+        
     }
     
+    //allow the card to unfold
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return self.cellHeights[indexPath.row]
     }
@@ -168,12 +149,55 @@ class AddBeerTableViewController: UITableViewController {
             tableView.endUpdates()
             }, completion: nil)
     }
+}
+
+//MARK: Code to handle api calls
+extension RecommendationTableViewController {
+    
+    //func to grab the daily beer
+    func getDailyBeer() {
+        
+        let headerString = "Bearer \(DataCollector.token)"
+        
+        dataCollector.grabDailyBeer(headerString) { recommendBeers, errorString in
+            
+            if let unwrappedErrorString = errorString {
+                print(unwrappedErrorString)
+            }
+            else {
+                //set the daily beer
+                self.dailyBeer = recommendBeers?.first
+                self.recommendBeers = recommendBeers
+                self.getRecommendedBeers()
+            }
+        }
+    }
+    
+    //func to grab the recommended beers
+    func getRecommendedBeers() {
+        
+        let headerString = "Bearer \(DataCollector.token)"
+        
+        dataCollector.recommendedBeersListRequest(headerString) { recommendBeers, errorString in
+            
+            if let unwrappedErrorString = errorString {
+                print(unwrappedErrorString)
+            }
+            else {
+                
+                //loop through the beers returned and add them to the array
+                for beers in recommendBeers! {
+                    self.recommendBeers?.append(beers)
+                }
+            }
+        }
+    }
     
     //func to make the api call to add the beer to the cellear
     func addBeerToCellar(withRating rating: Int) {
         
         //grab the index of the beer to add and set it to a beer object
-        guard let beerToAdd = self.beerToAdd, beer = self.globalBeers?[beerToAdd] else {
+        guard let beerToAdd = self.beerToAdd, beer = self.recommendBeers?[beerToAdd] else {
             // TODO: handle this
             print("beer not found at index")
             return
@@ -197,27 +221,22 @@ class AddBeerTableViewController: UITableViewController {
             }
             else {
                 
-                //alert the user upon success
-                let alertController = UIAlertController(title: "Add Beer Successful!", message: "Succesfully Added!", preferredStyle: UIAlertControllerStyle.Alert)
-                
-                let action = UIAlertAction(title: "Ok", style: .Default, handler: { (action) in
-                    self.cancelButton(self)
-                })
-                
-                alertController.addAction(action)
-                
-                self.presentViewController(alertController, animated: true, completion: nil)
+                    //alert the user upon success
+                    let alertController = UIAlertController(title: "Add Beer Successful!", message: "Succesfully Added!", preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    let action = UIAlertAction(title: "Ok", style: .Default, handler: { (action) in
+                        //self.cancelButton(self)
+                    })
+                    
+                    alertController.addAction(action)
+                    
+                    self.presentViewController(alertController, animated: true, completion: nil)
                 }
             }
         )
     }
     
-    
-}
-
-//MARK: TableViewController unwind segue to return back to the add beer page
-
-extension AddBeerTableViewController {
+    //MARK: TableViewController unwind segue to return back to the add beer page
     
     @IBAction func unwindBackToAddBeer(segue: UIStoryboardSegue) {
         //make sure the segue has the correct identifier
@@ -230,9 +249,34 @@ extension AddBeerTableViewController {
     }
 }
 
-extension AddBeerTableViewController: UISearchResultsUpdating {
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        filterContentForSearchText(searchController.searchBar.text!)
-    }
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
