@@ -24,7 +24,7 @@ class RecommendationTableViewController: UITableViewController {
     
     var beerToAdd : Int?
     
-    var sectionOfBeer : Int?
+    var dailyBeerTagNum = 500
     
     //set property observer for whenever the beers array is set
     var recommendBeers : [Beer]? {
@@ -120,10 +120,13 @@ extension RecommendationTableViewController {
         //check the section of the table view to determine what to populate the cell with
         if indexPath.section == 0 {
             beer = (dailyBeer?[0])!
-            self.sectionOfBeer = 0
+            cell.addButton.tag = dailyBeerTagNum
+            cell.addButtonD.tag = dailyBeerTagNum
         }
         else {
             beer = (recommendBeers?[indexPath.row])!
+            cell.addButton.tag = indexPath.row
+            cell.addButtonD.tag = indexPath.row
         }
         
         //populate cell data
@@ -132,18 +135,15 @@ extension RecommendationTableViewController {
         cell.breweryLabel.text = beer.breweryName ?? "420 Blaze It"
         cell.beerStyleLabel.text = beer.beerStyle ?? "Hipster Style"
         cell.beerNameLabel.text = beer.beerName
-        cell.addButton.tag = indexPath.row
         
         //set detail outlets
         cell.ibuNumberLabelD.text = "\(beer.beerIBU)"
         cell.abvPercentageLabelD.text = beer.beerABV.convertToTenthsDecimal() + "%"
         cell.breweryNameD.text = beer.breweryName ?? "420 Blaze It"
-
         cell.beerStyleD.text = beer.beerStyle ?? "Hipster Style"
         cell.beerNameD.text = beer.beerName
         cell.breweryLocationLabel.text = beer.breweryLocation
         cell.beerDescriptionLabel.text = beer.beerDescription
-        cell.addButtonD.tag = indexPath.row
         
         return cell
         
@@ -222,18 +222,19 @@ extension RecommendationTableViewController {
         let paramString : String
         let headerString : String
         
-        if self.sectionOfBeer == 0 {
-            guard let beerToAdd = self.beerToAdd, beer = self.dailyBeer?[beerToAdd] else {
-                print("beer not found at index")
+        //determine if the daily beer was clicked to be added, if not, grab beer from the recommend beers array
+        if self.beerToAdd == dailyBeerTagNum {
+            guard let beer = self.dailyBeer?[0] else {
+                print("could not find daily beer at index 0")
                 return
             }
             
             //set parameter and header string
             paramString = "beer=\(beer.beerID)&rating=\(rating)"
             headerString = "Bearer \(DataCollector.token)"
-
         }
         else {
+            
             //grab the index of the beer to add and set it to a beer object
             guard let beerToAdd = self.beerToAdd, beer = self.recommendBeers?[beerToAdd] else {
                 // TODO: handle this
@@ -244,10 +245,9 @@ extension RecommendationTableViewController {
             //set parameter and header string
             paramString = "beer=\(beer.beerID)&rating=\(rating)"
             headerString = "Bearer \(DataCollector.token)"
-
         }
         
-        
+
         //call the addBeerToCellar method from the data collector to add the beer the users cellar
         dataCollector.addBeerToCellar(paramString, headerString: headerString, completionHandler: { (status, errorString) -> Void in
             

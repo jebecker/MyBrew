@@ -31,7 +31,6 @@ class MyBeerCell: FoldingCell {
     @IBOutlet weak var aBeerNameD: UILabel!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
-   
     
     //declare My Beer Conroller Detail outlets
     @IBOutlet weak var beerNameD: UILabel!
