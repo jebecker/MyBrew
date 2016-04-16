@@ -20,6 +20,7 @@
 		2FBF31461CBC65DE00D3E767 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF31451CBC65DE00D3E767 /* FloatRatingView.swift */; };
 		2FBF31481CBC71F000D3E767 /* RateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF31471CBC71F000D3E767 /* RateViewController.swift */; };
 		2FBF314A1CBDD8DA00D3E767 /* RecommendationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBF31491CBDD8DA00D3E767 /* RecommendationTableViewController.swift */; };
+		2FD1A5411CC2DAF5005E1B8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FD1A5401CC2DAF5005E1B8E /* Images.xcassets */; };
 		2FF1A8951C7A48520064B2FB /* DiscoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8941C7A48520064B2FB /* DiscoverTableViewController.swift */; };
 		2FF1A8971C7A6CDA0064B2FB /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */; };
 		2FF1A89B1C7AC9270064B2FB /* MyBeerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1A89A1C7AC9270064B2FB /* MyBeerCell.swift */; };
@@ -45,6 +46,7 @@
 		2FBF31451CBC65DE00D3E767 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		2FBF31471CBC71F000D3E767 /* RateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateViewController.swift; sourceTree = "<group>"; };
 		2FBF31491CBDD8DA00D3E767 /* RecommendationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommendationTableViewController.swift; sourceTree = "<group>"; };
+		2FD1A5401CC2DAF5005E1B8E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2FF1A8921C7A47950064B2FB /* MyBeerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBeerTableViewController.swift; sourceTree = "<group>"; };
 		2FF1A8941C7A48520064B2FB /* DiscoverTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewController.swift; sourceTree = "<group>"; };
 		2FF1A8961C7A6CDA0064B2FB /* FoldingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldingCell.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				2FF1A8B11C83AE360064B2FB /* 👮🏿 Discover Table View Cell Configuration */,
 				2FF1A8A11C7E845A0064B2FB /* Controllers */,
 				2FF1A8A41C7E86460064B2FB /* Folding Cell Configuration */,
+				2FD1A5401CC2DAF5005E1B8E /* Images.xcassets */,
 			);
 			path = MyBrew;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FD1A5411CC2DAF5005E1B8E /* Images.xcassets in Resources */,
 				2F2B43D11C5D638300307F3F /* Assets.xcassets in Resources */,
 				2F2B43CF1C5D638300307F3F /* Main.storyboard in Resources */,
 			);
@@ -346,6 +350,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/MyBrew";
 				INFOPLIST_FILE = MyBrew/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -358,6 +363,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/MyBrew";
 				INFOPLIST_FILE = MyBrew/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -24,16 +24,24 @@ class RecommendationTableViewController: UITableViewController {
     
     var beerToAdd : Int?
     
+    var sectionOfBeer : Int?
+    
     //set property observer for whenever the beers array is set
     var recommendBeers : [Beer]? {
         didSet {
-            kRowsCount = recommendBeers!.count
+            self.kRowsCount = recommendBeers!.count
             self.createCellHeightsArray()
             self.tableView.reloadData()
         }
     }
     
-    var dailyBeer : Beer?
+    var dailyBeer : [Beer]? {
+        didSet {
+            self.kRowsCount = dailyBeer!.count
+            self.createCellHeightsArray()
+            self.tableView.reloadData()
+        }
+    }
     
     @IBAction func addBeerButton(sender: AnyObject) {
         
@@ -46,10 +54,20 @@ class RecommendationTableViewController: UITableViewController {
         super.viewDidLoad()
         
         getDailyBeer()
+        
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), forControlEvents: UIControlEvents.ValueChanged)
     }
+    
     
     func createCellHeightsArray() {
         self.cellHeights = Array(count: self.kRowsCount, repeatedValue: self.kCloseCellHeight)
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        self.getRecommendedBeers()
+        
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
 }
@@ -82,7 +100,7 @@ extension RecommendationTableViewController {
             return 0
         }
         else {
-            //number of beers returned -1 ---- still need
+            //number of beers returned
             if let numOfRecommendaiton = recommendBeers?.count {
                 return numOfRecommendaiton
             }
@@ -97,9 +115,15 @@ extension RecommendationTableViewController {
             return UITableViewCell()
         }
         
-        // TODO: Configure cell
-        guard let beer = recommendBeers?[indexPath.row] else {
-            return cell
+        let beer : Beer
+        
+        //check the section of the table view to determine what to populate the cell with
+        if indexPath.section == 0 {
+            beer = (dailyBeer?[0])!
+            self.sectionOfBeer = 0
+        }
+        else {
+            beer = (recommendBeers?[indexPath.row])!
         }
         
         //populate cell data
@@ -159,15 +183,15 @@ extension RecommendationTableViewController {
         
         let headerString = "Bearer \(DataCollector.token)"
         
-        dataCollector.grabDailyBeer(headerString) { recommendBeers, errorString in
+        dataCollector.grabDailyBeer(headerString) { dailyBeer, errorString in
             
             if let unwrappedErrorString = errorString {
                 print(unwrappedErrorString)
             }
             else {
-                //set the daily beer
-                self.dailyBeer = recommendBeers?.first
-                self.recommendBeers = recommendBeers
+                
+                //grab the daily beer and then get the recommended beers
+                self.dailyBeer = dailyBeer
                 self.getRecommendedBeers()
             }
         }
@@ -185,10 +209,8 @@ extension RecommendationTableViewController {
             }
             else {
                 
-                //loop through the beers returned and add them to the array
-                for beers in recommendBeers! {
-                    self.recommendBeers?.append(beers)
-                }
+                //grab the recommended beers
+                self.recommendBeers = recommendBeers
             }
         }
     }
@@ -196,16 +218,35 @@ extension RecommendationTableViewController {
     //func to make the api call to add the beer to the cellear
     func addBeerToCellar(withRating rating: Int) {
         
-        //grab the index of the beer to add and set it to a beer object
-        guard let beerToAdd = self.beerToAdd, beer = self.recommendBeers?[beerToAdd] else {
-            // TODO: handle this
-            print("beer not found at index")
-            return
+        //declare variables
+        let paramString : String
+        let headerString : String
+        
+        if self.sectionOfBeer == 0 {
+            guard let beerToAdd = self.beerToAdd, beer = self.dailyBeer?[beerToAdd] else {
+                print("beer not found at index")
+                return
+            }
+            
+            //set parameter and header string
+            paramString = "beer=\(beer.beerID)&rating=\(rating)"
+            headerString = "Bearer \(DataCollector.token)"
+
+        }
+        else {
+            //grab the index of the beer to add and set it to a beer object
+            guard let beerToAdd = self.beerToAdd, beer = self.recommendBeers?[beerToAdd] else {
+                // TODO: handle this
+                print("beer not found at index")
+                return
+            }
+            
+            //set parameter and header string
+            paramString = "beer=\(beer.beerID)&rating=\(rating)"
+            headerString = "Bearer \(DataCollector.token)"
+
         }
         
-        //decalre parameter string
-        let paramString = "beer=\(beer.beerID)&rating=\(rating)"
-        let headerString = "Bearer \(DataCollector.token)"
         
         //call the addBeerToCellar method from the data collector to add the beer the users cellar
         dataCollector.addBeerToCellar(paramString, headerString: headerString, completionHandler: { (status, errorString) -> Void in
@@ -220,7 +261,6 @@ extension RecommendationTableViewController {
                 
             }
             else {
-                
                     //alert the user upon success
                     let alertController = UIAlertController(title: "Add Beer Successful!", message: "Succesfully Added!", preferredStyle: UIAlertControllerStyle.Alert)
                     

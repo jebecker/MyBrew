@@ -1266,6 +1266,9 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Recomendations" id="Id9-Pp-7Us"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Zar-1a-CUj">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
                         <segue destination="wmb-hJ-Hwy" kind="presentation" identifier="recommendToRateBeer" id="OE4-sh-Tr7"/>
                     </connections>
