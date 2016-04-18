@@ -107,6 +107,59 @@ class DiscoverTableViewController: UITableViewController {
         return UITableViewCell()
     }
 
+    func prepareForDataCollect(responses: [Bool], questions: [[String]])
+    {
+        var trueResponses: String = ""
+        var z = 0
+        var y = 0
+        for i in 0...responses.count {
+            switch i {
+            case 0..<10 :
+                if responses[i] == true {
+                    trueResponses += "{\"key\": \"keywords\", \"value\": \"\(questions[0][i - 10*0])\", \"type\": \"text\", \"enabled\": true},\n"
+                    //print(trueResponses)
+                }
+                
+            case 10..<20 :
+                 if responses[i] == true {
+                    trueResponses += "{\"key\": \"fruits[\(z)]\", \"value\": \"\(questions[1][i - 10])\", \"type\": \"text\", \"enabled\": true},\n"
+                 z += 1
+                 
+                 }
+            case 20..<30 :
+                if responses[i] == true {
+                    trueResponses += "{\"key\": \"aroma\", \"value\": \"1\", \"type\": \"text\", \"enabled\": true},\n"
+                }
+            case 30..<40 :
+                    if responses[i] == true {
+                        trueResponses += "{\"key\": \"flavors[\(y)]\", \"value\": \"\(questions[3][i - 30])\", \"type\": \"text\", \"enabled\": true},\n"
+                        y += 1
+                }
+                
+            case 40..<50 :
+                if responses[i] == true {
+                    trueResponses += "{\"key\": \"bitterness\", \"value\": \"\(i - 40)\", \"type\": \"text\", \"enabled\": true},\n"
+                }
+            case 50..<60 :
+                if responses[i] == true {
+                    trueResponses += "{\"key\": \"color\", \"value\": \"\(i-50)\", \"type\": \"text\", \"enabled\": true},\n"
+                }
+            case 60..<70 :
+                if responses[i] == true {
+                    trueResponses += "{\"key\": \"maltiness\", \"value\": \"\(i-60)\", \"type\": \"text\", \"enabled\": true},\n"
+                }
+            
+            default:
+                debugPrint("none")
+            }
+        }
+        
+        print(trueResponses)
+        
+        
+        
+        
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

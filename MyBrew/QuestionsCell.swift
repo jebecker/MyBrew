@@ -15,7 +15,11 @@ class QuestionsCell: FoldingCell {
    
     @IBAction func submitButtonPressed(sender: AnyObject) {
         print("Answers submitted")
+       discoverController.prepareForDataCollect(checked, questions: questionsArray)
     }
+    
+    var discoverController : DiscoverTableViewController = DiscoverTableViewController()
+
     
     var questionsArray: [[String]] =
         [
@@ -68,7 +72,7 @@ class QuestionsCell: FoldingCell {
 
     
     //var numQuestions = 4
-    var checked = [Bool](count: 80, repeatedValue: false)
+    var checked = [Bool](count: 71, repeatedValue: false)
     override func awakeFromNib() {
         //numQuestions = questionsArray[].count();
         
