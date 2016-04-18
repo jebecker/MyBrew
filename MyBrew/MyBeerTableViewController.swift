@@ -32,6 +32,15 @@ class MyBeerTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func unwindBackToMyBeer(segue: UIStoryboardSegue) {
+        //make sure the segue has the correct identifier
+        if segue.identifier == "unwindFromAddBeer" {
+            if let _ = segue.sourceViewController as? AddBeerTableViewController {
+                print("unwinding back to my beer")
+            }
+        }
+    }
+    
     @IBAction func deleteBeerButton(sender: AnyObject) {
         
         //confirm with user

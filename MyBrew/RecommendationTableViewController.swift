@@ -285,7 +285,6 @@ extension RecommendationTableViewController {
                 self.addBeerToCellar(withRating: sourceVC.rating ?? 3)
             }
         }
-        
     }
 }
 
