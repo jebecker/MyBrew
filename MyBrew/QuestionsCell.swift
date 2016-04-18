@@ -26,7 +26,7 @@ class QuestionsCell: FoldingCell {
                 "Cinnamon Swirl Cake",
                 "Banana Bread"
             ],
-            ["Which fruits do you like (choose all that apply)",
+            ["Which fruits do you like (check all that apply)",
                 "Orange",
                 "Grapefruit",
                 "Peach",
@@ -68,7 +68,7 @@ class QuestionsCell: FoldingCell {
 
     
     //var numQuestions = 4
-    
+    var checked = [Bool](count: 80, repeatedValue: false)
     override func awakeFromNib() {
         //numQuestions = questionsArray[].count();
         
@@ -105,11 +105,45 @@ extension QuestionsCell: UITableViewDelegate {
         }
         else
         {
-            if let selectedCell = tableView.cellForRowAtIndexPath(indexPath) where selectedCell.accessoryType == .Checkmark {
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+                if indexPath.section != 1 && indexPath.section != 3 {
+                    //if cell.accessoryType == .Checkmark {
+                        cell.accessoryType = .None
+                        for i in indexPath.section*10...indexPath.section*10+10 {
+                            checked[i] = false
+                            tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i-indexPath.section*10, inSection: indexPath.section))?.accessoryType = .None
+                        }
+                    
+                    
+                        debugPrint("lskjdflk")
+                        checked[10*indexPath.section+indexPath.row] = true
+                        cell.accessoryType = .Checkmark
+                    //}
+                }
+                    else {
+                        if cell.accessoryType == .Checkmark {
+                            cell.accessoryType = .None
+                            checked[10*indexPath.section+indexPath.row] = false
+                        } else {
+                            cell.accessoryType = .Checkmark
+                            checked[10*indexPath.section+indexPath.row] = true
+                        }
+
+                    
+                    }
+                
+                
+                
+            }
+            
+            
+           // debugPrint("select")
+            
+            /*if let selectedCell = tableView.cellForRowAtIndexPath(indexPath) where selectedCell.accessoryType == .Checkmark {
                 if let accessoryView = selectedCell.accessoryView {
                     accessoryView.hidden = !accessoryView.hidden
                 }
-            }
+            }*/
  
         }
         
@@ -133,6 +167,9 @@ extension QuestionsCell: UITableViewDataSource {
         return "Question #\(section + 1)"
     }
     
+    
+    
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         //check which cell to make
@@ -153,13 +190,19 @@ extension QuestionsCell: UITableViewDataSource {
             if let possibleAnswersCell = tableView.dequeueReusableCellWithIdentifier("PossibleAnswersCell", forIndexPath: indexPath) as? PossibleAnswersCell {
                 //TODO configure cell with data for possible answers before returning
                 
-                possibleAnswersCell.possibleAnswerLabel.text = questionsArray[indexPath.section][indexPath.row]//"Answer \(indexPath.row)"
+                possibleAnswersCell.possibleAnswerLabel.text = questionsArray[indexPath.section][indexPath.row]
                 
                 // Hide the checkmark until selection
                 if let accessoryView = possibleAnswersCell.accessoryView where possibleAnswersCell.accessoryType == .Checkmark {
                     accessoryView.hidden = true
                 }
                 
+                if !checked[10*indexPath.section+indexPath.row] {
+                    possibleAnswersCell.accessoryType = .None
+                } else if checked[10*indexPath.section+indexPath.row] {
+                    possibleAnswersCell.accessoryType = .Checkmark
+                }
+                //return cell
                 
                 return possibleAnswersCell
             }
