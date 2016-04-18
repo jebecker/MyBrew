@@ -70,16 +70,21 @@ class LoginViewController: UIViewController {
         }
     }
 
+    //MARK: Unwind segue from the register view controller
     
-    // MARK: - Navigation
+    @IBAction func unwindBackToLogin(segue: UIStoryboardSegue) {
+        //make sure the segue has the correct identifier
+        if segue.identifier == "unwindFromRegister" {
+            if let sourceVC = segue.sourceViewController as? RegisterViewController {
+                //clear text fields
+                sourceVC.firstNameTextField.text = ""
+                sourceVC.lastNameTextField.text = ""
+                sourceVC.emailTextField.text = ""
+                sourceVC.passwordTextField.text = ""
+                sourceVC.birthdayTextField.text = ""
+                sourceVC.view.window?.endEditing(true)
 
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        // Get the new view controller using segue.destinationViewController.
-//        // Pass the selected object to the new view controller.
-//        let destinationViewController = segue.destinationViewController as! MyBeerTableViewController
-//        destinationViewController.token = self.token
-//        
-//    }
-    
+            }
+        }
+    }
 }
