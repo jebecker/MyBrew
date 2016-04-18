@@ -16,11 +16,61 @@ class QuestionsCell: FoldingCell {
     @IBAction func submitButtonPressed(sender: AnyObject) {
         print("Answers submitted")
     }
+    
+    var questionsArray: [[String]] =
+        [
+            ["Pick what appeals most to you",
+                "Chocolate",
+                "Coffee",
+                "Fruit",
+                "Cinnamon Swirl Cake",
+                "Banana Bread"
+            ],
+            ["Which fruits do you like (choose all that apply)",
+                "Orange",
+                "Grapefruit",
+                "Peach",
+                "Lemons/Citris",
+                "Berries",
+                "Pears/Apples",
+                "None"
+            ],
+            ["Do you like the aroma of spices such as pine, ginger, and oak?",
+                "Yes",
+                "No"
+            ],
+            ["Check with flavors appeal to you (check all that apply)",
+                "Mint",
+                "Pumpkin",
+                "Meaty",
+                "Floral",
+                "Molasses"
+            ],
+            ["How do you like your beers?",
+                "Not bitter at all",
+                "Somewhat bitter",
+                "Very bitter",
+                "Not Sure"
+            ],
+            ["What color of beer appeals to you the most",
+                "Very Light",
+                "Medium Color",
+                "Dark",
+                "Doesnt matter",
+                "Not sure"
+            ],
+            ["Do you like malty beers?",
+                "Yes",
+                "No",
+                "Not sure"
+            ]
+    ]
 
     
-    var numQuestions = 4
+    //var numQuestions = 4
     
     override func awakeFromNib() {
+        //numQuestions = questionsArray[].count();
         
         // Declared in superclass
         self.itemCount = 4      // number of folds in the cell
@@ -70,13 +120,13 @@ extension QuestionsCell: UITableViewDelegate {
 extension QuestionsCell: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return numQuestions
+        return questionsArray.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //get num of sections based on the number answers possible per question
         
-        return 5
+        return questionsArray[section].count
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -91,7 +141,8 @@ extension QuestionsCell: UITableViewDataSource {
             if let singleQuestionCell = tableView.dequeueReusableCellWithIdentifier("SingleQuestionCell", forIndexPath: indexPath) as? SingleQuestionCell {
                 //TODO: configure cell with data for question before returning
                 
-                singleQuestionCell.questionLabel.text = "Question \(indexPath.row)"
+                singleQuestionCell.questionLabel.text = questionsArray[indexPath.section][0]//"Question \(indexPath.row)"
+                
                 
                 return singleQuestionCell
             }
@@ -102,7 +153,7 @@ extension QuestionsCell: UITableViewDataSource {
             if let possibleAnswersCell = tableView.dequeueReusableCellWithIdentifier("PossibleAnswersCell", forIndexPath: indexPath) as? PossibleAnswersCell {
                 //TODO configure cell with data for possible answers before returning
                 
-                possibleAnswersCell.possibleAnswerLabel.text = "Answer \(indexPath.row)"
+                possibleAnswersCell.possibleAnswerLabel.text = questionsArray[indexPath.section][indexPath.row]//"Answer \(indexPath.row)"
                 
                 // Hide the checkmark until selection
                 if let accessoryView = possibleAnswersCell.accessoryView where possibleAnswersCell.accessoryType == .Checkmark {

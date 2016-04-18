@@ -25,7 +25,7 @@ class DiscoverTableViewController: UITableViewController {
     //create variable to hold number of results returned
     var numOfResults = 6
     
-    
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
