@@ -25,7 +25,9 @@ class DiscoverTableViewController: UITableViewController {
     //create variable to hold number of results returned
     var numOfResults = 6
     
-        
+    var responseString: String = ""
+    var dataCollector = DataCollector()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,7 +111,8 @@ class DiscoverTableViewController: UITableViewController {
 
     func prepareForDataCollect(responses: [Bool], questions: [[String]])
     {
-        var trueResponses: String = ""
+        
+       
         var z = 0
         var y = 0
         for i in 0...responses.count-1 {
@@ -117,80 +120,45 @@ class DiscoverTableViewController: UITableViewController {
 
                 switch i {
                 case 0..<10 :
-                        trueResponses += "{\"key\": \"keywords\", \"value\": \"\(questions[0][i])\", \"type\": \"text\", \"enabled\": true},\n"
+                        self.responseString += "keywords=\(questions[0][i])&"
                 case 10..<20 :
-                        trueResponses += "{\"key\": \"fruits[\(z)]\", \"value\": \"\(questions[1][i - 10])\", \"type\": \"text\", \"enabled\": true},\n"
+                        //self.fruits![z] = questions[1][i - 10]
+                        self.responseString += "fruits[\(z)]=\(questions[1][i - 10])&"
                         z += 1
                     
                 case 20..<30 :
-                        trueResponses += "{\"key\": \"aroma\", \"value\": \"\(i - 20)\", \"type\": \"text\", \"enabled\": true},\n"
-                    
+                        self.responseString += "aroma=\(i - 20)&"
+                
                 case 30..<40 :
-                            trueResponses += "{\"key\": \"flavors[\(y)]\", \"value\": \"\(questions[3][i - 30])\", \"type\": \"text\", \"enabled\": true},\n"
+                       self.responseString += "flavors[\(y)]=\(questions[3][i - 30])&"
                             y += 1
                 case 40..<50 :
-                        trueResponses += "{\"key\": \"bitterness\", \"value\": \"\(i - 40)\", \"type\": \"text\", \"enabled\": true},\n"
+                        self.responseString += "bitterness=\(i - 40)&"
                 case 50..<60 :
-                        trueResponses += "{\"key\": \"color\", \"value\": \"\(i-50)\", \"type\": \"text\", \"enabled\": true},\n"
+                        self.responseString += "color=\(i - 50)&"
                     
                 case 60..<70 :
-                        trueResponses += "{\"key\": \"maltiness\", \"value\": \"\(i-60)\", \"type\": \"text\", \"enabled\": true},\n"
+                       self.responseString += "maltiness=\(i - 60)"
                 
-            
                 default:
                     debugPrint("none")
                 }
             }
         }
-        print(trueResponses)
+        print(responseString)
+        
+        self.beerQuiz()
         
         
         
+    }
+    
+    func beerQuiz() {
         
+        let paramString = self.responseString
+        let headerString = "Bearer \(DataCollector.token)"
+        
+        //dataCollector.beer
     }
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
