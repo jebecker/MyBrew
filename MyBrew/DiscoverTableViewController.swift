@@ -123,7 +123,7 @@ class DiscoverTableViewController: UITableViewController {
                         z += 1
                     
                 case 20..<30 :
-                        trueResponses += "{\"key\": \"aroma\", \"value\": \"1\", \"type\": \"text\", \"enabled\": true},\n"
+                        trueResponses += "{\"key\": \"aroma\", \"value\": \"\(i - 20)\", \"type\": \"text\", \"enabled\": true},\n"
                     
                 case 30..<40 :
                             trueResponses += "{\"key\": \"flavors[\(y)]\", \"value\": \"\(questions[3][i - 30])\", \"type\": \"text\", \"enabled\": true},\n"
