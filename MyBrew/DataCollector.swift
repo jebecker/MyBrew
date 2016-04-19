@@ -599,8 +599,41 @@ class DataCollector {
                 completionHandler(nil, "status was not ok or no recommended beers returned")
             })
         }
-        
     }
+    
+    //MARK: Beer Quiz request API call
+    
+    func beerQuizRequest(withHeaderString headerString: String, withParamString paramString: String, completionHandler: ([Beer]?, String?) -> Void) {
+        
+        let beerQuizUrlString = "https://api-mybrew.rhcloud.com/api/beers/quiz"
+        
+        //create the url from the string passed in
+        if let url = NSURL(string: beerQuizUrlString) {
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "POST"
+            urlRequest.HTTPBody = paramString.dataUsingEncoding(NSUTF8StringEncoding)
+            urlRequest.addValue(headerString, forHTTPHeaderField: "Authorization")
+            
+            //start the session and call the parse add beer to cellar response method
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithRequest(urlRequest, completionHandler: {
+                (data, response, error) -> Void in
+                if error != nil {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        completionHandler(nil, error!.localizedDescription)
+                    })
+                } else {
+                    self.parseRecommendedBeersListRequest(data!, completionHandler: completionHandler)
+                }
+            })
+            task.resume()
+        } else {
+            dispatch_async(dispatch_get_main_queue(), {
+                completionHandler(nil, "invalid URL")
+            })
+        }
+    }
+    
 }
 
 
