@@ -13,10 +13,6 @@ class QuestionsCell: FoldingCell {
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var questionsAnswersTableView: UITableView!
    
-    @IBAction func submitButtonPressed(sender: AnyObject) {
-        print("Answers submitted")
-       discoverController.prepareForDataCollect(checked, questions: questionsArray)
-    }
     
     var discoverController : DiscoverTableViewController = DiscoverTableViewController()
 
@@ -94,6 +90,33 @@ class QuestionsCell: FoldingCell {
         assert(durations.count == self.itemCount)
         return durations[itemIndex]
     }
+    
+    
+    @IBAction func submitButtonPressed(sender: AnyObject) {
+        print("Answers submitted")
+        var c = 0;
+        for i in 0...checked.count-1{
+            if checked[i]==true {
+                c += 1
+            }
+            
+            if i % 10 == 0 && c == 0 && i > 0 {
+                let alert = UIAlertView()
+                alert.title = "Error"
+                alert.message = "Please select at least one answer in all categories"
+                alert.addButtonWithTitle("OK")
+                alert.show()
+                return
+            } else if i % 10 == 0 {
+                c = 0
+            }
+            
+            
+            }
+            
+            discoverController.prepareForDataCollect(checked, questions: questionsArray)
+        }
+
     
 }
 
