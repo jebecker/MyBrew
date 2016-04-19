@@ -15,7 +15,7 @@ class DiscoverTableViewController: UITableViewController {
     //dynamically set the height of the open Questions cell so it expands the whole scrren
     let screenSize: CGRect = UIScreen.mainScreen().bounds
     
-    let kRowsCount = 10
+    var kRowsCount = 10
     
     var cellHeights = [CGFloat]()
     
@@ -28,6 +28,14 @@ class DiscoverTableViewController: UITableViewController {
     var responseString: String = ""
     var dataCollector = DataCollector()
     
+    var quizBeers: [Beer]? {
+        didSet {
+            self.kRowsCount = quizBeers!.count
+            self.createCellHeightsArray()
+            self.tableView.reloadData()
+        }
+    }
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,10 +107,35 @@ class DiscoverTableViewController: UITableViewController {
         }
         else
         {
-            if let resultsCell = tableView.dequeueReusableCellWithIdentifier("ResultsCell", forIndexPath: indexPath) as? ResultsCell {
+            guard let cell = tableView.dequeueReusableCellWithIdentifier("ResultsCell", forIndexPath: indexPath) as? MyBeerCell else {
                 
-                return resultsCell
+                return UITableViewCell()
             }
+            
+            guard let beer = quizBeers?[indexPath.row] else {
+                return cell
+            }
+            
+            //populate cell data
+            cell.ibuNumberLabel.text = "\(beer.beerIBU)"
+            cell.abvPercentageLabel.text = beer.beerABV.convertToTenthsDecimal() + "%"
+            cell.breweryLabel.text = beer.breweryName ?? "420 Blaze It"
+            cell.beerStyleLabel.text = beer.beerStyle ?? "Hipster Style"
+            cell.beerNameLabel.text = beer.beerName
+            cell.addButton.tag = indexPath.row
+            
+            //set detail outlets
+            cell.aIbuNumberD.text = "\(beer.beerIBU)"
+            cell.aAbvPercentageD.text = beer.beerABV.convertToTenthsDecimal() + "%"
+            cell.aBreweryNameD.text = beer.breweryName ?? "420 Blaze It"
+            cell.aBeerStyleD.text = beer.beerStyle ?? "Hipster Style"
+            cell.aBeerNameD.text = beer.beerName
+            cell.abreweryLocationD.text = beer.breweryLocation
+            cell.aBeerDescriptionD.text = beer.beerDescription
+            cell.addButtonD.tag = indexPath.row
+                
+            return cell
+            
         }
         
         
@@ -158,7 +191,16 @@ class DiscoverTableViewController: UITableViewController {
         let paramString = self.responseString
         let headerString = "Bearer \(DataCollector.token)"
         
-        //dataCollector.beer
+        dataCollector.beerQuizRequest(withHeaderString: headerString, withParamString: paramString) { quizBeers, errorString  in
+            
+            if let unwrappedErrorString = errorString {
+                print(unwrappedErrorString)
+            }
+            else {
+                self.isQuestionsCard = false
+                self.quizBeers = quizBeers
+            }
+        }
     }
 
 }
