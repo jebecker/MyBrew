@@ -112,7 +112,7 @@ class QuestionsCell: FoldingCell {
             }
             
             
-            }
+        }
             
             discoverController.prepareForDataCollect(checked, questions: questionsArray)
         }
