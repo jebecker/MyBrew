@@ -59,7 +59,7 @@
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xem-Xm-Fvt">
                                                         <rect key="frame" x="0.0" y="275" width="172" height="30"/>
-                                                        <color key="backgroundColor" red="1" green="0.35602338830000002" blue="0.3480195478" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="Create Account">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
@@ -153,7 +153,7 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dme-Wn-moE">
                                         <rect key="frame" x="0.0" y="90" width="200" height="30"/>
-                                        <color key="backgroundColor" red="1" green="0.35602338830000002" blue="0.3480195478" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Login">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -209,6 +209,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.30196078431372547" green="0.58039215686274503" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="8Tc-hC-s0W">
                         <rect key="frame" x="0.0" y="556" width="600" height="44"/>
@@ -268,7 +271,7 @@
                                                                             <rect key="frame" x="371" y="0.0" width="48" height="24"/>
                                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                             <state key="normal" title="Delete">
-                                                                                <color key="titleColor" red="0.34901960780000002" green="0.1960784314" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="titleColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                             <connections>
                                                                                 <action selector="deleteBeerButton:" destination="0P9-z0-Jr8" eventType="touchUpInside" id="MlE-pP-3Bu"/>
@@ -411,7 +414,7 @@
                                                                             <rect key="frame" x="371" y="0.0" width="48" height="30"/>
                                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                             <state key="normal" title="Delete">
-                                                                                <color key="titleColor" red="0.34901960780000002" green="0.1960784314" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="titleColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                             <connections>
                                                                                 <action selector="deleteBeerButton:" destination="0P9-z0-Jr8" eventType="touchUpInside" id="5wL-7n-p42"/>
@@ -645,7 +648,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                     </tableView>
                     <navigationItem key="navigationItem" title="My Beers" id="sog-A4-OMw">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="6fa-1s-Wid">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="addBeerButton:" destination="0P9-z0-Jr8" id="Ke6-Xd-vOW"/>
                             </connections>
@@ -678,9 +681,21 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O4x-4Z-Dhb" customClass="RotatedView" customModule="MyBrew" customModuleProvider="target">
                                             <rect key="frame" x="20" y="10" width="560" height="120"/>
-                                            <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Take the Quiz" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eBd-gR-k3e">
+                                                    <rect key="frame" x="15" y="25" width="530" height="70"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="32"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.30196078430000001" green="0.87843137250000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="eBd-gR-k3e" secondAttribute="bottom" constant="25" id="F7L-O8-ZmK"/>
+                                                <constraint firstItem="eBd-gR-k3e" firstAttribute="leading" secondItem="O4x-4Z-Dhb" secondAttribute="leading" constant="15" id="S0Y-Rf-uwo"/>
+                                                <constraint firstAttribute="trailing" secondItem="eBd-gR-k3e" secondAttribute="trailing" constant="15" id="V3q-hQ-6b4"/>
                                                 <constraint firstAttribute="height" constant="120" id="nTg-GL-BNL"/>
+                                                <constraint firstItem="eBd-gR-k3e" firstAttribute="top" secondItem="O4x-4Z-Dhb" secondAttribute="top" constant="25" id="wk5-As-Jw8"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aky-TJ-e25">
@@ -752,8 +767,11 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ife-fj-g37">
                                                             <rect key="frame" x="8" y="8" width="554" height="44"/>
-                                                            <color key="backgroundColor" red="0.80000001190000003" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <state key="normal" title="Button"/>
+                                                            <color key="backgroundColor" red="0.30196078430000001" green="0.87843137250000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                            <state key="normal" title="Submit">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                     <integer key="value" value="8"/>
@@ -764,7 +782,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                                             </connections>
                                                         </button>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="ife-fj-g37" firstAttribute="leading" secondItem="jDR-ji-nAG" secondAttribute="leading" constant="8" id="9It-Ba-bo9"/>
                                                         <constraint firstAttribute="height" constant="60" id="UEN-JY-NUS"/>
@@ -834,7 +852,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                 <rect key="frame" x="0.0" y="846" width="600" height="508"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iBl-8c-cO9" id="e9L-Aa-H5z">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="507.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="508"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jYd-4y-eTm" userLabel="Foreground View" customClass="RotatedView" customModule="MyBrew" customModuleProvider="target">
@@ -866,7 +884,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                                                             <rect key="frame" x="405" y="0.0" width="30" height="30"/>
                                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                             <state key="normal" title="Add">
-                                                                                <color key="titleColor" red="0.34901960780000002" green="0.1960784314" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="titleColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                             <connections>
                                                                                 <action selector="addBeerQuizBeerButton:" destination="3A5-rC-2yV" eventType="touchUpInside" id="QLS-jW-J8H"/>
@@ -1009,7 +1027,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                                                             <rect key="frame" x="405" y="0.0" width="30" height="30"/>
                                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                             <state key="normal" title="Add">
-                                                                                <color key="titleColor" red="0.34901960780000002" green="0.1960784314" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="titleColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                             <connections>
                                                                                 <action selector="addBeerQuizBeerButton:" destination="3A5-rC-2yV" eventType="touchUpInside" id="qg7-aD-vd5"/>
@@ -1260,6 +1278,9 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="k6a-fF-yii" kind="relationship" relationship="rootViewController" id="TpN-9G-eJs"/>
@@ -1315,7 +1336,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                                                             <rect key="frame" x="405" y="0.0" width="30" height="30"/>
                                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                             <state key="normal" title="Add">
-                                                                                <color key="titleColor" red="0.34901960780000002" green="0.1960784314" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="titleColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                             <connections>
                                                                                 <action selector="addBeerButton:" destination="k6a-fF-yii" eventType="touchUpInside" id="81b-rg-XsD"/>
@@ -1458,7 +1479,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                                                             <rect key="frame" x="405" y="0.0" width="30" height="30"/>
                                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                             <state key="normal" title="Add">
-                                                                                <color key="titleColor" red="0.34901960780000002" green="0.1960784314" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="titleColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                             <connections>
                                                                                 <action selector="addBeerButton:" destination="k6a-fF-yii" eventType="touchUpInside" id="TFm-he-PIC"/>
@@ -1710,6 +1731,9 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="3A5-rC-2yV" kind="relationship" relationship="rootViewController" id="WhR-hL-ih9"/>
@@ -1766,7 +1790,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                             <state key="normal" title="Add">
-                                                                                <color key="titleColor" red="0.34901960780000002" green="0.1960784314" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="titleColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                             <connections>
                                                                                 <action selector="addBeer:" destination="b5S-3P-bGD" eventType="touchUpInside" id="3Wg-Hi-Q4N"/>
@@ -1910,7 +1934,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                             <state key="normal" title="Add">
-                                                                                <color key="titleColor" red="0.34901960784313724" green="0.19607843137254902" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="titleColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                             <connections>
                                                                                 <action selector="addBeer:" destination="b5S-3P-bGD" eventType="touchUpInside" id="sLc-e8-msc"/>
@@ -2143,7 +2167,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                     </tableView>
                     <navigationItem key="navigationItem" title="Add Beer" id="3PG-Sx-fqo">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="nuW-Ts-WT9">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="cancelButton:" destination="b5S-3P-bGD" id="QCo-5k-MPT"/>
                                 <segue destination="OBR-0a-Wby" kind="unwind" identifier="unwindFromAddBeer" unwindAction="unwindBackToMyBeer:" id="uSV-bR-0vI"/>
@@ -2197,7 +2221,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWZ-fh-743">
                                 <rect key="frame" x="200" y="442" width="200" height="30"/>
-                                <color key="backgroundColor" red="1" green="0.35602338830000002" blue="0.3480195478" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="7iW-3l-Y7y"/>
                                     <constraint firstAttribute="width" constant="200" id="G20-2I-9Fj"/>
@@ -2209,13 +2233,23 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                     <segue destination="q68-hL-8aj" kind="unwind" identifier="unwindFromRating" unwindAction="unwindBackToAddBeer:" id="BWP-bh-NYW"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate Your Beer!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fos-OH-DDP">
+                                <rect key="frame" x="15" y="40" width="570" height="76"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="Fos-OH-DDP" firstAttribute="leading" secondItem="jc6-Gf-mAH" secondAttribute="leading" constant="15" id="77e-k5-mQe"/>
+                            <constraint firstAttribute="trailing" secondItem="Fos-OH-DDP" secondAttribute="trailing" constant="15" id="KIc-Qv-i3l"/>
+                            <constraint firstItem="0t1-PE-Nwu" firstAttribute="top" secondItem="Fos-OH-DDP" secondAttribute="bottom" constant="160" id="QvJ-z2-E8M"/>
                             <constraint firstItem="0t1-PE-Nwu" firstAttribute="centerY" secondItem="jc6-Gf-mAH" secondAttribute="centerY" id="RNb-Bj-RIQ"/>
                             <constraint firstItem="0t1-PE-Nwu" firstAttribute="centerX" secondItem="jc6-Gf-mAH" secondAttribute="centerX" id="TNX-U5-akr"/>
                             <constraint firstItem="UIE-MQ-gvg" firstAttribute="top" secondItem="WWZ-fh-743" secondAttribute="bottom" constant="128" id="bx0-Ae-xqp"/>
                             <constraint firstItem="0t1-PE-Nwu" firstAttribute="width" secondItem="jc6-Gf-mAH" secondAttribute="width" multiplier="0.8" id="mNs-5d-qj5"/>
+                            <constraint firstItem="Fos-OH-DDP" firstAttribute="top" secondItem="uZG-v1-Lcy" secondAttribute="bottom" constant="20" id="okh-2w-VjP"/>
                             <constraint firstItem="WWZ-fh-743" firstAttribute="centerX" secondItem="0t1-PE-Nwu" secondAttribute="centerX" id="zwp-tt-RgZ"/>
                         </constraints>
                     </view>
@@ -2237,6 +2271,9 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -2257,7 +2294,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -2276,7 +2313,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
         <image name="beerImage" width="58" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hHc-uJ-WZX"/>
         <segue reference="xhN-6j-l8g"/>
+        <segue reference="KW3-Tz-hkJ"/>
     </inferredMetricsTieBreakers>
 </document>

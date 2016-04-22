@@ -13,8 +13,8 @@ class MainPageViewController: UIPageViewController {
     
     //create the array of view controllers in the order I want them in
     private(set) lazy var orderedViewControllers: [UIViewController] = {
-        return [self.newViewController("MyBeer"),
-            self.newViewController("Discover"),
+        return [self.newViewController("Discover"),
+            self.newViewController("MyBeer"),
             self.newViewController("Recommendations")]
     }()
     
