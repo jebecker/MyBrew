@@ -27,7 +27,7 @@ class Beer {
     let beerID : Int
     var breweryName  : String?
     var breweryLocation : String?
-   
+
     convenience init?(withGlobalJson globalJson : [String : AnyObject]) {
         
         //make sure you can extract the specific beer info or return nil

@@ -12,21 +12,23 @@ class QuestionsCell: FoldingCell {
 
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var questionsAnswersTableView: UITableView!
-   
     
-    var discoverController : DiscoverTableViewController = DiscoverTableViewController()
+    var delegate : QuestionsCellDelegate?
+    
+    var discoverController : DiscoverTableViewController?
 
+    var questionsArray = ["Pick what appeals most to you", "Which fruits do you like (check all that apply)", "Do you like the aroma of spices such as pine, ginger, and oak?", "Check with flavors appeal to you (check all that apply)", "How do you like your beers?", "What color of beer appeals to you the most", "Do you like malty beers?"]
     
-    var questionsArray: [[String]] =
+    var answersArray: [[String]] =
         [
-            ["Pick what appeals most to you",
+            [
                 "Chocolate",
                 "Coffee",
                 "Fruit",
                 "Cinnamon Swirl Cake",
                 "Banana Bread"
             ],
-            ["Which fruits do you like (check all that apply)",
+            [
                 "Orange",
                 "Grapefruit",
                 "Peach",
@@ -35,42 +37,40 @@ class QuestionsCell: FoldingCell {
                 "Pears/Apples",
                 "None"
             ],
-            ["Do you like the aroma of spices such as pine, ginger, and oak?",
+            [
                 "Yes",
                 "No"
             ],
-            ["Check with flavors appeal to you (check all that apply)",
+            [
                 "Mint",
                 "Pumpkin",
                 "Meaty",
                 "Floral",
                 "Molasses"
             ],
-            ["How do you like your beers?",
+            [
                 "Not bitter at all",
                 "Somewhat bitter",
                 "Very bitter",
                 "Not Sure"
             ],
-            ["What color of beer appeals to you the most",
+            [
                 "Very Light",
                 "Medium Color",
                 "Dark",
-                "Doesnt matter",
-                "Not sure"
+                "Doesnt matter"
             ],
-            ["Do you like malty beers?",
+            [
                 "Yes",
                 "No",
                 "Not sure"
             ]
     ]
 
+    var selectedAnswers = Set<NSIndexPath>()
     
-    //var numQuestions = 4
-    var checked = [Bool](count: 71, repeatedValue: false)
     override func awakeFromNib() {
-        //numQuestions = questionsArray[].count();
+        
         
         // Declared in superclass
         self.itemCount = 4      // number of folds in the cell
@@ -93,29 +93,16 @@ class QuestionsCell: FoldingCell {
     
     
     @IBAction func submitButtonPressed(sender: AnyObject) {
-        print("Answers submitted")
-        var c = 0;
-        for i in 0...checked.count-1{
-            if checked[i]==true {
-                c += 1
-            }
+        guard self.selectedAnswers.count >= self.questionsArray.count else {
+            // Display an alert
             
-            if i % 10 == 0 && c == 0 && i > 0 {
-                let alert = UIAlertView()
-                alert.title = "Error"
-                alert.message = "Please select at least one answer in all categories"
-                alert.addButtonWithTitle("OK")
-                alert.show()
-                return
-            } else if i % 10 == 0 {
-                c = 0
-            }
-            
-            
+            return
         }
-            
-            discoverController.prepareForDataCollect(checked, questions: questionsArray)
-        }
+        
+        // Call the delegate method
+        self.delegate?.questionsCell(self, didSubmitResponses: self.selectedAnswers, forAnswers: self.answersArray)
+        
+    }
 
     
 }
@@ -124,122 +111,95 @@ class QuestionsCell: FoldingCell {
 extension QuestionsCell: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if(indexPath.row == 0)
-        {
-            //set height for all other rows in this section
-            
-            
-        }
-        else
-        {
-            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-                if indexPath.section != 1 && indexPath.section != 3 {
-                    //if cell.accessoryType == .Checkmark {
-                        cell.accessoryType = .None
-                        for i in indexPath.section*10...indexPath.section*10+10 {
-                            checked[i] = false
-                            tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i-indexPath.section*10, inSection: indexPath.section))?.accessoryType = .None
-                        }
-                    
-                    
-                        debugPrint("lskjdflk")
-                        checked[10*indexPath.section+indexPath.row] = true
-                        cell.accessoryType = .Checkmark
-                    //}
-                }
-                    else {
-                        if cell.accessoryType == .Checkmark {
-                            cell.accessoryType = .None
-                            checked[10*indexPath.section+indexPath.row] = false
-                        } else {
-                            cell.accessoryType = .Checkmark
-                            checked[10*indexPath.section+indexPath.row] = true
-                        }
 
-                    
-                    }
-                
-                
-                
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+            if cell.accessoryType == .Checkmark {
+                cell.accessoryType = .None
+                self.selectedAnswers.remove(indexPath)
+            } else {
+                cell.accessoryType = .Checkmark
+                self.selectedAnswers.insert(indexPath)
             }
-            
-            
-           // debugPrint("select")
-            
-            /*if let selectedCell = tableView.cellForRowAtIndexPath(indexPath) where selectedCell.accessoryType == .Checkmark {
-                if let accessoryView = selectedCell.accessoryView {
-                    accessoryView.hidden = !accessoryView.hidden
-                }
-            }*/
- 
         }
         
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        // Create the label
+        let headerLabel = UILabel(frame: CGRect(x: 15.0, y: 0.0, width: UIScreen.mainScreen().bounds.width-15.0, height: 0.0))
+        headerLabel.text = self.questionsArray[section]
+        headerLabel.numberOfLines = 0
+        headerLabel.lineBreakMode = .ByWordWrapping
+        headerLabel.textColor = UIColor.blackColor()
+        headerLabel.sizeToFit()
+        //headerLabel.backgroundColor = UIColor.lightGrayColor()
+        
+        // Create the view
+        let headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: headerLabel.frame.width, height: headerLabel.frame.height))
+        headerView.backgroundColor = UIColor.lightGrayColor()
+
+        headerView.addSubview(headerLabel)
+        
+        return headerView
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        let headerLabel = UILabel(frame: CGRect(x: 15.0, y: 0.0, width: UIScreen.mainScreen().bounds.width-15, height: 0.0))
+        headerLabel.text = self.questionsArray[section]
+        headerLabel.numberOfLines = 0
+        headerLabel.lineBreakMode = .ByWordWrapping
+        headerLabel.textColor = UIColor.blackColor()
+        headerLabel.backgroundColor = UIColor.lightGrayColor()
+        
+        headerLabel.sizeToFit()
+        
+        return headerLabel.frame.size.height
+    }
 }
+
+
+
 
 extension QuestionsCell: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return questionsArray.count
+        return self.questionsArray.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //get num of sections based on the number answers possible per question
-        
-        return questionsArray[section].count
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
+        return self.answersArray[section].count
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Question #\(section + 1)"
-    }
-    
-    
-    
+//    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return self.questionsArray[section]
+//    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        //check which cell to make
-        if(indexPath.row == 0)
-        {
-            if let singleQuestionCell = tableView.dequeueReusableCellWithIdentifier("SingleQuestionCell", forIndexPath: indexPath) as? SingleQuestionCell {
-                //TODO: configure cell with data for question before returning
-                
-                singleQuestionCell.questionLabel.text = questionsArray[indexPath.section][0]//"Question \(indexPath.row)"
-                
-                
-                return singleQuestionCell
-            }
+        if let possibleAnswersCell = tableView.dequeueReusableCellWithIdentifier("PossibleAnswersCell", forIndexPath: indexPath) as? PossibleAnswersCell {
             
+            possibleAnswersCell.possibleAnswerLabel.text = answersArray[indexPath.section][indexPath.row]
+            
+            // Checkmark the cell if its indexPath is in the selected answers set
+            possibleAnswersCell.accessoryType = self.selectedAnswers.contains(indexPath) ? .Checkmark : .None
+            
+            return possibleAnswersCell
         }
-        else
-        {
-            if let possibleAnswersCell = tableView.dequeueReusableCellWithIdentifier("PossibleAnswersCell", forIndexPath: indexPath) as? PossibleAnswersCell {
-                //TODO configure cell with data for possible answers before returning
-                
-                possibleAnswersCell.possibleAnswerLabel.text = questionsArray[indexPath.section][indexPath.row]
-                
-                // Hide the checkmark until selection
-                if let accessoryView = possibleAnswersCell.accessoryView where possibleAnswersCell.accessoryType == .Checkmark {
-                    accessoryView.hidden = true
-                }
-                
-                if !checked[10*indexPath.section+indexPath.row] {
-                    possibleAnswersCell.accessoryType = .None
-                } else if checked[10*indexPath.section+indexPath.row] {
-                    possibleAnswersCell.accessoryType = .Checkmark
-                }
-                //return cell
-                
-                return possibleAnswersCell
-            }
-        }
+        
      
         return UITableViewCell()
         
     }
     
     
+}
+
+//declare protocol 
+protocol QuestionsCellDelegate {
+    func questionsCell(questionsCell: QuestionsCell, didSubmitResponses responses: Set<NSIndexPath>, forAnswers answers: [[String]])
 }
 
 

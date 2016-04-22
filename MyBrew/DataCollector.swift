@@ -15,6 +15,7 @@ class DataCollector {
     var globalBeersArray = Array<Beer>()
     var dailyBeerArray = Array<Beer>()
     var recommendedBeersArray = Array<Beer>()
+    var beerQuizBeersArray = Array<Beer>()
     
     // MARK: login anad registration api calls
     
@@ -623,7 +624,7 @@ class DataCollector {
                         completionHandler(nil, error!.localizedDescription)
                     })
                 } else {
-                    self.parseRecommendedBeersListRequest(data!, completionHandler: completionHandler)
+                    self.parseBeerQuizResponse(data!, completionHandler: completionHandler)
                 }
             })
             task.resume()
@@ -632,6 +633,72 @@ class DataCollector {
                 completionHandler(nil, "invalid URL")
             })
         }
+    }
+    
+    func parseBeerQuizResponse(jsonData: NSData, completionHandler: ([Beer]?, String?) -> Void) {
+        var jsonResultWrapped: NSDictionary?
+        
+        do {
+            jsonResultWrapped = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
+        } catch {
+            dispatch_async(dispatch_get_main_queue(), {
+                completionHandler(nil, "exception on JSON parsing")
+            })
+        }
+        
+        //unwrap the json data and make sure results were returned
+        guard let jsonResult = jsonResultWrapped where jsonResult.count > 0 else {
+            completionHandler(nil, "exception on JSON parsing or no result found")
+            return
+        }
+        
+        guard let status = jsonResult["status"] where status as? String == "ok" else {
+            completionHandler(nil, "status was not ok")
+            return
+        }
+        
+        //make sure the status was ok and grab the cellar returned
+        if let beers = jsonResult["beers"] as? NSArray {
+           // print(beers)
+            
+            //clear the array
+            self.beerQuizBeersArray.removeAll()
+            
+            for data in beers {
+                if let beerData = data as? NSArray {
+                    for beers in beerData {
+                        if let beer = Beer(withGlobalJson: beers as! [String : AnyObject]) {
+                            //add specific beer to beers array to keep track of returned beers in cellar
+                            self.recommendedBeersArray.append(beer)
+                            //log
+                            print("Beer Quiz Beer: \(beer.beerName) added")
+                        }
+                        else {
+                            dispatch_async(dispatch_get_main_queue(), {
+                                completionHandler(nil, "no beers added to the beer quiz array")
+                            })
+                        }
+                    }
+                }
+                
+            }
+            dispatch_async(dispatch_get_main_queue()) {
+                // return the beers
+                if !self.recommendedBeersArray.isEmpty {
+                    completionHandler(self.recommendedBeersArray, nil)
+                    return
+                }
+                else {
+                    completionHandler(self.recommendedBeersArray, "there are no beer quiz beers")
+                }
+            }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), {
+                completionHandler(nil, "status was not ok or no beer quiz beers returned")
+            })
+        }
+
     }
     
 }

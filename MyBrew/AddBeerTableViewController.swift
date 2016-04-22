@@ -186,27 +186,18 @@ class AddBeerTableViewController: UITableViewController {
         //call the addBeerToCellar method from the data collector to add the beer the users cellar
         dataCollector.addBeerToCellar(paramString, headerString: headerString, completionHandler: { (status, errorString) -> Void in
             
-            if let unwrappedErrorString = errorString {
-                //alert the user that they couldnt add the beer
-                print(unwrappedErrorString)
-                let alertController = UIAlertController(title: "Add Beer Failed", message: unwrappedErrorString, preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                
-                self.presentViewController(alertController, animated: true, completion: nil)
-                
-            }
-            else {
-                
-                //alert the user upon success
-                let alertController = UIAlertController(title: "Add Beer Successful!", message: "Succesfully Added!", preferredStyle: UIAlertControllerStyle.Alert)
-                
-                let action = UIAlertAction(title: "Ok", style: .Default, handler: { (action) in
-                    self.cancelButton(self)
-                })
-                
-                alertController.addAction(action)
-                
-                self.presentViewController(alertController, animated: true, completion: nil)
+                if let unwrappedErrorString = errorString {
+                    //alert the user that they couldnt add the beer
+                    print(unwrappedErrorString)
+                    let alertController = UIAlertController(title: "Add Beer Failed", message: unwrappedErrorString, preferredStyle: UIAlertControllerStyle.Alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    
+                }
+                else {
+                    //remove beer from global beers array
+                    self.globalBeers?.removeAtIndex(beerToAdd)
                 }
             }
         )

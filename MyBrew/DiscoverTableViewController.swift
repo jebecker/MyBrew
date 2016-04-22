@@ -8,19 +8,24 @@
 
 import UIKit
 
+
+enum QuizState {
+    case Questions, Results
+}
+
+
 class DiscoverTableViewController: UITableViewController {
 
+    
     //add properties for the cell
     let kCloseCellHeight: CGFloat = 140
+    let kOpenCellHeight: CGFloat = 360
     //dynamically set the height of the open Questions cell so it expands the whole scrren
     let screenSize: CGRect = UIScreen.mainScreen().bounds
     
-    var kRowsCount = 10
+    var kRowsCount = 1
     
     var cellHeights = [CGFloat]()
-    
-    //create flag to determine which card to display
-    var isQuestionsCard = true
     
     //create variable to hold number of results returned
     var numOfResults = 6
@@ -28,20 +33,41 @@ class DiscoverTableViewController: UITableViewController {
     var responseString: String = ""
     var dataCollector = DataCollector()
     
-    var quizBeers: [Beer]? {
+    var quizBeers: [Beer]?
+    
+    var beerToAdd : Int?
+   
+    var quizState : QuizState = .Questions {
         didSet {
-            self.kRowsCount = quizBeers!.count
-            self.createCellHeightsArray()
-            self.tableView.reloadData()
+            if quizState == .Results {
+                
+                kRowsCount = quizBeers!.count
+                self.createCellHeightsArray()
+                self.createRetakeButton()
+                self.tableView.reloadData()
+            }
+            else {
+                
+                self.quizBeers = nil
+                self.responseString = ""
+                self.removeBarButtonItem()
+                kRowsCount = 1
+                self.createCellHeightsArray()
+                self.tableView.reloadData()
+            }
         }
     }
-   
+    
+    @IBAction func addBeerQuizBeerButton(sender: AnyObject) {
+        
+        self.beerToAdd = sender.tag
+        performSegueWithIdentifier("beerQuizToRateBeerSegue", sender: nil)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.navigationController?.setNavigationBarHidden(true, animated: false)
-
         createCellHeightsArray()
     }
     
@@ -53,20 +79,12 @@ class DiscoverTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         
-        if(isQuestionsCard)
-        {
-            return 1
-        }
-        
-        return numOfResults
-        
+        return self.quizState == .Questions ? 1 : self.quizBeers!.count
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -76,47 +94,69 @@ class DiscoverTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingCell
         
-        var duration = 0.0
-        if cellHeights[indexPath.row] == kCloseCellHeight { // open cell
-            cellHeights[indexPath.row] = (screenSize.height - 64)
-            cell.selectedAnimation(true, animated: true, completion: nil)
-            duration = 0.5
-        } else {// close cell
-            cellHeights[indexPath.row] = kCloseCellHeight
-            cell.selectedAnimation(false, animated: true, completion: nil)
-            duration = 1.1
+        if self.quizState == .Questions {
+            
+            var duration = 0.0
+            if cellHeights[indexPath.row] == kCloseCellHeight { // open cell
+                cellHeights[indexPath.row] = (screenSize.height - 64) //(screenSize.height - 64)
+                cell.selectedAnimation(true, animated: true, completion: nil)
+                duration = 0.5
+            } else {// close cell
+                cellHeights[indexPath.row] = kCloseCellHeight
+                cell.selectedAnimation(false, animated: true, completion: nil)
+                duration = 1.1
+            }
+            
+            UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
+                tableView.beginUpdates()
+                tableView.endUpdates()
+                }, completion: nil)
+
+        } else {
+            
+            var duration = 0.0
+            if cellHeights[indexPath.row] == kCloseCellHeight { // open cell
+                cellHeights[indexPath.row] = kOpenCellHeight //(screenSize.height - 64)
+                cell.selectedAnimation(true, animated: true, completion: nil)
+                duration = 0.5
+            } else {// close cell
+                cellHeights[indexPath.row] = kCloseCellHeight
+                cell.selectedAnimation(false, animated: true, completion: nil)
+                duration = 1.1
+            }
+            
+            UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
+                tableView.beginUpdates()
+                tableView.endUpdates()
+                }, completion: nil)
         }
-        
-        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
-            tableView.beginUpdates()
-            tableView.endUpdates()
-            }, completion: nil)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        if(isQuestionsCard)
-        {
-            if let questionsCell = tableView.dequeueReusableCellWithIdentifier("QuestionsCell", forIndexPath: indexPath) as? QuestionsCell {
+        if self.quizState == .Questions {
+            guard let questionsCell = tableView.dequeueReusableCellWithIdentifier("QuestionsCell", forIndexPath: indexPath) as? QuestionsCell else {
                 
-                questionsCell.questionsAnswersTableView.delegate = questionsCell
-                questionsCell.questionsAnswersTableView.dataSource = questionsCell
+                return UITableViewCell()
                 
-                return questionsCell
             }
+            
+            questionsCell.delegate = self
+            
+            return questionsCell
+
         }
-        else
-        {
-            guard let cell = tableView.dequeueReusableCellWithIdentifier("ResultsCell", forIndexPath: indexPath) as? MyBeerCell else {
-                
+        else {
+            
+            guard let cell = tableView.dequeueReusableCellWithIdentifier("BeerQuizResultsCell", forIndexPath: indexPath) as? MyBeerCell else {
                 return UITableViewCell()
             }
             
             guard let beer = quizBeers?[indexPath.row] else {
-                return cell
+                
+                return UITableViewCell()
             }
             
-            //populate cell data
             cell.ibuNumberLabel.text = "\(beer.beerIBU)"
             cell.abvPercentageLabel.text = beer.beerABV.convertToTenthsDecimal() + "%"
             cell.breweryLabel.text = beer.breweryName ?? "420 Blaze It"
@@ -125,65 +165,80 @@ class DiscoverTableViewController: UITableViewController {
             cell.addButton.tag = indexPath.row
             
             //set detail outlets
-            cell.aIbuNumberD.text = "\(beer.beerIBU)"
-            cell.aAbvPercentageD.text = beer.beerABV.convertToTenthsDecimal() + "%"
-            cell.aBreweryNameD.text = beer.breweryName ?? "420 Blaze It"
-            cell.aBeerStyleD.text = beer.beerStyle ?? "Hipster Style"
-            cell.aBeerNameD.text = beer.beerName
-            cell.abreweryLocationD.text = beer.breweryLocation
-            cell.aBeerDescriptionD.text = beer.beerDescription
+            cell.ibuNumberLabelD.text = "\(beer.beerIBU)"
+            cell.abvPercentageLabelD.text = beer.beerABV.convertToTenthsDecimal() + "%"
+            cell.breweryNameD.text = beer.breweryName ?? "420 Blaze It"
+            cell.beerStyleD.text = beer.beerStyle ?? "Hipster Style"
+            cell.beerNameD.text = beer.beerName
+            cell.breweryLocationLabel.text = beer.breweryLocation
+            cell.beerDescriptionLabel.text = beer.beerDescription
             cell.addButtonD.tag = indexPath.row
-                
+            
+            
             return cell
             
         }
-        
-        
-        return UITableViewCell()
     }
+}
 
-    func prepareForDataCollect(responses: [Bool], questions: [[String]])
-    {
-        
-       
-        var z = 0
-        var y = 0
-        for i in 0...responses.count-1 {
-            if responses[i] == true {
+//MARK: Extra methods
 
-                switch i {
-                case 0..<10 :
-                        self.responseString += "keywords=\(questions[0][i])&"
-                case 10..<20 :
-                        //self.fruits![z] = questions[1][i - 10]
-                        self.responseString += "fruits[\(z)]=\(questions[1][i - 10])&"
-                        z += 1
-                    
-                case 20..<30 :
-                        self.responseString += "aroma=\(i - 20)&"
-                
-                case 30..<40 :
-                       self.responseString += "flavors[\(y)]=\(questions[3][i - 30])&"
-                            y += 1
-                case 40..<50 :
-                        self.responseString += "bitterness=\(i - 40)&"
-                case 50..<60 :
-                        self.responseString += "color=\(i - 50)&"
-                    
-                case 60..<70 :
-                       self.responseString += "maltiness=\(i - 60)"
-                
-                default:
-                    debugPrint("none")
-                }
+extension DiscoverTableViewController {
+
+    @IBAction func unwindBackToAddBeer(segue: UIStoryboardSegue) {
+        //make sure the segue has the correct identifier
+        if segue.identifier == "unwindFromRating" {
+            if let sourceVC = segue.sourceViewController as? RateViewController {
+                self.addBeerToCellar(withRating: sourceVC.rating ?? 3)
             }
         }
+    }
+    
+    func prepareForDataCollect(responses: Set<NSIndexPath>, answers: [[String]]) {
+        
+        // Convert the set into an array and sort them by section index
+        let responseArray = Array(responses).sort({ $0.section < $1.section })
+        
+        var numberOfFruits = 0
+        var numberOfFlavors = 0
+        
+        for indexPath in responseArray {
+            switch indexPath.section {
+            case 0 :
+                self.responseString += "keywords=\(answers[indexPath.section][indexPath.row])&"
+                break
+            case 1 :
+                self.responseString += "fruits[\(numberOfFruits)]=\(answers[indexPath.section][indexPath.row])&"
+                numberOfFruits += 1
+                break
+            case 2 :
+                let response = indexPath.row == 0 ? 1 : 0
+                self.responseString += "aroma=\(response)&"
+                break
+            case 3 :
+                self.responseString += "flavors[\(numberOfFlavors)]=\(answers[indexPath.section][indexPath.row])&"
+                numberOfFlavors += 1
+                break
+            case 4 :
+                let response = indexPath.row == 3 ? 0 : indexPath.row
+                self.responseString += "bitterness=\(response)&"
+                break
+            case 5 :
+                let response = indexPath.row == 3 ? 0 : indexPath.row
+                self.responseString += "color=\(response)&"
+                break
+            case 6 :
+                let response = indexPath.row == 2 ? 0 : indexPath.row
+                self.responseString += "maltiness=\(response)"
+                break
+            default :
+                debugPrint("none")
+            }
+        }
+        
         print(responseString)
         
         self.beerQuiz()
-        
-        
-        
     }
     
     func beerQuiz() {
@@ -195,12 +250,110 @@ class DiscoverTableViewController: UITableViewController {
             
             if let unwrappedErrorString = errorString {
                 print(unwrappedErrorString)
+                
+                let alertController = UIAlertController(title: "Sorry!", message: "We could not get any results based on your answers!", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
             }
             else {
-                self.isQuestionsCard = false
-                self.quizBeers = quizBeers
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.quizBeers = quizBeers!
+                    self.quizState = .Results
+                })
             }
         }
     }
-
+    
+    //func to make the api call to add the beer to the cellear
+    func addBeerToCellar(withRating rating: Int) {
+        
+        //grab the index of the beer to add and set it to a beer object
+        guard let beerToAdd = self.beerToAdd, beer = self.quizBeers?[beerToAdd] else {
+            // TODO: handle this
+            print("beer not found at index")
+            return
+        }
+        
+        //decalre parameter string
+        let paramString = "beer=\(beer.beerID)&rating=\(rating)"
+        let headerString = "Bearer \(DataCollector.token)"
+        
+        //call the addBeerToCellar method from the data collector to add the beer the users cellar
+        dataCollector.addBeerToCellar(paramString, headerString: headerString, completionHandler: { (status, errorString) -> Void in
+            
+            if let unwrappedErrorString = errorString {
+                //alert the user that they couldnt add the beer
+                print(unwrappedErrorString)
+                let alertController = UIAlertController(title: "Add Beer Failed", message: unwrappedErrorString, preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
+            }
+            else {
+                
+                //remove beer from quiz reslts list
+                self.quizBeers?.removeAtIndex(beerToAdd)
+                self.tableView.reloadData()
+            }
+        })
+    }
+    
+    
+    func createRetakeButton() {
+        
+        //create bar button item
+        let barButton = UIBarButtonItem(title: "Retake", style: .Plain, target: self, action: #selector(resetQuiz))
+        
+        //configure it
+        barButton.tintColor = UIColor.whiteColor()
+        
+        //add button to nav bar
+        self.navigationItem.setLeftBarButtonItem(barButton, animated: true)
+        
+    }
+    
+    func resetQuiz() {
+        self.quizState = .Questions
+    }
+    
+    
+    func removeBarButtonItem() {
+        self.navigationItem.setLeftBarButtonItem(nil, animated: true)
+    }
+    
+    
+    
 }
+
+extension DiscoverTableViewController : QuestionsCellDelegate {
+    
+    func questionsCell(questionsCell: QuestionsCell, didSubmitResponses responses: Set<NSIndexPath>, forAnswers answers: [[String]]) {
+        
+        self.prepareForDataCollect(responses, answers: answers)
+        
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
