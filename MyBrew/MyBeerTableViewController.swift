@@ -32,6 +32,8 @@ class MyBeerTableViewController: UITableViewController {
         }
     }
     
+    var filterdBeers = [Beer]()
+    
     @IBAction func unwindBackToMyBeer(segue: UIStoryboardSegue) {
         //make sure the segue has the correct identifier
         if segue.identifier == "unwindFromAddBeer" {
@@ -91,12 +93,20 @@ class MyBeerTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+
+        if searchController.active && searchController.searchBar.text != "" {
+            return filterdBeers.count
+        }
+        
         return myBeers?.count ?? 0
     }
     
-    func filterContentForSearchText(searchText: String, scope: String = "ALL")
-    {
+    func filterContentForSearchText(searchText: String, scope: String = "ALL") {
+        
+        filterdBeers = (myBeers?.filter { beer in
+            return beer.beerName.lowercaseString.containsString(searchText.lowercaseString)
+            })!
+        
         tableView.reloadData()
     }
     
@@ -106,9 +116,19 @@ class MyBeerTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath) as! MyBeerCell
         
-        guard let beer = myBeers?[indexPath.row] else{
-            return cell
+        let beer : Beer
+        
+        if searchController.active && searchController.searchBar.text != "" {
+            beer = filterdBeers[indexPath.row]
         }
+        else {
+            beer = (myBeers?[indexPath.row])!
+        }
+        
+//        guard let beer = myBeers?[indexPath.row] else{
+//            return cell
+//        }
+        
         
         cell.ibuNumberLabel.text = "\(beer.beerIBU)"
         cell.abvPercentageLabel.text = beer.beerABV.convertToTenthsDecimal() + "%"

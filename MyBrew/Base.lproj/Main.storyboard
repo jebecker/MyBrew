@@ -33,21 +33,33 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="172" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="6bt-T0-l73" id="OpK-na-2ri"/>
+                                                        </connections>
                                                     </textField>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QGu-so-YKT">
                                                         <rect key="frame" x="0.0" y="55" width="172" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="6bt-T0-l73" id="zhn-2C-e87"/>
+                                                        </connections>
                                                     </textField>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qdz-X2-FNR">
                                                         <rect key="frame" x="0.0" y="110" width="172" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="emailAddress"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="6bt-T0-l73" id="zTQ-jY-e7w"/>
+                                                        </connections>
                                                     </textField>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password (Min 8 chars)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kbv-1E-ZMc">
                                                         <rect key="frame" x="0.0" y="165" width="172" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" spellCheckingType="no" secureTextEntry="YES"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="6bt-T0-l73" id="05d-ZU-njr"/>
+                                                        </connections>
                                                     </textField>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Birthday" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OUx-LY-Zw5">
                                                         <rect key="frame" x="0.0" y="220" width="172" height="30"/>
@@ -55,6 +67,7 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
                                                             <action selector="birthdayTextFieldEditing:" destination="6bt-T0-l73" eventType="editingDidBegin" id="aUu-JO-S6N"/>
+                                                            <outlet property="delegate" destination="6bt-T0-l73" id="DJn-1v-PXT"/>
                                                         </connections>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xem-Xm-Fvt">
@@ -80,10 +93,14 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="38X-Th-GqP" firstAttribute="centerX" secondItem="TLR-2g-ixB" secondAttribute="centerX" id="hqg-b3-vdL"/>
                                             <constraint firstItem="38X-Th-GqP" firstAttribute="centerY" secondItem="TLR-2g-ixB" secondAttribute="centerY" id="kRF-oD-HPs"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="LjJ-nN-EfO" appends="YES" id="Flb-Kv-PzO"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -108,7 +125,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="If3-DS-Yp8">
                             <color key="tintColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="Ey4-bo-UVB" kind="unwind" identifier="unwindFromRegister" unwindAction="unwindBackToLogin:" id="Egm-7k-q9D"/>
+                                <action selector="cancelButtonPressed:" destination="6bt-T0-l73" id="VcM-sC-QE1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -118,13 +135,18 @@
                         <outlet property="firstNameTextField" destination="V21-P0-EZg" id="1Sf-k3-Sfa"/>
                         <outlet property="lastNameTextField" destination="QGu-so-YKT" id="ZJl-5R-4nJ"/>
                         <outlet property="passwordTextField" destination="Kbv-1E-ZMc" id="5p0-Ae-YZo"/>
-                        <segue destination="RDb-0j-ayA" kind="show" identifier="registrationToMyBeersSegue" id="KW3-Tz-hkJ"/>
+                        <segue destination="Ey4-bo-UVB" kind="unwind" identifier="unwindFromRegister" unwindAction="unwindBackToLogin:" id="dch-ur-fwJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ast-ea-gGi" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Ey4-bo-UVB" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="LjJ-nN-EfO">
+                    <connections>
+                        <action selector="tapToDismissKeyboard:" destination="6bt-T0-l73" id="N2n-kF-phC"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="18" y="-634"/>
+            <point key="canvasLocation" x="-302" y="-442"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="eNp-zi-Jdc">
@@ -138,60 +160,91 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="WQd-H0-XZ8">
-                                <rect key="frame" x="200" y="288" width="200" height="165"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Wzj-aq-NOe">
+                                <rect key="frame" x="150" y="117.5" width="300" height="365"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jaymebecker2012@gmail.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X8v-69-cZF">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Scu-ze-CE4">
-                                        <rect key="frame" x="0.0" y="45" width="200" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dme-Wn-moE">
-                                        <rect key="frame" x="0.0" y="90" width="200" height="30"/>
-                                        <color key="backgroundColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Login">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="loginButtonPressed:" destination="NhW-7L-oL0" eventType="touchUpInside" id="UuJ-hg-ASP"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5h7-6f-AGa">
-                                        <rect key="frame" x="0.0" y="135" width="200" height="30"/>
-                                        <state key="normal" title="Register">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="registerButtonPressed:" destination="NhW-7L-oL0" eventType="touchUpInside" id="qKU-dJ-Kk5"/>
-                                        </connections>
-                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LoginImage" translatesAutoresizingMaskIntoConstraints="NO" id="pvd-tx-sVg">
+                                        <rect key="frame" x="50" y="0.0" width="200" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="89C-ID-kqI"/>
+                                            <constraint firstAttribute="width" secondItem="pvd-tx-sVg" secondAttribute="height" multiplier="1:1" id="SqJ-6E-lbT"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="WQd-H0-XZ8">
+                                        <rect key="frame" x="43" y="200" width="214" height="165"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="jaymebecker2012@gmail.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X8v-69-cZF">
+                                                <rect key="frame" x="0.0" y="0.0" width="214" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="NhW-7L-oL0" id="uiv-bH-uj2"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="password" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Scu-ze-CE4">
+                                                <rect key="frame" x="0.0" y="45" width="214" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="NhW-7L-oL0" id="pQS-71-Xwn"/>
+                                                </connections>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dme-Wn-moE">
+                                                <rect key="frame" x="0.0" y="90" width="214" height="30"/>
+                                                <color key="backgroundColor" red="0.30196078430000001" green="0.58039215690000001" blue="0.67843137249999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="Login">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="loginButtonPressed:" destination="NhW-7L-oL0" eventType="touchUpInside" id="UuJ-hg-ASP"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5h7-6f-AGa">
+                                                <rect key="frame" x="0.0" y="135" width="214" height="30"/>
+                                                <state key="normal" title="Register">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="registerButtonPressed:" destination="NhW-7L-oL0" eventType="touchUpInside" id="qKU-dJ-Kk5"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="o6b-JT-mQU"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="WQd-H0-XZ8" firstAttribute="centerY" secondItem="t3p-BF-uvg" secondAttribute="centerY" constant="70" id="Ota-TD-PaZ"/>
-                            <constraint firstItem="WQd-H0-XZ8" firstAttribute="centerX" secondItem="t3p-BF-uvg" secondAttribute="centerX" id="c3B-Kb-hit"/>
+                            <constraint firstItem="Wzj-aq-NOe" firstAttribute="top" secondItem="v3W-lQ-ROg" secondAttribute="bottom" constant="28" id="LFO-u4-z1q"/>
+                            <constraint firstItem="Wzj-aq-NOe" firstAttribute="centerY" secondItem="t3p-BF-uvg" secondAttribute="centerY" id="mrk-5G-ZHm"/>
+                            <constraint firstItem="Wzj-aq-NOe" firstAttribute="width" secondItem="t3p-BF-uvg" secondAttribute="width" multiplier="0.5" id="pMd-bU-F8b"/>
+                            <constraint firstItem="Wzj-aq-NOe" firstAttribute="centerX" secondItem="t3p-BF-uvg" secondAttribute="centerX" id="vP4-mA-EaL"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="LFO-u4-z1q"/>
+                            </mask>
+                        </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="w8T-aJ-wXX" appends="YES" id="zYQ-cA-LhQ"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="X8v-69-cZF" id="xlI-0h-Y23"/>
                         <outlet property="passwordTextField" destination="Scu-ze-CE4" id="uKN-cT-iVh"/>
                         <segue destination="RDb-0j-ayA" kind="show" identifier="loginToMyBeerSegue" id="hHc-uJ-WZX"/>
-                        <segue destination="N7A-0n-qef" kind="show" identifier="loginToRegisterSegue" id="JSx-Zf-UTl"/>
+                        <segue destination="N7A-0n-qef" kind="presentation" identifier="loginToRegisterSegue" id="ivY-Se-XMc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="urw-SO-bj0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="w8T-aJ-wXX">
+                    <connections>
+                        <action selector="tapToDismissKeyboard:" destination="NhW-7L-oL0" id="0QC-7K-aE5"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1875" y="555"/>
+            <point key="canvasLocation" x="-2067" y="-453"/>
         </scene>
         <!--Main Page View Controller-->
         <scene sceneID="oeO-gb-SFS">
@@ -199,7 +252,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" title="Main Page View Controller" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="RDb-0j-ayA" customClass="MainPageViewController" customModule="MyBrew" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i3g-Cy-2bi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-26" y="669"/>
+            <point key="canvasLocation" x="-1190" y="293"/>
         </scene>
         <!--My Beer Navigation Controller-->
         <scene sceneID="iTi-Vc-a05">
@@ -223,7 +276,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q52-dn-Fze" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1120" y="55"/>
+            <point key="canvasLocation" x="-2116" y="279"/>
         </scene>
         <!--My Beer Table View Controller-->
         <scene sceneID="KA0-r0-V8j">
@@ -660,7 +713,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="maW-Du-Td1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1128" y="1143"/>
+            <point key="canvasLocation" x="-2100" y="971"/>
         </scene>
         <!--Discover Table View Controller-->
         <scene sceneID="Bz4-89-dEn">
@@ -715,8 +768,8 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                                                 <rect key="frame" x="0.0" y="0.0" width="570" height="54.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NW8-8M-HZi">
-                                                                        <rect key="frame" x="8" y="17" width="544" height="21"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NW8-8M-HZi">
+                                                                        <rect key="frame" x="8" y="17" width="554" height="21"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -1268,7 +1321,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C6f-fh-rOc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2945" y="-233"/>
+            <point key="canvasLocation" x="-335" y="847"/>
         </scene>
         <!--Recommendations Navigation Controller-->
         <scene sceneID="KjE-fB-ogP">
@@ -1288,7 +1341,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0FE-lW-roX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2066" y="809"/>
+            <point key="canvasLocation" x="474" y="285"/>
         </scene>
         <!--Recommendations Table View Controller-->
         <scene sceneID="4dm-ZD-4mt">
@@ -1721,7 +1774,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5o-xO-nV7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2054" y="1587"/>
+            <point key="canvasLocation" x="490" y="1031"/>
         </scene>
         <!--Discover Navigation Controller-->
         <scene sceneID="IXf-aR-FxL">
@@ -1741,7 +1794,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WTv-Dg-f2P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2194" y="-233"/>
+            <point key="canvasLocation" x="-1190" y="947"/>
         </scene>
         <!--Add Beer Table View Controller-->
         <scene sceneID="X2l-EY-GhV">
@@ -2183,7 +2236,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qYx-MQ-Gzu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="OBR-0a-Wby" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1185" y="2832"/>
+            <point key="canvasLocation" x="-1232" y="1660"/>
         </scene>
         <!--RateBeer-->
         <scene sceneID="qab-lt-R4B">
@@ -2260,7 +2313,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G4W-GY-Sgh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="q68-hL-8aj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4020" y="430"/>
+            <point key="canvasLocation" x="490" y="1782"/>
         </scene>
         <!--Add Beer Nav Controller-->
         <scene sceneID="ebb-TK-LAf">
@@ -2282,7 +2335,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9lB-Qv-d7n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="937" y="1970"/>
+            <point key="canvasLocation" x="-2100" y="1666"/>
         </scene>
         <!--Register Nav Controller-->
         <scene sceneID="Fu6-uk-1KF">
@@ -2304,16 +2357,16 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Ka-fY-4nY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1092" y="-634"/>
+            <point key="canvasLocation" x="-1140" y="-458"/>
         </scene>
     </scenes>
     <resources>
+        <image name="LoginImage" width="330" height="330"/>
         <image name="StarEmpty" width="22" height="22"/>
         <image name="StarFull" width="22" height="22"/>
         <image name="beerImage" width="58" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="xhN-6j-l8g"/>
-        <segue reference="KW3-Tz-hkJ"/>
     </inferredMetricsTieBreakers>
 </document>

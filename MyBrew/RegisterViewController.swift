@@ -13,7 +13,6 @@ class RegisterViewController: UIViewController {
     //declare variables
     let registrationUrlString = "https://api-mybrew.rhcloud.com/api/auth/register"
     var dataCollector: DataCollector = DataCollector()
-    //var token: String = "nothing"
 
     //declare outlets
     @IBOutlet weak var birthdayTextField: UITextField!
@@ -22,6 +21,14 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     
+    @IBAction func cancelButtonPressed(sender: AnyObject) {
+        
+        performSegueWithIdentifier("unwindFromRegister", sender: nil)
+    }
+    
+    @IBAction func tapToDismissKeyboard(sender: AnyObject) {
+        self.view.endEditing(true)
+    }
     
     //function to keep track of the birthdayTextField while it is being edited
     @IBAction func birthdayTextFieldEditing(sender: UITextField) {
@@ -49,12 +56,9 @@ class RegisterViewController: UIViewController {
                 {
                     //self.token = self.dataCollector.token
                     print("User Registered in with token \(DataCollector.token)")
+                    self.performSegueWithIdentifier("unwindFromRegister", sender: nil)
                 }
-                
             })
-            
-            performSegueWithIdentifier("registrationToMyBeersSegue", sender: nil)
-
         }
         else
         {
@@ -79,4 +83,17 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
       
     }
+}
+
+
+
+//MARK UITextFieldDelegate method to dismiss keyboard
+
+extension RegisterViewController : UITextFieldDelegate {
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
 }

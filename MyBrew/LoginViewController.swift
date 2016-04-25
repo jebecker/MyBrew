@@ -19,6 +19,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBAction func tapToDismissKeyboard(sender: AnyObject) {
+        self.view.endEditing(true)
+    }
     @IBAction func loginButtonPressed(sender: AnyObject){
         
         //authenticate user
@@ -46,6 +49,13 @@ class LoginViewController: UIViewController {
         //transition to the registration view
         performSegueWithIdentifier("loginToRegisterSegue", sender: nil)
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        //check to see if the user sucessfully registered and then wait until the unwind segue finishes before performing the next one
+        if let _ = DataCollector.token {
+            self.performSegueWithIdentifier("loginToMyBeerSegue", sender: nil)
+        }
     }
     
     override func viewDidLoad() {
@@ -83,8 +93,41 @@ class LoginViewController: UIViewController {
                 sourceVC.passwordTextField.text = ""
                 sourceVC.birthdayTextField.text = ""
                 sourceVC.view.window?.endEditing(true)
-
             }
         }
     }
 }
+
+
+//MARK UITextFieldDelegate method to dismiss keyboard
+
+extension LoginViewController : UITextFieldDelegate {
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

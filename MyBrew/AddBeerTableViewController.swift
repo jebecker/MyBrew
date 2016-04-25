@@ -39,6 +39,8 @@ class AddBeerTableViewController: UITableViewController {
         }
     }
     
+    var filterdBeers = [Beer]()
+    
     //addBeer action 
     @IBAction func addBeer(sender: AnyObject) {
        
@@ -93,25 +95,32 @@ class AddBeerTableViewController: UITableViewController {
         self.cellHeights = Array(count: self.kRowsCount, repeatedValue: self.kCloseCellHeight)
     }
     
+    
+    func filterContentForSearchText(searchText: String, scope: String = "ALL") {
+        
+        filterdBeers = (globalBeers?.filter { beer in
+            return beer.beerName.lowercaseString.containsString(searchText.lowercaseString)
+            })!
+        
+        tableView.reloadData()
+    }
+    
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+
         return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+
+        if searchController.active && searchController.searchBar.text != "" {
+            return filterdBeers.count
+        }
+        
         return globalBeers?.count ?? 0
     }
     
-    func filterContentForSearchText(searchText: String, scope: String = "ALL")
-    {
-        tableView.reloadData()
-    }
-    
-    
-    // MARK: Table View Data Source
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -119,8 +128,13 @@ class AddBeerTableViewController: UITableViewController {
             return UITableViewCell()
         }
         
-        guard let beer = globalBeers?[indexPath.row] else{
-            return cell
+        let beer : Beer
+        
+        if searchController.active && searchController.searchBar.text != "" {
+            beer = filterdBeers[indexPath.row]
+        }
+        else {
+            beer = (globalBeers?[indexPath.row])!
         }
         
         //populate cell data

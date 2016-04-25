@@ -10,7 +10,7 @@ import Foundation
 
 class DataCollector {
     
-    static var token: String = "nothing"
+    static var token: String?
     var beers = Array<Beer>()
     var globalBeersArray = Array<Beer>()
     var dailyBeerArray = Array<Beer>()
