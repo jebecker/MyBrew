@@ -69,6 +69,15 @@ class AddBeerTableViewController: UITableViewController {
         //call the beerCellar function
         globalBeersList()
         
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), forControlEvents: UIControlEvents.ValueChanged)
+        
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        self.globalBeersList()
+        
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     //function to get the beer cellar of user from our API and configure the cell
@@ -186,11 +195,18 @@ class AddBeerTableViewController: UITableViewController {
     //func to make the api call to add the beer to the cellear
     func addBeerToCellar(withRating rating: Int) {
         
-        //grab the index of the beer to add and set it to a beer object
-        guard let beerToAdd = self.beerToAdd, beer = self.globalBeers?[beerToAdd] else {
-            // TODO: handle this
-            print("beer not found at index")
-            return
+        let beerToAdd = self.beerToAdd!
+        var beer : Beer
+        var flag : Int
+        
+        //check to see if the search controller is active, if it is, use the filtered beers array to add the beer
+        if searchController.active && searchController.searchBar.text != "" {
+            beer = self.filterdBeers[beerToAdd]
+            flag = 1
+        }
+        else {
+            beer = (self.globalBeers?[beerToAdd])!
+            flag = 0
         }
         
         //decalre parameter string
@@ -210,14 +226,20 @@ class AddBeerTableViewController: UITableViewController {
                     
                 }
                 else {
-                    //remove beer from global beers array
-                    self.globalBeers?.removeAtIndex(beerToAdd)
+                    
+                    if flag == 1 {
+                        self.filterdBeers.removeAtIndex(beerToAdd)
+                        self.tableView.reloadData()
+                    }
+                    else {
+                        
+                        //remove beer from global beers array
+                        self.globalBeers?.removeAtIndex(beerToAdd)
+                    }
                 }
             }
         )
     }
-    
-    
 }
 
 //MARK: TableViewController unwind segue to return back to the add beer page

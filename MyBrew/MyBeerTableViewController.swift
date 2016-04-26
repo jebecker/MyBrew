@@ -73,6 +73,15 @@ class MyBeerTableViewController: UITableViewController {
         
         //call the beerCellar function
         beerCellar()
+        
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), forControlEvents: UIControlEvents.ValueChanged)
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        self.beerCellar()
+        
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -194,11 +203,17 @@ extension MyBeerTableViewController {
     //function to delete the specific beer from a users cellar
     func deleteBeerFromCellar(atIndex index: Int) {
        
-        //grab the index of the beer to add and set it to a beer object
-        guard let beer = self.myBeers?.removeAtIndex(index) else {
-            // TODO: handle this
-            print("beer not found at index")
-            return
+        var flag : Int
+        var beer : Beer
+        
+        if searchController.active && searchController.searchBar.text != "" {
+            beer = self.filterdBeers.removeAtIndex(index)
+            
+            flag = 1
+        }
+        else {
+            beer = (self.myBeers?.removeAtIndex(index))!
+            flag = 0
         }
         
         let paramString = "beer=\(beer.beerID)"
@@ -213,9 +228,15 @@ extension MyBeerTableViewController {
                 alertController.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
                 self.presentViewController(alertController, animated: true, completion: nil)
                 
-                //add beer back to myBeers list and reload table
-                self.myBeers?.append(beer)
-                self.tableView.reloadData()
+                
+                if flag == 1 {
+                    self.filterdBeers.append(beer)
+                    self.tableView.reloadData()
+                }
+                else {
+                    self.myBeers?.append(beer)
+                    self.tableView.reloadData()
+                }
                 
             }
             else {
