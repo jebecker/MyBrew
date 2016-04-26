@@ -38,7 +38,7 @@ class LoginViewController: UIViewController {
                     //save the status and message returned
                     self.status = status
                    // self.message = message
-                    print("User Logged in with token \(DataCollector.token)")
+                    print("User Logged in with token \(DataCollector.token!)")
                     self.transitionToMyBeerView()
                 }
             }

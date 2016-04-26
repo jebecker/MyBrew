@@ -76,7 +76,7 @@ class AddBeerTableViewController: UITableViewController {
     {
         let globalBeerListString = "https://api-mybrew.rhcloud.com/api/beers"
         //let token = dataCollector.token
-        let paramString = "Bearer \(DataCollector.token)"
+        let paramString = "Bearer \(DataCollector.token!)"
         
         dataCollector.globalBeersListRequest(globalBeerListString, paramString: paramString) { globalBeers, errorString in
             if let unwrappedErrorString = errorString
@@ -195,7 +195,7 @@ class AddBeerTableViewController: UITableViewController {
         
         //decalre parameter string
         let paramString = "beer=\(beer.beerID)&rating=\(rating)"
-        let headerString = "Bearer \(DataCollector.token)"
+        let headerString = "Bearer \(DataCollector.token!)"
         
         //call the addBeerToCellar method from the data collector to add the beer the users cellar
         dataCollector.addBeerToCellar(paramString, headerString: headerString, completionHandler: { (status, errorString) -> Void in

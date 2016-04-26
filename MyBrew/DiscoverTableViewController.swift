@@ -19,9 +19,13 @@ class DiscoverTableViewController: UITableViewController {
     
     //add properties for the cell
     let kCloseCellHeight: CGFloat = 140
-    let kOpenCellHeight: CGFloat = 360
+    var kOpenCellHeight: CGFloat {
+        get {
+            return self.quizState == .Questions ? 520 : 360
+        }
+    }
     //dynamically set the height of the open Questions cell so it expands the whole scrren
-    let screenSize: CGRect = UIScreen.mainScreen().bounds
+    var openQuestionCellHeight: CGRect = UIScreen.mainScreen().bounds
     
     var kRowsCount = 1
     
@@ -30,7 +34,6 @@ class DiscoverTableViewController: UITableViewController {
     //create variable to hold number of results returned
     var numOfResults = 6
     
-    var responseString: String = ""
     var dataCollector = DataCollector()
     
     var quizBeers: [Beer]?
@@ -48,8 +51,7 @@ class DiscoverTableViewController: UITableViewController {
             }
             else {
                 
-                self.quizBeers = nil
-                self.responseString = ""
+                self.quizBeers?.removeAll()
                 self.removeBarButtonItem()
                 kRowsCount = 1
                 self.createCellHeightsArray()
@@ -94,26 +96,7 @@ class DiscoverTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingCell
         
-        if self.quizState == .Questions {
-            
-            var duration = 0.0
-            if cellHeights[indexPath.row] == kCloseCellHeight { // open cell
-                cellHeights[indexPath.row] = (screenSize.height - 64) //(screenSize.height - 64)
-                cell.selectedAnimation(true, animated: true, completion: nil)
-                duration = 0.5
-            } else {// close cell
-                cellHeights[indexPath.row] = kCloseCellHeight
-                cell.selectedAnimation(false, animated: true, completion: nil)
-                duration = 1.1
-            }
-            
-            UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
-                tableView.beginUpdates()
-                tableView.endUpdates()
-                }, completion: nil)
 
-        } else {
-            
             var duration = 0.0
             if cellHeights[indexPath.row] == kCloseCellHeight { // open cell
                 cellHeights[indexPath.row] = kOpenCellHeight //(screenSize.height - 64)
@@ -129,7 +112,8 @@ class DiscoverTableViewController: UITableViewController {
                 tableView.beginUpdates()
                 tableView.endUpdates()
                 }, completion: nil)
-        }
+
+        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -196,6 +180,8 @@ extension DiscoverTableViewController {
     
     func prepareForDataCollect(responses: Set<NSIndexPath>, answers: [[String]]) {
         
+        var responseString: String = ""
+        
         // Convert the set into an array and sort them by section index
         let responseArray = Array(responses).sort({ $0.section < $1.section })
         
@@ -205,31 +191,31 @@ extension DiscoverTableViewController {
         for indexPath in responseArray {
             switch indexPath.section {
             case 0 :
-                self.responseString += "keywords=\(answers[indexPath.section][indexPath.row])&"
+                responseString += "keywords=\(answers[indexPath.section][indexPath.row])&"
                 break
             case 1 :
-                self.responseString += "fruits[\(numberOfFruits)]=\(answers[indexPath.section][indexPath.row])&"
+                responseString += "fruits[\(numberOfFruits)]=\(answers[indexPath.section][indexPath.row])&"
                 numberOfFruits += 1
                 break
             case 2 :
                 let response = indexPath.row == 0 ? 1 : 0
-                self.responseString += "aroma=\(response)&"
+                responseString += "aroma=\(response)&"
                 break
             case 3 :
-                self.responseString += "flavors[\(numberOfFlavors)]=\(answers[indexPath.section][indexPath.row])&"
+                responseString += "flavors[\(numberOfFlavors)]=\(answers[indexPath.section][indexPath.row])&"
                 numberOfFlavors += 1
                 break
             case 4 :
                 let response = indexPath.row == 3 ? 0 : indexPath.row
-                self.responseString += "bitterness=\(response)&"
+                responseString += "bitterness=\(response)&"
                 break
             case 5 :
                 let response = indexPath.row == 3 ? 0 : indexPath.row
-                self.responseString += "color=\(response)&"
+                responseString += "color=\(response)&"
                 break
             case 6 :
                 let response = indexPath.row == 2 ? 0 : indexPath.row
-                self.responseString += "maltiness=\(response)"
+                responseString += "maltiness=\(response)"
                 break
             default :
                 debugPrint("none")
@@ -238,13 +224,13 @@ extension DiscoverTableViewController {
         
         print(responseString)
         
-        self.beerQuiz()
+        self.beerQuiz(responseString)
     }
     
-    func beerQuiz() {
+    func beerQuiz(parameterString: String) {
         
-        let paramString = self.responseString
-        let headerString = "Bearer \(DataCollector.token)"
+        let paramString = parameterString
+        let headerString = "Bearer \(DataCollector.token!)"
         
         dataCollector.beerQuizRequest(withHeaderString: headerString, withParamString: paramString) { quizBeers, errorString  in
             
@@ -259,6 +245,7 @@ extension DiscoverTableViewController {
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), {
+                    self.quizBeers?.removeAll()
                     self.quizBeers = quizBeers!
                     self.quizState = .Results
                 })
@@ -278,7 +265,7 @@ extension DiscoverTableViewController {
         
         //decalre parameter string
         let paramString = "beer=\(beer.beerID)&rating=\(rating)"
-        let headerString = "Bearer \(DataCollector.token)"
+        let headerString = "Bearer \(DataCollector.token!)"
         
         //call the addBeerToCellar method from the data collector to add the beer the users cellar
         dataCollector.addBeerToCellar(paramString, headerString: headerString, completionHandler: { (status, errorString) -> Void in
@@ -335,6 +322,16 @@ extension DiscoverTableViewController : QuestionsCellDelegate {
         self.prepareForDataCollect(responses, answers: answers)
         
     }
+    
+    func displayAlert(title: String, message: String, actionTitle: String) {
+        //alert user that beer couldnt be removed
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alertController.addAction(UIAlertAction(title: actionTitle, style: .Default, handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
+
+    }
+    
+    
     
 }
 

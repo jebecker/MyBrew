@@ -55,7 +55,7 @@ class RegisterViewController: UIViewController {
                 else
                 {
                     //self.token = self.dataCollector.token
-                    print("User Registered in with token \(DataCollector.token)")
+                    print("User Registered in with token \(DataCollector.token!)")
                     self.performSegueWithIdentifier("unwindFromRegister", sender: nil)
                 }
             })

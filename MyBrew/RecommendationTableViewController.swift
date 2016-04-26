@@ -181,7 +181,7 @@ extension RecommendationTableViewController {
     //func to grab the daily beer
     func getDailyBeer() {
         
-        let headerString = "Bearer \(DataCollector.token)"
+        let headerString = "Bearer \(DataCollector.token!)"
         
         dataCollector.grabDailyBeer(headerString) { dailyBeer, errorString in
             
@@ -200,7 +200,7 @@ extension RecommendationTableViewController {
     //func to grab the recommended beers
     func getRecommendedBeers() {
         
-        let headerString = "Bearer \(DataCollector.token)"
+        let headerString = "Bearer \(DataCollector.token!)"
         
         dataCollector.recommendedBeersListRequest(headerString) { recommendBeers, errorString in
             
@@ -231,7 +231,7 @@ extension RecommendationTableViewController {
             
             //set parameter and header string
             paramString = "beer=\(beer.beerID)&rating=\(rating)"
-            headerString = "Bearer \(DataCollector.token)"
+            headerString = "Bearer \(DataCollector.token!)"
         }
         else {
             
@@ -244,7 +244,7 @@ extension RecommendationTableViewController {
             
             //set parameter and header string
             paramString = "beer=\(beer.beerID)&rating=\(rating)"
-            headerString = "Bearer \(DataCollector.token)"
+            headerString = "Bearer \(DataCollector.token!)"
         }
         
 

@@ -725,11 +725,11 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                         <color key="backgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="QuestionsCell" rowHeight="754" id="TMU-2V-dIy" userLabel="Questions Cell" customClass="QuestionsCell" customModule="MyBrew" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="754"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="QuestionsCell" rowHeight="573" id="TMU-2V-dIy" userLabel="Questions Cell" customClass="QuestionsCell" customModule="MyBrew" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="573"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TMU-2V-dIy" id="n3i-zZ-IuW">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="754"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="573"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O4x-4Z-Dhb" customClass="RotatedView" customModule="MyBrew" customModuleProvider="target">
@@ -752,14 +752,27 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aky-TJ-e25">
-                                            <rect key="frame" x="15" y="140" width="570" height="600"/>
+                                            <rect key="frame" x="15" y="140" width="570" height="500"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ife-fj-g37">
+                                                    <rect key="frame" x="0.0" y="443" width="570" height="41"/>
+                                                    <color key="backgroundColor" red="0.30196078430000001" green="0.87843137250000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <state key="normal" title="Submit">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="submitButtonPressed:" destination="TMU-2V-dIy" eventType="touchUpInside" id="5lK-b1-VPt"/>
+                                                    </connections>
+                                                </button>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pEc-re-wdF">
-                                                    <rect key="frame" x="0.0" y="10" width="570" height="530"/>
+                                                    <rect key="frame" x="0.0" y="10" width="570" height="425"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="530" id="mTk-Tv-bGs"/>
-                                                    </constraints>
                                                     <prototypes>
                                                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SingleQuestionCell" rowHeight="55" id="fZM-HC-HpI" customClass="SingleQuestionCell" customModule="MyBrew" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="28" width="570" height="55"/>
@@ -815,58 +828,18 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                                         <outlet property="delegate" destination="TMU-2V-dIy" id="mkb-Yv-sva"/>
                                                     </connections>
                                                 </tableView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jDR-ji-nAG">
-                                                    <rect key="frame" x="0.0" y="540" width="570" height="60"/>
-                                                    <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ife-fj-g37">
-                                                            <rect key="frame" x="8" y="8" width="554" height="44"/>
-                                                            <color key="backgroundColor" red="0.30196078430000001" green="0.87843137250000003" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                            <state key="normal" title="Submit">
-                                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                    <integer key="value" value="8"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                            <connections>
-                                                                <action selector="submitButtonPressed:" destination="TMU-2V-dIy" eventType="touchUpInside" id="5lK-b1-VPt"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
-                                                    <color key="backgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <constraints>
-                                                        <constraint firstItem="ife-fj-g37" firstAttribute="leading" secondItem="jDR-ji-nAG" secondAttribute="leading" constant="8" id="9It-Ba-bo9"/>
-                                                        <constraint firstAttribute="height" constant="60" id="UEN-JY-NUS"/>
-                                                        <constraint firstItem="ife-fj-g37" firstAttribute="top" secondItem="jDR-ji-nAG" secondAttribute="top" constant="8" id="f5S-D8-3NM"/>
-                                                        <constraint firstAttribute="bottom" secondItem="ife-fj-g37" secondAttribute="bottom" constant="8" id="sXf-xv-bI2"/>
-                                                        <constraint firstAttribute="trailing" secondItem="ife-fj-g37" secondAttribute="trailing" constant="8" id="wmF-o5-zzo"/>
-                                                    </constraints>
-                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="jDR-ji-nAG" secondAttribute="bottom" id="6Pp-Ut-zV2"/>
-                                                <constraint firstAttribute="trailing" secondItem="jDR-ji-nAG" secondAttribute="trailing" id="AM3-Pp-1EZ"/>
-                                                <constraint firstAttribute="bottom" secondItem="jDR-ji-nAG" secondAttribute="bottom" id="EeT-lV-IT5"/>
+                                                <constraint firstAttribute="height" constant="500" id="0GK-hk-0Da"/>
+                                                <constraint firstItem="ife-fj-g37" firstAttribute="top" secondItem="pEc-re-wdF" secondAttribute="bottom" constant="8" id="GpM-mF-Qcq"/>
                                                 <constraint firstItem="pEc-re-wdF" firstAttribute="leading" secondItem="Aky-TJ-e25" secondAttribute="leading" id="PvH-II-EEq"/>
                                                 <constraint firstAttribute="trailing" secondItem="pEc-re-wdF" secondAttribute="trailing" id="T1R-b8-m2v"/>
-                                                <constraint firstItem="jDR-ji-nAG" firstAttribute="leading" secondItem="Aky-TJ-e25" secondAttribute="leading" id="XBo-Oq-WFW"/>
-                                                <constraint firstAttribute="height" constant="600" id="eBh-WO-YEw"/>
-                                                <constraint firstItem="jDR-ji-nAG" firstAttribute="top" secondItem="pEc-re-wdF" secondAttribute="bottom" id="hSw-UF-1wl"/>
-                                                <constraint firstAttribute="height" constant="400" id="ngT-5A-3zp"/>
-                                                <constraint firstItem="jDR-ji-nAG" firstAttribute="top" secondItem="pEc-re-wdF" secondAttribute="bottom" id="qyb-K2-kDr"/>
-                                                <constraint firstAttribute="height" constant="400" identifier="questionCellHeight" id="uoe-53-XMI"/>
+                                                <constraint firstItem="ife-fj-g37" firstAttribute="width" secondItem="Aky-TJ-e25" secondAttribute="width" id="WGj-D2-siw"/>
+                                                <constraint firstAttribute="bottom" secondItem="ife-fj-g37" secondAttribute="bottom" constant="16" id="Zst-gU-OJK"/>
+                                                <constraint firstItem="pEc-re-wdF" firstAttribute="top" secondItem="Aky-TJ-e25" secondAttribute="top" constant="10" id="mbe-dJ-zcI"/>
+                                                <constraint firstItem="ife-fj-g37" firstAttribute="centerX" secondItem="Aky-TJ-e25" secondAttribute="centerX" id="wzW-ZG-Ktt"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="ngT-5A-3zp"/>
-                                                    <exclude reference="uoe-53-XMI"/>
-                                                    <exclude reference="EeT-lV-IT5"/>
-                                                    <exclude reference="hSw-UF-1wl"/>
-                                                </mask>
-                                            </variation>
                                         </view>
                                     </subviews>
                                     <color key="backgroundColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -875,16 +848,9 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                         <constraint firstItem="Aky-TJ-e25" firstAttribute="leading" secondItem="n3i-zZ-IuW" secondAttribute="leading" constant="15" id="C23-nh-xgo"/>
                                         <constraint firstItem="O4x-4Z-Dhb" firstAttribute="leading" secondItem="n3i-zZ-IuW" secondAttribute="leading" constant="20" id="Jmg-Xh-Ey0"/>
                                         <constraint firstItem="Aky-TJ-e25" firstAttribute="top" secondItem="n3i-zZ-IuW" secondAttribute="top" constant="140" identifier="ContainerViewTop" id="LU0-zP-9kR"/>
-                                        <constraint firstAttribute="bottom" secondItem="Aky-TJ-e25" secondAttribute="bottom" constant="-182" id="RAe-88-qFB"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Aky-TJ-e25" secondAttribute="bottom" constant="6" id="WMj-tR-bQR"/>
                                         <constraint firstAttribute="trailing" secondItem="Aky-TJ-e25" secondAttribute="trailing" constant="15" id="feq-94-UNW"/>
                                         <constraint firstItem="O4x-4Z-Dhb" firstAttribute="top" secondItem="n3i-zZ-IuW" secondAttribute="top" constant="10" identifier="ForegroundViewTop" id="v7E-jl-6Hb"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="RAe-88-qFB"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Aky-TJ-e25" secondAttribute="bottom" constant="18" id="KKk-Zc-CSe"/>
@@ -902,7 +868,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BeerQuizResultsCell" rowHeight="508" id="iBl-8c-cO9" userLabel="BeerQuizResultsCell" customClass="MyBeerCell" customModule="MyBrew" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="846" width="600" height="508"/>
+                                <rect key="frame" x="0.0" y="665" width="600" height="508"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iBl-8c-cO9" id="e9L-Aa-H5z">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="508"/>
@@ -1794,7 +1760,7 @@ Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euis
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WTv-Dg-f2P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1190" y="947"/>
+            <point key="canvasLocation" x="-1016" y="945"/>
         </scene>
         <!--Add Beer Table View Controller-->
         <scene sceneID="X2l-EY-GhV">

@@ -124,12 +124,7 @@ class MyBeerTableViewController: UITableViewController {
         else {
             beer = (myBeers?[indexPath.row])!
         }
-        
-//        guard let beer = myBeers?[indexPath.row] else{
-//            return cell
-//        }
-        
-        
+
         cell.ibuNumberLabel.text = "\(beer.beerIBU)"
         cell.abvPercentageLabel.text = beer.beerABV.convertToTenthsDecimal() + "%"
         cell.breweryLabel.text = beer.breweryName ?? "420 Blaze It"
@@ -183,7 +178,7 @@ extension MyBeerTableViewController {
     func beerCellar() {
         let beerCellarUrlString = "https://api-mybrew.rhcloud.com/api/cellar"
         //let token = dataCollector.token
-        let paramString = "Bearer \(DataCollector.token)"
+        let paramString = "Bearer \(DataCollector.token!)"
         
         dataCollector.beerCellarRequest(beerCellarUrlString, paramString: paramString) { beers, errorString in
             if let unwrappedErrorString = errorString {
@@ -207,7 +202,7 @@ extension MyBeerTableViewController {
         }
         
         let paramString = "beer=\(beer.beerID)"
-        let headerString = "Bearer \(DataCollector.token)"
+        let headerString = "Bearer \(DataCollector.token!)"
         
         dataCollector.deleteBeerFromCellar(paramString, headerString: headerString) { status, errorString in
             if let unwrappedErrorString = errorString {
