@@ -21,6 +21,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBAction func cancelButtonPressed(sender: AnyObject) {
         
         performSegueWithIdentifier("unwindFromRegister", sender: nil)
@@ -81,6 +82,10 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //set content insets for the scroll view
+        self.scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 88.0, 0.0)
+        self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, 80.0, 0.0)
       
     }
 }

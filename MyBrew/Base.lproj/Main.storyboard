@@ -135,6 +135,7 @@
                         <outlet property="firstNameTextField" destination="V21-P0-EZg" id="1Sf-k3-Sfa"/>
                         <outlet property="lastNameTextField" destination="QGu-so-YKT" id="ZJl-5R-4nJ"/>
                         <outlet property="passwordTextField" destination="Kbv-1E-ZMc" id="5p0-Ae-YZo"/>
+                        <outlet property="scrollView" destination="Oyx-9r-g4P" id="wgU-2R-FxW"/>
                         <segue destination="Ey4-bo-UVB" kind="unwind" identifier="unwindFromRegister" unwindAction="unwindBackToLogin:" id="dch-ur-fwJ"/>
                     </connections>
                 </viewController>

@@ -214,7 +214,7 @@ extension DiscoverTableViewController {
                 responseString += "color=\(response)&"
                 break
             case 6 :
-                let response = indexPath.row == 2 ? 0 : indexPath.row
+                let response = indexPath.row == 1 ? 0 : indexPath.row == 0 ? 1 : indexPath.row - 2
                 responseString += "maltiness=\(response)"
                 break
             default :

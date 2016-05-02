@@ -34,7 +34,7 @@ class QuestionsCell: FoldingCell {
                 "Orange",
                 "Grapefruit",
                 "Peach",
-                "Lemons/Citris",
+                "Lemons/Citrus",
                 "Berries",
                 "Pears/Apples"
             ],
