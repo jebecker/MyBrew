@@ -76,13 +76,20 @@ class RecommendationTableViewController: UITableViewController {
 
 extension RecommendationTableViewController {
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "Daily Pick!"
-        }
-        else {
-            return "Recommended Beers!"
-        }
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // Create the view
+        let header = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.width, height: 24.0))
+        header.backgroundColor = UIColor.darkGrayColor()
+        
+        // Create the Label
+        let label = UILabel(frame: CGRect(x: 15.0, y: 1.0, width: self.view.frame.width - 15.0, height: 24.0))
+        label.textColor = UIColor.whiteColor()
+        label.text = section == 0 ? "Daily Pick!" : "Recommended Beers!"
+        
+        
+        header.addSubview(label)
+        
+        return header
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
