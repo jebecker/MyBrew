@@ -17,9 +17,9 @@ class Beer {
     let beerUrlString  : String
     let beerStyle : String?
     
-    var beerURL : NSURL? {
+    var beerURL : URL? {
         get{
-          return NSURL(string: beerUrlString)
+          return URL(string: beerUrlString)
         }
     }
     
@@ -32,17 +32,17 @@ class Beer {
         
         //make sure you can extract the specific beer info or return nil
         guard let beerName = globalJson["name"] as? String,
-            beerID  = globalJson["id"] as? Int,
-            beerSRM = globalJson["srm"] as? Int,
-            beerABV = globalJson["abv"] as? String,
-            beerIBU = globalJson["ibu"] as? Int,
-            beerURL = globalJson["url"] as? String,
-            beerDescription = globalJson["description"] as? String else {
+            let beerID  = globalJson["id"] as? Int,
+            let beerSRM = globalJson["srm"] as? Int,
+            let beerABV = globalJson["abv"] as? String,
+            let beerIBU = globalJson["ibu"] as? Int,
+            let beerURL = globalJson["url"] as? String,
+            let beerDescription = globalJson["description"] as? String else {
                 return nil
         }
         
         //grab the style object from the beer and get the style name
-        guard let style = globalJson["style"] as? [String : AnyObject], beerStyle = style["name"] as? String else{
+        guard let style = globalJson["style"] as? [String : AnyObject], let beerStyle = style["name"] as? String else{
             return nil
         }
         
@@ -50,7 +50,7 @@ class Beer {
         self.init(beerName: beerName, beerID: beerID, beerSRM: beerSRM, beerABV: beerABV, beerIBU: beerIBU, beerStyle: beerStyle, beerUrlString: beerURL, beerDescription: beerDescription, breweryName: nil,breweryLocation: nil)
         
         //look to see if the beer has a brewery associated with it and if so, extract that data and update that property
-        if let brewery = globalJson["brewery"] as? [String : AnyObject], breweryName = brewery["name"] as? String, breweryLocation = brewery["location"] as? String {
+        if let brewery = globalJson["brewery"] as? [String : AnyObject], let breweryName = brewery["name"] as? String, let breweryLocation = brewery["location"] as? String {
             self.breweryName = breweryName
             self.breweryLocation = breweryLocation
         }
@@ -67,17 +67,17 @@ class Beer {
 
         //make sure you can extract the specific beer info or return nil
         guard let beerName = beer["name"] as? String,
-            beerID  = beer["id"] as? Int,
-            beerSRM = beer["srm"] as? Int,
-            beerABV = beer["abv"] as? String,
-            beerIBU = beer["ibu"] as? Int,
-            beerURL = beer["url"] as? String,
-            beerDescription = beer["description"] as? String else {
+            let beerID  = beer["id"] as? Int,
+            let beerSRM = beer["srm"] as? Int,
+            let beerABV = beer["abv"] as? String,
+            let beerIBU = beer["ibu"] as? Int,
+            let beerURL = beer["url"] as? String,
+            let beerDescription = beer["description"] as? String else {
                 return nil
         }
         
         //grab the style object from the beer and get the style name
-        guard let style = beer["style"] as? [String : AnyObject], beerStyle = style["name"] as? String else{
+        guard let style = beer["style"] as? [String : AnyObject], let beerStyle = style["name"] as? String else{
             return nil
         }
         
@@ -85,7 +85,7 @@ class Beer {
         self.init(beerName: beerName, beerID: beerID, beerSRM: beerSRM, beerABV: beerABV, beerIBU: beerIBU, beerStyle: beerStyle, beerUrlString: beerURL, beerDescription: beerDescription, breweryName: nil,breweryLocation: nil)
         
         //look to see if the beer has a brewery associated with it and if so, extract that data and update that property
-        if let brewery = beer["brewery"] as? [String : AnyObject], breweryName = brewery["name"] as? String, breweryLocation = brewery["location"] as? String {
+        if let brewery = beer["brewery"] as? [String : AnyObject], let breweryName = brewery["name"] as? String, let breweryLocation = brewery["location"] as? String {
             self.breweryName = breweryName
             self.breweryLocation = breweryLocation
         }
@@ -96,17 +96,17 @@ class Beer {
         
         //make sure you can extract the specific beer info or return nil
         guard let beerName = beer["name"] as? String,
-            beerID  = beer["id"] as? Int,
-            beerSRM = beer["srm"] as? Int,
-            beerABV = beer["abv"] as? String,
-            beerIBU = beer["ibu"] as? Int,
-            beerURL = beer["url"] as? String,
-            beerDescription = beer["description"] as? String else {
+            let beerID  = beer["id"] as? Int,
+            let beerSRM = beer["srm"] as? Int,
+            let beerABV = beer["abv"] as? String,
+            let beerIBU = beer["ibu"] as? Int,
+            let beerURL = beer["url"] as? String,
+            let beerDescription = beer["description"] as? String else {
                 return nil
         }
         
         //grab the style object from the beer and get the style name
-        guard let style = beer["style"] as? [String : AnyObject], beerStyle = style["name"] as? String else{
+        guard let style = beer["style"] as? [String : AnyObject], let beerStyle = style["name"] as? String else{
             return nil
         }
         
@@ -114,7 +114,7 @@ class Beer {
         self.init(beerName: beerName, beerID: beerID, beerSRM: beerSRM, beerABV: beerABV, beerIBU: beerIBU, beerStyle: beerStyle, beerUrlString: beerURL, beerDescription: beerDescription, breweryName: nil,breweryLocation: nil)
         
         //look to see if the beer has a brewery associated with it and if so, extract that data and update that property
-        if let brewery = beer["brewery"] as? [String : AnyObject], breweryName = brewery["name"] as? String, breweryLocation = brewery["location"] as? String {
+        if let brewery = beer["brewery"] as? [String : AnyObject], let breweryName = brewery["name"] as? String, let breweryLocation = brewery["location"] as? String {
             self.breweryName = breweryName
             self.breweryLocation = breweryLocation
         }

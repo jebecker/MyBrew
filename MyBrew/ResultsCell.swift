@@ -14,7 +14,7 @@ class ResultsCell: FoldingCell {
     override func awakeFromNib() {
         
         self.itemCount = 4
-        self.backViewColor = UIColor.greenColor()
+        self.backViewColor = UIColor.green
         
         foregroundView.layer.cornerRadius = 10
         foregroundView.layer.masksToBounds = true
@@ -23,7 +23,7 @@ class ResultsCell: FoldingCell {
         super.awakeFromNib()
     }
     
-    override func animationDuration(itemIndex:NSInteger, type:AnimationType)-> NSTimeInterval {
+    override func animationDuration(_ itemIndex:NSInteger, type:AnimationType)-> TimeInterval {
         
         let durations = [0.4, 0.2, 0.2, 0.2]
         assert(durations.count == self.itemCount)

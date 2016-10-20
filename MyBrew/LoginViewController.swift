@@ -19,10 +19,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    @IBAction func tapToDismissKeyboard(sender: AnyObject) {
+    @IBAction func tapToDismissKeyboard(_ sender: AnyObject) {
         self.view.endEditing(true)
     }
-    @IBAction func loginButtonPressed(sender: AnyObject){
+    @IBAction func loginButtonPressed(_ sender: AnyObject){
         
         //authenticate user
         let parameterString = "email=\(emailTextField.text!)&password=\(passwordTextField.text!)"
@@ -45,16 +45,16 @@ class LoginViewController: UIViewController {
         )
     }
     
-    @IBAction func registerButtonPressed(sender: AnyObject) {
+    @IBAction func registerButtonPressed(_ sender: AnyObject) {
         //transition to the registration view
-        performSegueWithIdentifier("loginToRegisterSegue", sender: nil)
+        performSegue(withIdentifier: "loginToRegisterSegue", sender: nil)
         
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         //check to see if the user sucessfully registered and then wait until the unwind segue finishes before performing the next one
         if let _ = DataCollector.token {
-            self.performSegueWithIdentifier("loginToMyBeerSegue", sender: nil)
+            self.performSegue(withIdentifier: "loginToMyBeerSegue", sender: nil)
         }
     }
     
@@ -68,24 +68,24 @@ class LoginViewController: UIViewController {
         //check the login status
         if(status == "ok")
         {
-            performSegueWithIdentifier("loginToMyBeerSegue", sender: nil)
+            performSegue(withIdentifier: "loginToMyBeerSegue", sender: nil)
         }
         else
         {
-            let alertController = UIAlertController(title: "Login Failed", message: "Username or password Invalid", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+            let alertController = UIAlertController(title: "Login Failed", message: "Username or password Invalid", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
             
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
             
         }
     }
 
     //MARK: Unwind segue from the register view controller
     
-    @IBAction func unwindBackToLogin(segue: UIStoryboardSegue) {
+    @IBAction func unwindBackToLogin(_ segue: UIStoryboardSegue) {
         //make sure the segue has the correct identifier
         if segue.identifier == "unwindFromRegister" {
-            if let sourceVC = segue.sourceViewController as? RegisterViewController {
+            if let sourceVC = segue.source as? RegisterViewController {
                 //clear text fields
                 sourceVC.firstNameTextField.text = ""
                 sourceVC.lastNameTextField.text = ""
@@ -103,7 +103,7 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController : UITextFieldDelegate {
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true;
     }

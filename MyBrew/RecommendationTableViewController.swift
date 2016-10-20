@@ -43,11 +43,11 @@ class RecommendationTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func addBeerButton(sender: AnyObject) {
+    @IBAction func addBeerButton(_ sender: AnyObject) {
         
         //grab the beer id before adding a rating
         self.beerToAdd = sender.tag
-        performSegueWithIdentifier("recommendToRateBeer", sender: nil)
+        performSegue(withIdentifier: "recommendToRateBeer", sender: nil)
     }
     
     override func viewDidLoad() {
@@ -55,15 +55,15 @@ class RecommendationTableViewController: UITableViewController {
         
         getDailyBeer()
         
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
     }
     
     
     func createCellHeightsArray() {
-        self.cellHeights = Array(count: self.kRowsCount, repeatedValue: self.kCloseCellHeight)
+        self.cellHeights = Array(repeating: self.kCloseCellHeight, count: self.kRowsCount)
     }
     
-    func handleRefresh(refreshControl: UIRefreshControl) {
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
         self.getRecommendedBeers()
         
         self.tableView.reloadData()
@@ -76,14 +76,14 @@ class RecommendationTableViewController: UITableViewController {
 
 extension RecommendationTableViewController {
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         // Create the view
         let header = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.frame.width, height: 24.0))
-        header.backgroundColor = UIColor.darkGrayColor()
+        header.backgroundColor = UIColor.darkGray
         
         // Create the Label
         let label = UILabel(frame: CGRect(x: 15.0, y: 1.0, width: self.view.frame.width - 15.0, height: 24.0))
-        label.textColor = UIColor.whiteColor()
+        label.textColor = UIColor.white
         label.text = section == 0 ? "Daily Pick!" : "Recommended Beers!"
         
         
@@ -92,12 +92,12 @@ extension RecommendationTableViewController {
         return header
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 2
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if (section == 0) {
             if let _ = self.dailyBeer {
@@ -115,9 +115,9 @@ extension RecommendationTableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-        guard let cell = tableView.dequeueReusableCellWithIdentifier("RecommendationsBeerCell") as? MyBeerCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecommendationsBeerCell") as? MyBeerCell else {
             print("cell failed")
             return UITableViewCell()
         }
@@ -125,15 +125,15 @@ extension RecommendationTableViewController {
         let beer : Beer
         
         //check the section of the table view to determine what to populate the cell with
-        if indexPath.section == 0 {
+        if (indexPath as NSIndexPath).section == 0 {
             beer = (dailyBeer?[0])!
             cell.addButton.tag = dailyBeerTagNum
             cell.addButtonD.tag = dailyBeerTagNum
         }
         else {
-            beer = (recommendBeers?[indexPath.row])!
-            cell.addButton.tag = indexPath.row
-            cell.addButtonD.tag = indexPath.row
+            beer = (recommendBeers?[(indexPath as NSIndexPath).row])!
+            cell.addButton.tag = (indexPath as NSIndexPath).row
+            cell.addButtonD.tag = (indexPath as NSIndexPath).row
         }
         
         //populate cell data
@@ -157,25 +157,25 @@ extension RecommendationTableViewController {
     }
     
     //allow the card to unfold
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.cellHeights[indexPath.row]
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.cellHeights[(indexPath as NSIndexPath).row]
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingCell
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! FoldingCell
         
         var duration = 0.0
-        if cellHeights[indexPath.row] == kCloseCellHeight { // open cell
-            cellHeights[indexPath.row] = kOpenCellHeight
+        if cellHeights[(indexPath as NSIndexPath).row] == kCloseCellHeight { // open cell
+            cellHeights[(indexPath as NSIndexPath).row] = kOpenCellHeight
             cell.selectedAnimation(true, animated: true, completion: nil)
             duration = 0.5
         } else {// close cell
-            cellHeights[indexPath.row] = kCloseCellHeight
+            cellHeights[(indexPath as NSIndexPath).row] = kCloseCellHeight
             cell.selectedAnimation(false, animated: true, completion: nil)
             duration = 1.1
         }
         
-        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: { () -> Void in
             tableView.beginUpdates()
             tableView.endUpdates()
             }, completion: nil)
@@ -243,7 +243,7 @@ extension RecommendationTableViewController {
         else {
             
             //grab the index of the beer to add and set it to a beer object
-            guard let beerToAdd = self.beerToAdd, beer = self.recommendBeers?[beerToAdd] else {
+            guard let beerToAdd = self.beerToAdd, let beer = self.recommendBeers?[beerToAdd] else {
                 // TODO: handle this
                 print("beer not found at index")
                 return
@@ -261,15 +261,15 @@ extension RecommendationTableViewController {
                 if let unwrappedErrorString = errorString {
                     //alert the user that they couldnt add the beer
                     print(unwrappedErrorString)
-                    let alertController = UIAlertController(title: "Add Beer Failed", message: unwrappedErrorString, preferredStyle:    UIAlertControllerStyle.Alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    let alertController = UIAlertController(title: "Add Beer Failed", message: unwrappedErrorString, preferredStyle:    UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
                 
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                 
                 }
                 else {
                     //remove beer from quiz reslts list
-                    self.recommendBeers?.removeAtIndex(self.beerToAdd!)
+                    self.recommendBeers?.remove(at: self.beerToAdd!)
                 }
             }
         )
@@ -277,10 +277,10 @@ extension RecommendationTableViewController {
     
     //MARK: TableViewController unwind segue to return back to the add beer page
     
-    @IBAction func unwindBackToAddBeer(segue: UIStoryboardSegue) {
+    @IBAction func unwindBackToAddBeer(_ segue: UIStoryboardSegue) {
         //make sure the segue has the correct identifier
         if segue.identifier == "unwindFromRating" {
-            if let sourceVC = segue.sourceViewController as? RateViewController {
+            if let sourceVC = segue.source as? RateViewController {
                 self.addBeerToCellar(withRating: sourceVC.rating ?? 3)
             }
         }

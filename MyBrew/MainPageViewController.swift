@@ -12,7 +12,7 @@ import UIKit
 class MainPageViewController: UIPageViewController {
     
     //create the array of view controllers in the order I want them in
-    private(set) lazy var orderedViewControllers: [UIViewController] = {
+    fileprivate(set) lazy var orderedViewControllers: [UIViewController] = {
         return [self.newViewController("Discover"),
             self.newViewController("MyBeer"),
             self.newViewController("Recommendations")]
@@ -25,25 +25,25 @@ class MainPageViewController: UIPageViewController {
 
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController],
-                direction: .Forward,
+                direction: .forward,
                 animated: true,
                 completion: nil)
         }
     }
     
     //instantiate the view controllers
-    private func newViewController(name: String) -> UIViewController {
-        return UIStoryboard.init(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("\(name)NavController")
+    fileprivate func newViewController(_ name: String) -> UIViewController {
+        return UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "\(name)NavController")
     }
 }
 
 //MARK: UIPageViewControllerDataSource
 extension MainPageViewController: UIPageViewControllerDataSource {
         
-        func pageViewController(pageViewController: UIPageViewController,
-            viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+        func pageViewController(_ pageViewController: UIPageViewController,
+            viewControllerBefore viewController: UIViewController) -> UIViewController? {
                 
-                guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+                guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
                     return nil
                 }
                 
@@ -60,10 +60,10 @@ extension MainPageViewController: UIPageViewControllerDataSource {
                 return orderedViewControllers[previousIndex]
         }
         
-        func pageViewController(pageViewController: UIPageViewController,
-            viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+        func pageViewController(_ pageViewController: UIPageViewController,
+            viewControllerAfter viewController: UIViewController) -> UIViewController? {
                 
-                guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+                guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
                     return nil
                 }
                 

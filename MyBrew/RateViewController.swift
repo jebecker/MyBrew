@@ -27,11 +27,11 @@ class RateViewController: UIViewController {
 
 extension RateViewController: FloatRatingViewDelegate {
     
-    func floatRatingView(ratingView: FloatRatingView, isUpdating rating:Float) {
+    func floatRatingView(_ ratingView: FloatRatingView, isUpdating rating:Float) {
         //self.liveLabel.text = NSString(format: "%.2f", self.floatRatingView.rating) as String
     }
     
-    func floatRatingView(ratingView: FloatRatingView, didUpdate rating: Float) {
+    func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Float) {
         //self.updatedLabel.text = NSString(format: "%.2f", self.floatRatingView.rating) as String
         self.rating = Int(rating)
     }

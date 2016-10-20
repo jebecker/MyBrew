@@ -42,19 +42,19 @@ class AddBeerTableViewController: UITableViewController {
     var filterdBeers = [Beer]()
     
     //addBeer action 
-    @IBAction func addBeer(sender: AnyObject) {
+    @IBAction func addBeer(_ sender: AnyObject) {
        
         //grab the beer id before adding a rating
         self.beerToAdd = sender.tag
-        performSegueWithIdentifier("rateBeerSegue", sender: nil)
+        performSegue(withIdentifier: "rateBeerSegue", sender: nil)
     }
 
     
     
-    @IBAction func cancelButton(sender: AnyObject) {
+    @IBAction func cancelButton(_ sender: AnyObject) {
         
         print("user canceled adding beer")
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -69,11 +69,11 @@ class AddBeerTableViewController: UITableViewController {
         //call the beerCellar function
         globalBeersList()
         
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
         
     }
     
-    func handleRefresh(refreshControl: UIRefreshControl) {
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
         self.globalBeersList()
         
         self.tableView.reloadData()
@@ -101,14 +101,14 @@ class AddBeerTableViewController: UITableViewController {
     }
     
     func createCellHeightsArray() {
-        self.cellHeights = Array(count: self.kRowsCount, repeatedValue: self.kCloseCellHeight)
+        self.cellHeights = Array(repeating: self.kCloseCellHeight, count: self.kRowsCount)
     }
     
     
-    func filterContentForSearchText(searchText: String, scope: String = "ALL") {
+    func filterContentForSearchText(_ searchText: String, scope: String = "ALL") {
         
         filterdBeers = (globalBeers?.filter { beer in
-            return beer.beerName.lowercaseString.containsString(searchText.lowercaseString)
+            return beer.beerName.lowercased().contains(searchText.lowercased())
             })!
         
         tableView.reloadData()
@@ -116,14 +116,14 @@ class AddBeerTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
 
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.isActive && searchController.searchBar.text != "" {
             return filterdBeers.count
         }
         
@@ -131,19 +131,19 @@ class AddBeerTableViewController: UITableViewController {
     }
     
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = self.tableView.dequeueReusableCellWithIdentifier("AddBeerCell") as? MyBeerCell else {
+        guard let cell = self.tableView.dequeueReusableCell(withIdentifier: "AddBeerCell") as? MyBeerCell else {
             return UITableViewCell()
         }
         
         let beer : Beer
         
-        if searchController.active && searchController.searchBar.text != "" {
-            beer = filterdBeers[indexPath.row]
+        if searchController.isActive && searchController.searchBar.text != "" {
+            beer = filterdBeers[(indexPath as NSIndexPath).row]
         }
         else {
-            beer = (globalBeers?[indexPath.row])!
+            beer = (globalBeers?[(indexPath as NSIndexPath).row])!
         }
         
         //populate cell data
@@ -152,7 +152,7 @@ class AddBeerTableViewController: UITableViewController {
         cell.breweryLabel.text = beer.breweryName ?? "420 Blaze It"
         cell.beerStyleLabel.text = beer.beerStyle ?? "Hipster Style"
         cell.beerNameLabel.text = beer.beerName
-        cell.addButton.tag = indexPath.row
+        cell.addButton.tag = (indexPath as NSIndexPath).row
         
         //set detail outlets
         cell.aIbuNumberD.text = "\(beer.beerIBU)"
@@ -162,31 +162,31 @@ class AddBeerTableViewController: UITableViewController {
         cell.aBeerNameD.text = beer.beerName
         cell.abreweryLocationD.text = beer.breweryLocation
         cell.aBeerDescriptionD.text = beer.beerDescription
-        cell.addButtonD.tag = indexPath.row
+        cell.addButtonD.tag = (indexPath as NSIndexPath).row
         
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.cellHeights[indexPath.row]
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.cellHeights[(indexPath as NSIndexPath).row]
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingCell
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! FoldingCell
         
         var duration = 0.0
-        if cellHeights[indexPath.row] == kCloseCellHeight { // open cell
-            cellHeights[indexPath.row] = kOpenCellHeight
+        if cellHeights[(indexPath as NSIndexPath).row] == kCloseCellHeight { // open cell
+            cellHeights[(indexPath as NSIndexPath).row] = kOpenCellHeight
             cell.selectedAnimation(true, animated: true, completion: nil)
             duration = 0.5
         } else {// close cell
-            cellHeights[indexPath.row] = kCloseCellHeight
+            cellHeights[(indexPath as NSIndexPath).row] = kCloseCellHeight
             cell.selectedAnimation(false, animated: true, completion: nil)
             duration = 1.1
         }
         
-        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: { () -> Void in
             tableView.beginUpdates()
             tableView.endUpdates()
             }, completion: nil)
@@ -200,7 +200,7 @@ class AddBeerTableViewController: UITableViewController {
         var flag : Int
         
         //check to see if the search controller is active, if it is, use the filtered beers array to add the beer
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.isActive && searchController.searchBar.text != "" {
             beer = self.filterdBeers[beerToAdd]
             flag = 1
         }
@@ -219,22 +219,22 @@ class AddBeerTableViewController: UITableViewController {
                 if let unwrappedErrorString = errorString {
                     //alert the user that they couldnt add the beer
                     print(unwrappedErrorString)
-                    let alertController = UIAlertController(title: "Add Beer Failed", message: unwrappedErrorString, preferredStyle: UIAlertControllerStyle.Alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    let alertController = UIAlertController(title: "Add Beer Failed", message: unwrappedErrorString, preferredStyle: UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
                     
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
                     
                 }
                 else {
                     
                     if flag == 1 {
-                        self.filterdBeers.removeAtIndex(beerToAdd)
+                        self.filterdBeers.remove(at: beerToAdd)
                         self.tableView.reloadData()
                     }
                     else {
                         
                         //remove beer from global beers array
-                        self.globalBeers?.removeAtIndex(beerToAdd)
+                        self.globalBeers?.remove(at: beerToAdd)
                     }
                 }
             }
@@ -246,10 +246,10 @@ class AddBeerTableViewController: UITableViewController {
 
 extension AddBeerTableViewController {
     
-    @IBAction func unwindBackToAddBeer(segue: UIStoryboardSegue) {
+    @IBAction func unwindBackToAddBeer(_ segue: UIStoryboardSegue) {
         //make sure the segue has the correct identifier
         if segue.identifier == "unwindFromRating" {
-            if let sourceVC = segue.sourceViewController as? RateViewController {
+            if let sourceVC = segue.source as? RateViewController {
                 self.addBeerToCellar(withRating: sourceVC.rating ?? 3)
             }
         }
@@ -258,7 +258,7 @@ extension AddBeerTableViewController {
 }
 
 extension AddBeerTableViewController: UISearchResultsUpdating {
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
 

@@ -34,32 +34,32 @@ class MyBeerTableViewController: UITableViewController {
     
     var filterdBeers = [Beer]()
     
-    @IBAction func unwindBackToMyBeer(segue: UIStoryboardSegue) {
+    @IBAction func unwindBackToMyBeer(_ segue: UIStoryboardSegue) {
         //make sure the segue has the correct identifier
         if segue.identifier == "unwindFromAddBeer" {
-            if let _ = segue.sourceViewController as? AddBeerTableViewController {
+            if let _ = segue.source as? AddBeerTableViewController {
                 print("unwinding back to my beer")
             }
         }
     }
     
-    @IBAction func deleteBeerButton(sender: AnyObject) {
+    @IBAction func deleteBeerButton(_ sender: AnyObject) {
         
         //confirm with user
-        let alertController = UIAlertController(title: "Confirm Delete", message: "Are you sure want to delete?", preferredStyle: .ActionSheet)
-        alertController.addAction(UIAlertAction(title: "Delete", style: .Destructive, handler: { [unowned self](alert) in
+        let alertController = UIAlertController(title: "Confirm Delete", message: "Are you sure want to delete?", preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [unowned self](alert) in
              self.deleteBeerFromCellar(atIndex: sender.tag)
         }))
         
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
        
     }
 
     //IBAction func to add a beer
-    @IBAction func addBeerButton(sender: UIBarButtonItem) {
-        performSegueWithIdentifier("AddBeerSegue", sender: nil)
+    @IBAction func addBeerButton(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "AddBeerSegue", sender: nil)
     }
     
     override func viewDidLoad() {
@@ -74,46 +74,46 @@ class MyBeerTableViewController: UITableViewController {
         //call the beerCellar function
         beerCellar()
         
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
     }
     
-    func handleRefresh(refreshControl: UIRefreshControl) {
+    func handleRefresh(_ refreshControl: UIRefreshControl) {
         self.beerCellar()
         
         self.tableView.reloadData()
         refreshControl.endRefreshing()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
         //reload the users data
         beerCellar()
     }
     
     func createCellHeightsArray() {
-        self.cellHeights = Array(count: self.kRowsCount, repeatedValue: self.kCloseCellHeight)
+        self.cellHeights = Array(repeating: self.kCloseCellHeight, count: self.kRowsCount)
     }
     
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.isActive && searchController.searchBar.text != "" {
             return filterdBeers.count
         }
         
         return myBeers?.count ?? 0
     }
     
-    func filterContentForSearchText(searchText: String, scope: String = "ALL") {
+    func filterContentForSearchText(_ searchText: String, scope: String = "ALL") {
         
         filterdBeers = (myBeers?.filter { beer in
-            return beer.beerName.lowercaseString.containsString(searchText.lowercaseString)
+            return beer.beerName.lowercased().contains(searchText.lowercased())
             })!
         
         tableView.reloadData()
@@ -122,16 +122,16 @@ class MyBeerTableViewController: UITableViewController {
 
     // MARK: Table View Data Source
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BeerCell", forIndexPath: indexPath) as! MyBeerCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BeerCell", for: indexPath) as! MyBeerCell
         
         let beer : Beer
         
-        if searchController.active && searchController.searchBar.text != "" {
-            beer = filterdBeers[indexPath.row]
+        if searchController.isActive && searchController.searchBar.text != "" {
+            beer = filterdBeers[(indexPath as NSIndexPath).row]
         }
         else {
-            beer = (myBeers?[indexPath.row])!
+            beer = (myBeers?[(indexPath as NSIndexPath).row])!
         }
 
         cell.ibuNumberLabel.text = "\(beer.beerIBU)"
@@ -139,7 +139,7 @@ class MyBeerTableViewController: UITableViewController {
         cell.breweryLabel.text = beer.breweryName ?? "420 Blaze It"
         cell.beerStyleLabel.text = beer.beerStyle ?? "Hipster Style"
         cell.beerNameLabel.text = beer.beerName
-        cell.deleteButton.tag = indexPath.row
+        cell.deleteButton.tag = (indexPath as NSIndexPath).row
         
         //set detail outlets
         cell.ibuNumberLabelD.text = "\(beer.beerIBU)"
@@ -149,31 +149,31 @@ class MyBeerTableViewController: UITableViewController {
         cell.beerNameD.text = beer.beerName
         cell.breweryLocationLabel.text = beer.breweryLocation
         cell.beerDescriptionLabel.text = beer.beerDescription
-        cell.deleteButtonD.tag = indexPath.row
+        cell.deleteButtonD.tag = (indexPath as NSIndexPath).row
         
         
         return cell
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.cellHeights[indexPath.row]
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.cellHeights[(indexPath as NSIndexPath).row]
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingCell
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! FoldingCell
         
         var duration = 0.0
-        if cellHeights[indexPath.row] == kCloseCellHeight { // open cell
-            cellHeights[indexPath.row] = kOpenCellHeight
+        if cellHeights[(indexPath as NSIndexPath).row] == kCloseCellHeight { // open cell
+            cellHeights[(indexPath as NSIndexPath).row] = kOpenCellHeight
             cell.selectedAnimation(true, animated: true, completion: nil)
             duration = 0.5
         } else {// close cell
-            cellHeights[indexPath.row] = kCloseCellHeight
+            cellHeights[(indexPath as NSIndexPath).row] = kCloseCellHeight
             cell.selectedAnimation(false, animated: true, completion: nil)
             duration = 1.1
         }
         
-        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
+        UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: { () -> Void in
             tableView.beginUpdates()
             tableView.endUpdates()
             }, completion: nil)
@@ -206,13 +206,13 @@ extension MyBeerTableViewController {
         var flag : Int
         var beer : Beer
         
-        if searchController.active && searchController.searchBar.text != "" {
-            beer = self.filterdBeers.removeAtIndex(index)
+        if searchController.isActive && searchController.searchBar.text != "" {
+            beer = self.filterdBeers.remove(at: index)
             
             flag = 1
         }
         else {
-            beer = (self.myBeers?.removeAtIndex(index))!
+            beer = (self.myBeers?.remove(at: index))!
             flag = 0
         }
         
@@ -224,9 +224,9 @@ extension MyBeerTableViewController {
                 print(unwrappedErrorString)
                 
                 //alert user that beer couldnt be removed
-                let alertController = UIAlertController(title: "Oops!", message: "We couldn't delete your beer", preferredStyle: .Alert)
-                alertController.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
+                let alertController = UIAlertController(title: "Oops!", message: "We couldn't delete your beer", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
                 
                 
                 if flag == 1 {
@@ -251,7 +251,7 @@ extension MyBeerTableViewController {
 
 
 extension MyBeerTableViewController: UISearchResultsUpdating {
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
 }

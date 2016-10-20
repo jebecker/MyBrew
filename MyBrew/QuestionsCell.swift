@@ -68,14 +68,14 @@ class QuestionsCell: FoldingCell {
             ]
     ]
 
-    var selectedAnswers = Set<NSIndexPath>()
+    var selectedAnswers = Set<IndexPath>()
     
     override func awakeFromNib() {
         
         
         // Declared in superclass
         self.itemCount = 4      // number of folds in the cell
-        self.backViewColor = UIColor.blackColor()       // color of the back of the card as it (un)folds
+        self.backViewColor = UIColor.black       // color of the back of the card as it (un)folds
         
         foregroundView.layer.cornerRadius = 10
         foregroundView.layer.masksToBounds = true
@@ -84,7 +84,7 @@ class QuestionsCell: FoldingCell {
         super.awakeFromNib()
     }
     
-    override func animationDuration(itemIndex:NSInteger, type:AnimationType)-> NSTimeInterval {
+    override func animationDuration(_ itemIndex:NSInteger, type:AnimationType)-> TimeInterval {
         
         // REQUIRED: durations.count == self.itemCount
         let durations = [0.4, 0.2, 0.2, 0.2]
@@ -93,10 +93,10 @@ class QuestionsCell: FoldingCell {
     }
     
     
-    @IBAction func submitButtonPressed(sender: AnyObject) {
+    @IBAction func submitButtonPressed(_ sender: AnyObject) {
         
         // Create a set of unique sections from the selected answer's sections
-        let selectedSections : Set<Int> = Set(self.selectedAnswers.flatMap({ $0.section }))
+        let selectedSections : Set<Int> = Set(self.selectedAnswers.flatMap({ ($0 as IndexPath).section }))
         if selectedSections.count != self.questionsAnswersTableView.numberOfSections {
             // Display an alert
             self.delegate?.displayAlert("Ooops!", message: "Please select at least 1 answer for each quiz question.", actionTitle: "Ok")
@@ -121,73 +121,87 @@ class QuestionsCell: FoldingCell {
 
 extension QuestionsCell: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-            if cell.accessoryType == .Checkmark {
-                cell.accessoryType = .None
+        if let cell = tableView.cellForRow(at: indexPath) {
+            if cell.accessoryType == .checkmark {
+                cell.accessoryType = .none
                 self.selectedAnswers.remove(indexPath)
             } else {
-                cell.accessoryType = .Checkmark
+                cell.accessoryType = .checkmark
                 self.selectedAnswers.insert(indexPath)
             }
         }
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         
         //get only index paths corresponding to the current section
-        var filteredIndexPaths = self.selectedAnswers.filter({ $0.section == indexPath.section })
+        var filteredIndexPaths = self.selectedAnswers.filter({ ($0 as IndexPath).section == (indexPath as IndexPath).section })
         
         //check to see if the filtered arrays count is greater than the max for that section in the num answers array
-        guard filteredIndexPaths.count > self.numAnswers[indexPath.section].max else {
+        guard filteredIndexPaths.count > self.numAnswers[(indexPath as IndexPath).section].max else {
             return
         }
         
-        for (index, idxPath) in filteredIndexPaths.flatMap({ $0 }).enumerate() where idxPath.row != indexPath.row {
+        for (i, idxPath) in filteredIndexPaths.enumerated() where idxPath.row != indexPath.row {
             // Get the cell
-            if let cell = tableView.cellForRowAtIndexPath(idxPath) where cell.accessoryType == .Checkmark {
-                cell.accessoryType = .None // uncheck the cell
+            if let cell = tableView.cellForRow(at: idxPath) , cell.accessoryType == .checkmark {
+                cell.accessoryType = .none // uncheck the cell
                 self.selectedAnswers.remove(idxPath) // remove the indexPath from the saved answers
-                filteredIndexPaths.removeAtIndex(index)
+                filteredIndexPaths.remove(at: i)
             }
             
             // Break if the number of selected rows is now equal or less than the max
-            if filteredIndexPaths.count <= self.numAnswers[indexPath.section].max {
+            if filteredIndexPaths.count <= self.numAnswers[(indexPath as NSIndexPath).section].max {
                 return
             }
-            
         }
+        
+//        for (index, idxPath) in filteredIndexPaths.enumerated() where (idxPath as IndexPath).row != (indexPath as IndexPath).row {
+//            // Get the cell
+//            if let cell = tableView.cellForRow(at: idxPath) , cell.accessoryType == .checkmark {
+//                cell.accessoryType = .none // uncheck the cell
+//                self.selectedAnswers.remove(idxPath) // remove the indexPath from the saved answers
+//                filteredIndexPaths.remove(at: index)
+//            }
+//            
+//            // Break if the number of selected rows is now equal or less than the max
+//            if filteredIndexPaths.count <= self.numAnswers[(indexPath as NSIndexPath).section].max {
+//                return
+//            }
+//            
+//        }
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         // Create the label
         let headerLabel = UILabel(frame: CGRect(x: 10.0, y: 0.0, width: tableView.frame.width - 10.0, height: 0.0))
         headerLabel.text = self.questionsArray[section]
         headerLabel.numberOfLines = 0
-        headerLabel.lineBreakMode = .ByWordWrapping
-        headerLabel.textColor = UIColor.blackColor()
+        headerLabel.lineBreakMode = .byWordWrapping
+        headerLabel.textColor = UIColor.black
         headerLabel.sizeToFit()
-        headerLabel.textAlignment = .Left
+        headerLabel.textAlignment = .left
         //headerLabel.backgroundColor = UIColor.lightGrayColor()
         
         // Create the view
         let headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: headerLabel.frame.width, height: headerLabel.frame.height))
-        headerView.backgroundColor = UIColor.lightGrayColor()
+        headerView.backgroundColor = UIColor.lightGray
 
         headerView.addSubview(headerLabel)
         
         return headerView
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         let headerLabel = UILabel(frame: CGRect(x: 10.0, y: 0.0, width: tableView.frame.width - 10.0, height: 0.0))
         headerLabel.text = self.questionsArray[section]
         headerLabel.numberOfLines = 0
-        headerLabel.lineBreakMode = .ByWordWrapping
-        headerLabel.textColor = UIColor.blackColor()
-        headerLabel.backgroundColor = UIColor.lightGrayColor()
+        headerLabel.lineBreakMode = .byWordWrapping
+        headerLabel.textColor = UIColor.black
+        headerLabel.backgroundColor = UIColor.lightGray
         
         headerLabel.sizeToFit()
         
@@ -200,22 +214,22 @@ extension QuestionsCell: UITableViewDelegate {
 
 extension QuestionsCell: UITableViewDataSource {
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return self.questionsArray.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
         return self.answersArray[section].count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let possibleAnswersCell = tableView.dequeueReusableCellWithIdentifier("PossibleAnswersCell", forIndexPath: indexPath) as? PossibleAnswersCell {
+        if let possibleAnswersCell = tableView.dequeueReusableCell(withIdentifier: "PossibleAnswersCell", for: indexPath) as? PossibleAnswersCell {
             
-            possibleAnswersCell.possibleAnswerLabel.text = answersArray[indexPath.section][indexPath.row]
+            possibleAnswersCell.possibleAnswerLabel.text = answersArray[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
             
             // Checkmark the cell if its indexPath is in the selected answers set
-            possibleAnswersCell.accessoryType = self.selectedAnswers.contains(indexPath) ? .Checkmark : .None
+            possibleAnswersCell.accessoryType = self.selectedAnswers.contains(indexPath) ? .checkmark : .none
             
             return possibleAnswersCell
         }
@@ -231,23 +245,6 @@ extension QuestionsCell: UITableViewDataSource {
 //MARK: Delegate methods
 
 protocol QuestionsCellDelegate {
-    func questionsCell(questionsCell: QuestionsCell, didSubmitResponses responses: Set<NSIndexPath>, forAnswers answers: [[String]])
-    func displayAlert(title: String, message: String, actionTitle: String)
+    func questionsCell(_ questionsCell: QuestionsCell, didSubmitResponses responses: Set<IndexPath>, forAnswers answers: [[String]])
+    func displayAlert(_ title: String, message: String, actionTitle: String)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

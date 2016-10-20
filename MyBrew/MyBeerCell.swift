@@ -49,7 +49,7 @@ class MyBeerCell: FoldingCell {
         
         // Declared in superclass
         self.itemCount = 4      // number of folds in the cell
-        self.backViewColor = UIColor.blackColor()       // color of the back of the card as it (un)folds
+        self.backViewColor = UIColor.black       // color of the back of the card as it (un)folds
         
         foregroundView.layer.cornerRadius = 10
         foregroundView.layer.masksToBounds = true
@@ -57,7 +57,7 @@ class MyBeerCell: FoldingCell {
         super.awakeFromNib()
     }
     
-    override func animationDuration(itemIndex:NSInteger, type:AnimationType)-> NSTimeInterval {
+    override func animationDuration(_ itemIndex:NSInteger, type:AnimationType)-> TimeInterval {
         
         let durations = [0.4, 0.2, 0.2, 0.2]
         assert(durations.count == self.itemCount)

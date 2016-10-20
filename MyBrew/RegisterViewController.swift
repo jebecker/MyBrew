@@ -22,26 +22,26 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBAction func cancelButtonPressed(sender: AnyObject) {
+    @IBAction func cancelButtonPressed(_ sender: AnyObject) {
         
-        performSegueWithIdentifier("unwindFromRegister", sender: nil)
+        performSegue(withIdentifier: "unwindFromRegister", sender: nil)
     }
     
-    @IBAction func tapToDismissKeyboard(sender: AnyObject) {
+    @IBAction func tapToDismissKeyboard(_ sender: AnyObject) {
         self.view.endEditing(true)
     }
     
     //function to keep track of the birthdayTextField while it is being edited
-    @IBAction func birthdayTextFieldEditing(sender: UITextField) {
+    @IBAction func birthdayTextFieldEditing(_ sender: UITextField) {
         //format the text field
         let datePickerView: UIDatePicker = UIDatePicker()
-        datePickerView.datePickerMode = UIDatePickerMode.Date
+        datePickerView.datePickerMode = UIDatePickerMode.date
         sender.inputView = datePickerView
-        datePickerView.addTarget(self, action: #selector(RegisterViewController.birthdayTextFieldValueChanged(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        datePickerView.addTarget(self, action: #selector(RegisterViewController.birthdayTextFieldValueChanged(_:)), for: UIControlEvents.valueChanged)
     }
     
     //function to send a registration request to our API and perform se
-    @IBAction func registerButtonPressed(sender: AnyObject) {
+    @IBAction func registerButtonPressed(_ sender: AnyObject) {
        
         if(passwordTextField.text!.characters.count >= 8)
         {
@@ -57,26 +57,26 @@ class RegisterViewController: UIViewController {
                 {
                     //self.token = self.dataCollector.token
                     print("User Registered in with token \(DataCollector.token!)")
-                    self.performSegueWithIdentifier("unwindFromRegister", sender: nil)
+                    self.performSegue(withIdentifier: "unwindFromRegister", sender: nil)
                 }
             })
         }
         else
         {
-            let alertController = UIAlertController(title: "Invalid Password", message: "password needs to be a minimum of 8 characters", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+            let alertController = UIAlertController(title: "Invalid Password", message: "password needs to be a minimum of 8 characters", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
             
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
         }
         
 
     }
     
-    func birthdayTextFieldValueChanged(sender:UIDatePicker)
+    func birthdayTextFieldValueChanged(_ sender:UIDatePicker)
     {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
-        birthdayTextField.text = dateFormatter.stringFromDate(sender.date)
+        birthdayTextField.text = dateFormatter.string(from: sender.date)
     }
 
     
@@ -96,7 +96,7 @@ class RegisterViewController: UIViewController {
 
 extension RegisterViewController : UITextFieldDelegate {
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true;
     }
